@@ -14,7 +14,7 @@ body {
 
 body.isMenuOpen {
   overflow: hidden;
-  padding-right: 17px;
+  padding-right: 17px; /* 스크롤바 크기 */
 }
 
 @media only screen and (hover: none) and (pointer: coarse) {

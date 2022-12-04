@@ -39,7 +39,7 @@ const HeaderMenu = ({ isMenuOpen }: HeaderMenuProps) => {
 
   return (
     <aside
-      className={`fixed top-0 bottom-0 w-3/5 max-w-sm bg-white border-r transition-all duration-500 ${
+      className={`z-50 fixed top-0 bottom-0 w-3/5 max-w-sm bg-white transition-all duration-500 ${
         isMenuOpen ? 'left-0' : '-left-[60%]'
       }`}
     >
@@ -63,7 +63,7 @@ const HeaderMenu = ({ isMenuOpen }: HeaderMenuProps) => {
             <li
               key={href}
               className={`text-2xl text-black/70 hover:text-black hover:bg-gray-100 ${
-                asPath === href && 'text-black bg-gray-100'
+                asPath === href ? 'text-black bg-gray-100' : ''
               }`}
             >
               <Link href={href}>

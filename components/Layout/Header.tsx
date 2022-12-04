@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+
 import { AiOutlineMenu, AiOutlineSearch } from 'react-icons/ai';
 import HeaderMenu from './HeaderMenu';
+import OverlayCurtain from './OverlayCurtain';
+import { useRouter } from 'next/router';
 
 const Header = () => {
+  const { pathname } = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.className = isMenuOpen ? 'isMenuOpen' : '';
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -29,6 +41,9 @@ const Header = () => {
         </div>
       </header>
       <HeaderMenu isMenuOpen={isMenuOpen} />
+      {isMenuOpen ? (
+        <OverlayCurtain onClick={() => setIsMenuOpen(false)} />
+      ) : null}
     </>
   );
 };

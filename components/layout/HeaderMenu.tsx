@@ -44,7 +44,7 @@ const HeaderMenu = ({ isMenuOpen }: HeaderMenuProps) => {
       }`}
     >
       <div className="flex flex-col h-full py-8">
-        <div className="relative w-full h-1/3">
+        <div className="relative w-full mx-auto h-1/4">
           <Image
             src={profile}
             alt="Profile Image"
@@ -54,20 +54,20 @@ const HeaderMenu = ({ isMenuOpen }: HeaderMenuProps) => {
         </div>
         <h1 className="text-2xl font-bold text-center">
           <Link href="/profile">
-            <a>Kim Da Hyun</a>
+            <a>Caesiumy</a>
           </Link>
         </h1>
 
-        <ul className="flex flex-col mt-8">
+        <ul className="flex flex-col mt-8 text-gray-500">
           {Object.entries(NavTable).map(([href, value]) => (
             <li
               key={href}
-              className={`text-2xl text-black/70 hover:text-black hover:bg-gray-100 ${
+              className={`text-xl  hover:text-black hover:bg-gray-100 ${
                 asPath === href ? 'text-black bg-gray-100' : ''
               }`}
             >
               <Link href={href}>
-                <a className="flex flex-row items-center gap-2 p-4">
+                <a className="flex flex-row items-center gap-2 px-8 py-6">
                   <span>{value.icon}</span>
                   {value.name}
                 </a>

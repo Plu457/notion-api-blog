@@ -1,9 +1,19 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import type { GetStaticProps, NextPage } from 'next';
+import Head from 'next/head';
+import Image from 'next/image';
+import { getDatabaseItems } from 'cms/notion';
 
-const Home: NextPage = () => {
+import { CardData } from 'types/types';
+import { parseDatabaseItems } from 'utils/parseDatabaseItems';
+import styles from '../styles/Home.module.css';
+
+interface HomeProps {
+  data: CardData[];
+}
+
+const Home = ({ data }: HomeProps) => {
+  console.log('data: >>', data);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -66,7 +76,24 @@ const Home: NextPage = () => {
         </a>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
+
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const databaseId = process.env.DATABASE_ID;
+
+  if (!databaseId) throw new Error('DATABASE_ID is not defined');
+
+  const databaseItems = await getDatabaseItems(databaseId);
+  console.log(databaseItems);
+
+  const parsedData = parseDatabaseItems(databaseItems);
+
+  return {
+    props: {
+      data: parsedData,
+    },
+  };
+};

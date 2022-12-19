@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CardData } from 'types/types';
+import { CardData } from 'types';
 
 import CardItem from './CardItem';
 

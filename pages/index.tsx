@@ -1,7 +1,7 @@
 import type { GetStaticProps } from 'next';
 import { getDatabaseItems } from 'cms/notion';
 
-import { CardData } from 'types/types';
+import { CardData } from 'types';
 import { parseDatabaseItems } from 'utils/parseDatabaseItems';
 
 import HeroSection from 'components/intro/HeroSection';

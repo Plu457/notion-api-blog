@@ -1,5 +1,7 @@
 import React from 'react';
-import { CardData } from 'types/types';
+
+import { CardData } from 'types';
+
 import TagItem from './TagItem';
 
 interface TagListProps {

@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { CardData } from 'types/types';
+import { CardData } from 'types';
 import IconRenderer from './IconRenderer';
 import TagList from './tags/TagList';
 

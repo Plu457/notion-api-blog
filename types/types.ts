@@ -6,9 +6,9 @@ import {
 export interface CardData {
   id: string;
   cover: string;
-  title: string;
-  description: string;
-  published: string;
   icon: PageObjectResponse['icon'];
+  published: string;
+  description: string;
   tags: MultiSelectPropertyItemObjectResponse['multi_select'];
+  title: string;
 }

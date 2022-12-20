@@ -11,7 +11,7 @@ const TagItem = ({ name, color }: TagItemProps) => {
   return (
     <li>
       <button
-        className="px-2 py-1 transition-all duration-300 rounded-xl hover:-translate-y-1 hover:shadow-md"
+        className="px-2 py-1 text-sm font-light transition-all duration-300 rounded-xl hover:-translate-y-1 hover:shadow-md"
         style={{
           backgroundColor: BaseStyle.colors[color],
         }}

@@ -28,7 +28,7 @@ const CardItem = ({ data }: CardItemProps) => {
               />
             </div>
             <div className="flex flex-col gap-2">
-              <h2 className="text-2xl font-bold group-hover:text-blue-700">
+              <h2 className="text-2xl font-bold group-hover:text-blue-500">
                 <IconRenderer icon={icon} />
                 {title}
               </h2>

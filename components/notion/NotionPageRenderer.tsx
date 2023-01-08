@@ -1,0 +1,51 @@
+import React from 'react';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import Image from 'next/image';
+
+import { ExtendedRecordMap } from 'notion-types';
+import { NotionRenderer } from 'react-notion-x';
+
+import 'react-notion-x/src/styles.css';
+import 'prismjs/themes/prism-tomorrow.css'; //* 코드 블럭 스타일
+import 'katex/dist/katex.min.css'; //* 수학 공식 스타일
+
+import TagItem from 'components/card/tags/TagItem';
+
+const Code = dynamic(() => import('react-notion-x/build/third-party/code').then(m => m.Code));
+const Collection = dynamic(() =>
+  import('react-notion-x/build/third-party/collection').then(m => m.Collection),
+);
+const Equation = dynamic(() =>
+  import('react-notion-x/build/third-party/equation').then(m => m.Equation),
+);
+
+interface NotionPageRendererProps {
+  recordMap: ExtendedRecordMap;
+}
+
+const NotionPageRenderer = ({ recordMap }: NotionPageRendererProps) => {
+  return (
+    <NotionRenderer
+      recordMap={recordMap}
+      fullPage={true}
+      disableHeader={true}
+      showTableOfContents={true}
+      components={{
+        Code,
+        Collection,
+        Equation,
+        Link,
+        Image,
+        propertyDateValue: dateProperty => dateProperty.data[0][1][0][1].start_date,
+        propertySelectValue: ({ option: { id, color, value } }) => (
+          <TagItem key={id} color={color} name={value} />
+        ),
+      }}
+    />
+  );
+};
+
+export default NotionPageRenderer;
+
+//* 45:46

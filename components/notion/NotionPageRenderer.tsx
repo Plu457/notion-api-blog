@@ -6,10 +6,6 @@ import Image from 'next/image';
 import { ExtendedRecordMap } from 'notion-types';
 import { NotionRenderer } from 'react-notion-x';
 
-import 'react-notion-x/src/styles.css';
-import 'prismjs/themes/prism-tomorrow.css'; //* 코드 블럭 스타일
-import 'katex/dist/katex.min.css'; //* 수학 공식 스타일
-
 import TagItem from 'components/card/tags/TagItem';
 
 const Code = dynamic(() => import('react-notion-x/build/third-party/code').then(m => m.Code));

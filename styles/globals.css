@@ -6,15 +6,14 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Pretendard Variable', Pretendard, -apple-system,
-    BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI',
-    'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+  font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic',
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
 }
 
 body.isMenuOpen {
   overflow: hidden;
-  padding-right: 17px; /* 스크롤바 크기 */
+  padding-right: var(--scrollbar-width); /* 스크롤바 크기 */
 }
 
 @media only screen and (hover: none) and (pointer: coarse) {

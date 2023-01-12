@@ -3,12 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import {
-  AiOutlineHome,
-  AiOutlineTags,
-  AiOutlineSearch,
-  AiOutlineUser,
-} from 'react-icons/ai';
+import { AiOutlineHome, AiOutlineTags, AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
 import profile from 'public/image/profile.png';
 
 const NavTable = {
@@ -45,12 +40,7 @@ const HeaderMenu = ({ isMenuOpen }: HeaderMenuProps) => {
     >
       <div className="flex flex-col h-full py-8">
         <div className="relative w-full mx-auto h-1/4">
-          <Image
-            src={profile}
-            alt="Profile Image"
-            objectFit="contain"
-            layout="fill"
-          />
+          <Image src={profile} alt="Profile Image" objectFit="contain" layout="fill" />
         </div>
         <h1 className="text-2xl font-bold text-center">
           <Link href="/profile">
@@ -67,7 +57,7 @@ const HeaderMenu = ({ isMenuOpen }: HeaderMenuProps) => {
               }`}
             >
               <Link href={href}>
-                <a className="flex flex-row items-center gap-2 px-8 py-6">
+                <a className="flex flex-row items-center gap-2 px-8 py-6 cursor-pointer">
                   <span>{value.icon}</span>
                   {value.name}
                 </a>

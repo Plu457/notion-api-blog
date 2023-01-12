@@ -20,12 +20,9 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 border-b bg-white/40 backdrop-blur-md">
+      <header className="sticky top-0 z-20 bg-white/40 backdrop-blur-md">
         <div className="flex flex-row justify-between max-w-4xl p-4 mx-auto">
-          <button
-            className="p-1 rounded-lg hover:bg-gray-200"
-            onClick={() => setIsMenuOpen(true)}
-          >
+          <button className="p-1 rounded-lg hover:bg-gray-200" onClick={() => setIsMenuOpen(true)}>
             <span>
               <AiOutlineMenu size="2rem" />
             </span>
@@ -41,9 +38,7 @@ const Header = () => {
         </div>
       </header>
       <HeaderMenu isMenuOpen={isMenuOpen} />
-      {isMenuOpen ? (
-        <OverlayCurtain onClick={() => setIsMenuOpen(false)} />
-      ) : null}
+      {isMenuOpen ? <OverlayCurtain onClick={() => setIsMenuOpen(false)} /> : null}
     </>
   );
 };

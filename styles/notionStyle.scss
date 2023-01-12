@@ -1,3 +1,7 @@
+:root {
+  --notion-max-width: 960px;
+}
+
 .notion-page-icon-hero.notion-page-icon-image .notion-page-icon {
   border-radius: 4rem;
 }
@@ -20,4 +24,26 @@
   display: none;
 }
 
-1:18:25
+.notion-h {
+  span {
+    display: flex;
+    align-items: center;
+
+    svg {
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+}
+
+.notion-page {
+  border-top-left-radius: 3rem;
+  border-top-right-radius: 3rem;
+  transform: translateY(-4rem);
+  background-color: white;
+}
+
+.notion-page-content-has-aside {
+  gap: 1rem;
+}

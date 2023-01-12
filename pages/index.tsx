@@ -52,6 +52,6 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
       data: parsedData,
       allTags,
     },
-    revalidate: 10,
+    revalidate: 60,
   };
 };

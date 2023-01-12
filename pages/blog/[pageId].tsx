@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: { recordMap },
-    revalidate: 10,
+    revalidate: 60,
   };
 };
 

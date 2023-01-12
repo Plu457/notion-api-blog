@@ -11,4 +11,5 @@ export interface CardData {
   description: string;
   tags: MultiSelectPropertyItemObjectResponse['multi_select'];
   title: string;
+  expiryTime: string;
 }

@@ -2,12 +2,12 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getPageItem } from 'cms/notion';
 import { CardData } from 'types';
 
-interface ImageSrc {
+export interface ImageSrcType {
   cover: CardData['cover'];
   icon: CardData['icon'];
 }
 
-const handler = async (req: NextApiRequest, res: NextApiResponse<ImageSrc>) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse<ImageSrcType>) => {
   const { id } = req.query;
 
   if (!id) throw new Error('No is provided');

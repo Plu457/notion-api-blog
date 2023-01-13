@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { CardData } from 'types';
+import { ImageSrcType } from 'pages/api/getImageSrc';
 import IconRenderer from './IconRenderer';
 import TagList from './tags/TagList';
 
@@ -18,10 +19,7 @@ const CardItem = ({ data }: CardItemProps) => {
 
   const getImageSrc = useCallback(async () => {
     const res = await fetch(`api/getImageSrc?id=${id}`);
-    const { cover, icon } = (await res.json()) as {
-      cover: CardData['cover'];
-      icon: CardData['icon'];
-    };
+    const { cover, icon }: ImageSrcType = await res.json();
 
     setCoverSrc(cover);
     setIconSrc(icon);

@@ -6,6 +6,7 @@ import { CardData } from 'types';
 import { ImageSrcType } from 'pages/api/getImageSrc';
 import IconRenderer from './IconRenderer';
 import TagList from './tags/TagList';
+import { Constant } from 'commons';
 
 interface CardItemProps {
   data: CardData;
@@ -16,8 +17,11 @@ const CardItem = ({ data }: CardItemProps) => {
 
   const [coverSrc, setCoverSrc] = useState(cover);
   const [iconSrc, setIconSrc] = useState(icon);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getImageSrc = useCallback(async () => {
+    setIsLoading(true);
+
     const res = await fetch(`api/getImageSrc?id=${id}`);
     const { cover, icon }: ImageSrcType = await res.json();
 
@@ -42,8 +46,13 @@ const CardItem = ({ data }: CardItemProps) => {
                 alt={title}
                 layout="fill"
                 objectFit="cover"
-                className="transition-all duration-300 group-hover:scale-110"
+                className={`transition-all duration-300 group-hover:scale-110 ${
+                  isLoading ? 'animate-pulse' : ''
+                }`}
                 onError={getImageSrc}
+                placeholder="blur"
+                blurDataURL={Constant.IMAGE_LOADING_INDICATOR}
+                onLoad={() => setIsLoading(false)}
               />
             </div>
             <div className="flex flex-col gap-2">

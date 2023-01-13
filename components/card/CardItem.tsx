@@ -7,6 +7,7 @@ import { ImageSrcType } from 'pages/api/getImageSrc';
 import IconRenderer from './IconRenderer';
 import TagList from './tags/TagList';
 import { Constant } from 'commons';
+import LodingSpinner from 'components/LodingSpinner';
 
 interface CardItemProps {
   data: CardData;
@@ -46,14 +47,17 @@ const CardItem = ({ data }: CardItemProps) => {
                 alt={title}
                 layout="fill"
                 objectFit="cover"
-                className={`transition-all duration-300 group-hover:scale-110 ${
-                  isLoading ? 'animate-pulse' : ''
-                }`}
+                className={`transition-all duration-300 group-hover:scale-110`}
                 onError={getImageSrc}
                 placeholder="blur"
                 blurDataURL={Constant.IMAGE_LOADING_INDICATOR}
                 onLoad={() => setIsLoading(false)}
               />
+              {isLoading ? (
+                <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center">
+                  <LodingSpinner />
+                </div>
+              ) : null}
             </div>
             <div className="flex flex-col gap-2">
               <h2 className="text-2xl font-bold group-hover:text-blue-500">

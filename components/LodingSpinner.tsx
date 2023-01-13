@@ -1,10 +1,10 @@
 import React from 'react';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 const LodingSpinner = () => {
   return (
     <span className="animate-spin">
-      <AiOutlineLoading3Quarters size={'4rem'} />
+      <AiOutlineLoading size={'4rem'} />
     </span>
   );
 };

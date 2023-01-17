@@ -1,4 +1,5 @@
 import { Client } from '@notionhq/client';
+import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { NotionAPI } from 'notion-client';
 
 export const propertyTable = {
@@ -51,6 +52,23 @@ export const getPageItem = async (pageId: string) => {
   });
 
   return pageItem;
+};
+
+export const getSearchItem = async (query: string) => {
+  const searchItem = await notion.search({
+    query,
+    sort: {
+      direction: 'descending',
+      timestamp: 'last_edited_time',
+    },
+    filter: {
+      property: 'object',
+      value: 'page',
+    },
+    page_size: 12,
+  });
+
+  return searchItem.results as PageObjectResponse[];
 };
 
 export const reactNotionApi = new NotionAPI();

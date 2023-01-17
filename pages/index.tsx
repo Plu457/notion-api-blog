@@ -1,4 +1,4 @@
-import type { GetStaticProps } from 'next';
+import { GetStaticProps } from 'next';
 import { getDatabaseItems } from 'cms/notion';
 
 import { CardData } from 'types';

@@ -7,7 +7,7 @@ import { ImageSrcType } from 'pages/api/getImageSrc';
 import IconRenderer from './IconRenderer';
 import TagList from './tags/TagList';
 import { Constant } from 'commons';
-import LodingSpinner from 'components/LodingSpinner';
+import LoadingSpinner from 'components/LoadingSpinner';
 
 interface CardItemProps {
   data: CardData;
@@ -55,7 +55,7 @@ const CardItem = ({ data }: CardItemProps) => {
               />
               {isLoading ? (
                 <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center">
-                  <LodingSpinner />
+                  <LoadingSpinner />
                 </div>
               ) : null}
             </div>

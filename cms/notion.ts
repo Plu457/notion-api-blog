@@ -4,20 +4,35 @@ import { NotionAPI } from 'notion-client';
 export const propertyTable = {
   Public: 'Public',
   Published: 'Published',
+  Tags: 'Tags',
 };
 
 export const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
-export const getDatabaseItems = async (databaseId: string) => {
+interface DatabaseQueryOption {
+  tagName?: string;
+}
+
+export const getDatabaseItems = async (databaseId: string, option?: DatabaseQueryOption) => {
   const databaseItems = await notion.databases.query({
     database_id: databaseId,
     filter: {
-      property: propertyTable.Public,
-      checkbox: {
-        equals: true,
-      },
+      and: [
+        {
+          property: propertyTable.Public,
+          checkbox: {
+            equals: true,
+          },
+        },
+        {
+          property: propertyTable.Tags,
+          multi_select: {
+            contains: option?.tagName ?? '',
+          },
+        },
+      ],
     },
     sorts: [
       {

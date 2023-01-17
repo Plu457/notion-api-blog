@@ -43,5 +43,3 @@ const NotionPageRenderer = ({ recordMap }: NotionPageRendererProps) => {
 };
 
 export default NotionPageRenderer;
-
-//* 45:46

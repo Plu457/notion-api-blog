@@ -1,7 +1,7 @@
 import React from 'react';
 import { AiOutlineLoading } from 'react-icons/ai';
 
-const LodingSpinner = () => {
+const LoadingSpinner = () => {
   return (
     <span className="animate-spin">
       <AiOutlineLoading size={'4rem'} />
@@ -9,4 +9,4 @@ const LodingSpinner = () => {
   );
 };
 
-export default LodingSpinner;
+export default LoadingSpinner;

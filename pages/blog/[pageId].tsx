@@ -4,7 +4,7 @@ import { ExtendedRecordMap } from 'notion-types';
 
 import { getDatabaseItems, getPageContent } from 'cms/notion';
 import NotionPageRenderer from 'components/notion/NotionPageRenderer';
-import LodingSpinner from 'components/LodingSpinner';
+import LoadingSpinner from 'components/LoadingSpinner';
 
 interface BlogDetailProps {
   recordMap: ExtendedRecordMap;
@@ -16,7 +16,7 @@ const BlogDetailPage = ({ recordMap }: BlogDetailProps) => {
   if (isFallback)
     return (
       <section className="flex items-center justify-center w-full h-screen">
-        <LodingSpinner />
+        <LoadingSpinner />
       </section>
     );
 

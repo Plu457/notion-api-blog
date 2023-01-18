@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { getDatabaseItems } from 'cms/notion';
@@ -19,21 +19,20 @@ interface HomeProps {
 }
 
 const Home = ({ data, allTags }: HomeProps) => {
-  const { query } = useRouter();
+  const { query, push } = useRouter();
   const currentPage = query.page ? parseInt(query.page.toString()) : 1;
 
   const [postData, setPostData] = useState(
     data.slice(Constant.POSTS_PER_PAGE * (currentPage - 1), Constant.POSTS_PER_PAGE * currentPage),
   );
 
-  useEffect(() => {
-    setPostData(
-      data.slice(
-        Constant.POSTS_PER_PAGE * (currentPage - 1),
-        Constant.POSTS_PER_PAGE * currentPage,
-      ),
-    );
-  }, [currentPage, data]);
+  const handlePageChange = (page: number) => {
+    setPostData(data.slice(Constant.POSTS_PER_PAGE * (page - 1), Constant.POSTS_PER_PAGE * page));
+    push({
+      pathname: '/',
+      query: { page },
+    });
+  };
 
   return (
     <>
@@ -51,7 +50,7 @@ const Home = ({ data, allTags }: HomeProps) => {
           <h3 className="mb-4 text-4xl font-bold">Devlog</h3>
           <CardList data={postData} />
           <div className="flex justify-center my-4">
-            <Pagination current={currentPage} total={data.length} />
+            <Pagination current={currentPage} total={data.length} onPageChange={handlePageChange} />
           </div>
         </div>
       </section>

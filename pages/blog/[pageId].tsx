@@ -5,6 +5,7 @@ import { ExtendedRecordMap } from 'notion-types';
 import { getDatabaseItems, getPageContent } from 'cms/notion';
 import NotionPageRenderer from 'components/notion/NotionPageRenderer';
 import LoadingSpinner from 'components/LoadingSpinner';
+import { insertPreviewImageToRecordMap } from 'utils/previewImage';
 
 interface BlogDetailProps {
   recordMap: ExtendedRecordMap;
@@ -29,15 +30,17 @@ const BlogDetailPage = ({ recordMap }: BlogDetailProps) => {
 
 export default BlogDetailPage;
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps<BlogDetailProps> = async ({ params }) => {
   const pageId = params?.pageId;
 
   if (!pageId) throw Error('PageId is not defined');
 
   const recordMap = await getPageContent(pageId.toString());
 
+  const preview_images = await insertPreviewImageToRecordMap(recordMap);
+
   return {
-    props: { recordMap },
+    props: { recordMap: { ...recordMap, preview_images } },
     revalidate: 60,
   };
 };

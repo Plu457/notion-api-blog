@@ -6,6 +6,7 @@ import { getDatabaseItems } from 'cms/notion';
 import { CardData } from 'types';
 import { parseDatabaseItems } from 'utils/parseDatabaseItems';
 import { getAllTags } from 'utils/getAllTags';
+import { insertPreviewImage } from 'utils/previewImage';
 import { Constant } from 'commons';
 
 import HeroSection from 'components/intro/HeroSection';
@@ -69,11 +70,13 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
 
   const parsedData = parseDatabaseItems(databaseItems);
 
+  const dataWithPreview = await insertPreviewImage(parsedData);
+
   const allTags = getAllTags(parsedData);
 
   const duplicatedData: CardData[] = [];
   for (let i = 0; i < 20; i++) {
-    duplicatedData.push(...parsedData);
+    duplicatedData.push(...dataWithPreview);
   }
 
   return {

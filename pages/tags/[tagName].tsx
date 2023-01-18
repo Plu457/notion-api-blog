@@ -5,6 +5,7 @@ import { getDatabaseItems } from 'cms/notion';
 import { CardData } from 'types';
 import { parseDatabaseItems } from 'utils/parseDatabaseItems';
 import { getAllTags } from 'utils/getAllTags';
+import { insertPreviewImage } from 'utils/previewImage';
 
 import HeroSection from 'components/intro/HeroSection';
 import TagList from 'components/card/tags/TagList';
@@ -59,11 +60,13 @@ export const getStaticProps: GetStaticProps<TagNameProps> = async ({ params }) =
 
   const parsedData = parseDatabaseItems(databaseItems);
 
+  const dataWithPreview = await insertPreviewImage(parsedData);
+
   const allTags = getAllTags(parsedData);
 
   return {
     props: {
-      data: parsedData,
+      data: dataWithPreview,
       allTags,
       tagName,
     },

@@ -14,7 +14,7 @@ interface CardItemProps {
 }
 
 const CardItem = ({ data }: CardItemProps) => {
-  const { id, cover, icon, title, description, published, tags, expiryTime } = data;
+  const { id, cover, icon, title, description, published, tags, expiryTime, preview } = data;
 
   const [coverSrc, setCoverSrc] = useState(cover);
   const [iconSrc, setIconSrc] = useState(icon);
@@ -50,14 +50,8 @@ const CardItem = ({ data }: CardItemProps) => {
                 className={`transition-all duration-300 group-hover:scale-110`}
                 onError={getImageSrc}
                 placeholder="blur"
-                blurDataURL={Constant.IMAGE_LOADING_INDICATOR}
-                onLoad={() => setIsLoading(false)}
+                blurDataURL={preview?.dataURIBase64 ?? Constant.IMAGE_LOADING_INDICATOR}
               />
-              {isLoading ? (
-                <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center">
-                  <LoadingSpinner />
-                </div>
-              ) : null}
             </div>
             <div className="flex flex-col gap-2">
               <h2 className="text-2xl font-bold group-hover:text-blue-500">

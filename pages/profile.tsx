@@ -19,6 +19,7 @@ const ProfilePage = ({ recordMap }: ProfilePageProps) => {
   );
 };
 
+//* 배포 확인
 export default ProfilePage;
 
 export const getStaticProps: GetStaticProps<ProfilePageProps> = async () => {

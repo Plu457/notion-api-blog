@@ -23,6 +23,13 @@ export const parseDatabaseItems = (databaseItems: Awaited<ReturnType<typeof getD
 
     const title = Name?.type === 'title' ? Name.title[0].plain_text : '';
 
+    const expiryTime =
+      item.cover?.type === 'file'
+        ? item.cover.file.expiry_time
+        : item.icon?.type === 'file'
+        ? item.icon.file.expiry_time
+        : '';
+
     acc.push({
       id: item.id,
       cover,
@@ -31,6 +38,7 @@ export const parseDatabaseItems = (databaseItems: Awaited<ReturnType<typeof getD
       description,
       tags,
       title,
+      expiryTime,
     });
 
     return acc;

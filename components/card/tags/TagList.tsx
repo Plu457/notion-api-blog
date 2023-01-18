@@ -12,7 +12,9 @@ const TagList = ({ tags }: TagListProps) => {
   return (
     <ul className="flex flex-row flex-wrap gap-2">
       {tags.map(({ id, name, color }) => (
-        <TagItem key={id} name={name} color={color} />
+        <li key={id}>
+          <TagItem name={name} color={color} />
+        </li>
       ))}
     </ul>
   );

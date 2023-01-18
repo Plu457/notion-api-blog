@@ -1,12 +1,12 @@
 import { CardData } from 'types';
 
-export const getAllTags = (data: CardData[]) =>
-  data.reduce<CardData['tags']>((acc, { tags }) => {
-    tags.forEach(tag => {
-      if (!acc.find(item => item.id === tag.id)) {
-        acc.push(tag);
-      }
+export const getAllTags = (data: CardData[]) => {
+  let uniqueTags = new Map();
+  data
+    .flatMap(({ tags }) => tags)
+    .forEach(tag => {
+      uniqueTags.set(tag.id, tag);
     });
 
-    return acc;
-  }, []);
+  return Array.from(uniqueTags.values());
+};

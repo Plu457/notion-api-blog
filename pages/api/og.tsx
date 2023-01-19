@@ -10,7 +10,7 @@ const handler = async (req: NextRequest) => {
     const { searchParams } = new URL(req.url);
 
     const hasTitle = searchParams.has('title');
-    const title = hasTitle ? searchParams.get('title')?.slice(0, 100) : 'Notion Devlog';
+    const title = hasTitle ? searchParams.get('title')?.slice(0, 100) : "plu457's blog";
 
     return new ImageResponse(
       (

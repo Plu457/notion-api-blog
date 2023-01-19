@@ -37,7 +37,7 @@ const CardItem = ({ data }: CardItemProps) => {
   }, [expiryTime, getImageSrc]);
 
   return (
-    <li>
+    <li className="list-none">
       <article className="group">
         <Link href={`/blog/${id}`}>
           <a>

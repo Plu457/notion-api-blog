@@ -1,10 +1,9 @@
-import React from 'react';
 import dynamic from 'next/dynamic';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
+import { defaultMapImageUrl, NotionRenderer } from 'react-notion-x';
 
 import { ExtendedRecordMap } from 'notion-types';
-import { NotionRenderer } from 'react-notion-x';
 
 import TagItem from 'components/card/tags/TagItem';
 
@@ -31,6 +30,7 @@ const NotionPageRenderer = ({ recordMap, isProfile }: NotionPageRendererProps) =
       disableHeader={true}
       showTableOfContents={true}
       previewImages={!!recordMap?.preview_images}
+      mapImageUrl={(url, block) => defaultMapImageUrl(url, block) ?? url}
       components={{
         Code,
         Collection,

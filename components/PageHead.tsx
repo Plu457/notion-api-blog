@@ -17,7 +17,7 @@ const PageHead = ({ title, description, ogImageSrc }: PageHeadProps) => {
 
   const fullUrl = `${siteUrl}${asPath}`;
   const fullTitle = title ? `${title} | ${Constant.DEFAULT_TITLE}` : Constant.DEFAULT_TITLE;
-  const fullOgImageSrc = ogImageSrc ?? `${siteUrl}${Constant.DEFAULT_OG_IMAGE_SRC}`;
+  const fullOgImageSrc = ogImageSrc ?? `${siteUrl}${Constant.DEFAULT_IMAGE_SRC}`;
 
   return (
     <Head>

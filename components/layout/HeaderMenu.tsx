@@ -44,7 +44,7 @@ const HeaderMenu = ({ isMenuOpen }: HeaderMenuProps) => {
         </div>
         <h1 className="text-2xl font-bold text-center">
           <Link href="/profile">
-            <a>Caesiumy</a>
+            <a>Kim Da Hyun</a>
           </Link>
         </h1>
 

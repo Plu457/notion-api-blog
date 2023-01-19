@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.plu457.life
+
+# Sitemaps
+Sitemap: https://www.plu457.life/sitemap.xml

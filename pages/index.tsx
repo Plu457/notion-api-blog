@@ -13,6 +13,7 @@ import HeroSection from 'components/intro/HeroSection';
 import TagList from 'components/card/tags/TagList';
 import CardList from 'components/card/CardList';
 import Pagination from 'components/Pagination';
+import PageHead from 'components/PageHead';
 
 interface HomeProps {
   data: CardData[];
@@ -37,6 +38,7 @@ const Home = ({ data, allTags }: HomeProps) => {
 
   return (
     <>
+      <PageHead />
       <HeroSection />
 
       <section className="flex flex-col-reverse md:flex-row m-4 min-h-[60vh] max-w-6xl mx-auto px-4 gap-8">

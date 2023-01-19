@@ -10,5 +10,5 @@ export default {
   //* PageHead 사용
   DEFAULT_TITLE: "plu457's blog",
   DEFAULT_DESCRIPTION: '주니어 개발자의 성장 일기',
-  DEFAULT_IMAGE_SRC: require('public/image/profile.png'),
+  DEFAULT_OG_IMAGE_SRC: '/api/og',
 };

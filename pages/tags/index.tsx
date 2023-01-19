@@ -5,6 +5,7 @@ import { CardData } from 'types';
 import { parseDatabaseItems } from 'utils/parseDatabaseItems';
 import { getAllTags } from 'utils/getAllTags';
 
+import PageHead from 'components/PageHead';
 import HeroSection from 'components/intro/HeroSection';
 import TagList from 'components/card/tags/TagList';
 import CardList from 'components/card/CardList';
@@ -18,6 +19,7 @@ interface TagIndexPageProps {
 const TagIndexPage = ({ data, allTags }: TagIndexPageProps) => {
   return (
     <>
+      <PageHead title="Tags" />
       <HeroSection />
       {allTags.map(({ id, name }) => (
         <section

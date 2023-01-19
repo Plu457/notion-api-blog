@@ -11,7 +11,7 @@ interface BlogDetailProps {
   recordMap: ExtendedRecordMap;
 }
 
-const BlogDetailPage = ({ recordMap }: BlogDetailProps) => {
+const BlogDetailPage = (props: string, { recordMap }: BlogDetailProps) => {
   const { isFallback } = useRouter();
 
   if (isFallback)

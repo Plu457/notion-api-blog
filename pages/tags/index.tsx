@@ -1,14 +1,15 @@
-import { GetStaticProps } from 'next';
 import { getDatabaseItems } from 'cms/notion';
+import { GetStaticProps } from 'next';
 
 import { CardData } from 'types/CardData';
 import { getAllTags } from 'utils/getAllTags';
 import { parseDatabaseItems } from 'utils/parseDatabaseItems';
 
-import HeroContent from 'components/HeroContent';
+import CardList from 'components/card/CardList';
 import HeadMeta from 'components/HeadMeta';
+import HeroContent from 'components/HeroContent';
+import TagList from 'components/tags/TagList';
 import { insertPreviewImage } from 'utils/previewImage';
-import TagIndexView from 'view/TagIndexView';
 
 interface TagIndexPageProps {
   data: Record<string, CardData[]>;
@@ -20,7 +21,24 @@ const TagIndexPage = ({ data, allTags }: TagIndexPageProps) => {
     <>
       <HeadMeta title="Tags" />
       <HeroContent />
-      <TagIndexView data={data} allTags={allTags} />
+      {allTags.map(({ id, name }) => (
+        <section
+          key={id}
+          className="flex flex-col-reverse md:flex-row m-4 min-h-[60vh] max-w-6xl mx-auto px-4 gap-8"
+        >
+          <aside className="basis-[20%]">
+            <div className="p-4 border shadow-md rounded-xl">
+              <h2 className="mb-5 text-2xl font-bold">All Tags</h2>
+              <TagList tags={getAllTags(data[name])} />
+            </div>
+          </aside>
+          <div className="flex-grow">
+            <h3 className="mb-4 text-4xl font-bold">{`#${name}`}</h3>
+
+            <CardList data={data[name]} />
+          </div>
+        </section>
+      ))}
     </>
   );
 };

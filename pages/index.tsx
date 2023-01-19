@@ -1,7 +1,7 @@
+import { getDatabaseItems } from 'cms/notion';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { getDatabaseItems } from 'cms/notion';
 
 import { Constant } from 'commons';
 import { CardData } from 'types/CardData';
@@ -9,9 +9,11 @@ import { getAllTags } from 'utils/getAllTags';
 import { parseDatabaseItems } from 'utils/parseDatabaseItems';
 import { insertPreviewImage } from 'utils/previewImage';
 
-import HeroContent from 'components/HeroContent';
+import CardList from 'components/card/CardList';
 import HeadMeta from 'components/HeadMeta';
-import HomeView from 'view/HomeView';
+import HeroContent from 'components/HeroContent';
+import Pagination from 'components/Pagination';
+import TagList from 'components/tags/TagList';
 
 interface HomeProps {
   data: CardData[];
@@ -38,13 +40,22 @@ const Home = ({ data, allTags }: HomeProps) => {
     <>
       <HeadMeta />
       <HeroContent />
-      <HomeView
-        data={data}
-        allTags={allTags}
-        postData={postData}
-        currentPage={currentPage}
-        handlePageChange={handlePageChange}
-      />
+      <section className="flex flex-col-reverse md:flex-row m-4 min-h-[60vh] max-w-6xl mx-auto px-4 gap-8 ">
+        <aside className="basis-[20%]">
+          <div className="p-4 border shadow-md rounded-xl">
+            <h2 className="mb-5 text-2xl font-bold">All Tags</h2>
+            <TagList tags={allTags} />
+          </div>
+        </aside>
+
+        <div className="flex-grow">
+          <h3 className="mb-4 text-4xl font-bold">Devlog</h3>
+          <CardList data={postData} />
+          <div className="flex justify-center my-4">
+            <Pagination current={currentPage} total={data.length} onPageChange={handlePageChange} />
+          </div>
+        </div>
+      </section>
     </>
   );
 };

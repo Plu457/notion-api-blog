@@ -2,16 +2,15 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { getDatabaseItems } from 'cms/notion';
 
-import { CardData } from 'types';
-import { parseDatabaseItems } from 'utils/parseDatabaseItems';
+import { CardData } from 'types/CardData';
 import { getAllTags } from 'utils/getAllTags';
+import { parseDatabaseItems } from 'utils/parseDatabaseItems';
 import { insertPreviewImage } from 'utils/previewImage';
 
-import HeroSection from 'components/intro/HeroSection';
-import TagList from 'components/card/tags/TagList';
-import CardList from 'components/card/CardList';
+import HeroContent from 'components/HeroContent';
 import LoadingSpinner from 'components/LoadingSpinner';
-import PageHead from 'components/PageHead';
+import HeadMeta from 'components/HeadMeta';
+import TagNameView from 'view/TagNameView';
 
 interface TagNameProps {
   data: CardData[];
@@ -31,20 +30,9 @@ const TagNamePage = ({ data, allTags, tagName }: TagNameProps) => {
 
   return (
     <>
-      <PageHead title={`${tagName} 검색 결과`} />
-      <HeroSection title={`#${tagName}`} description={`${data?.length}개의 결과가 있습니다.`} />
-      <section className="flex flex-col-reverse md:flex-row m-4 min-h-[60vh] max-w-6xl mx-auto px-4 gap-8">
-        <aside className="basis-[20%]">
-          <div className="p-4 border shadow-md rounded-xl">
-            <h2 className="mb-5 text-2xl font-bold">All Tags</h2>
-            <TagList tags={allTags} />
-          </div>
-        </aside>
-        <div className="flex-grow">
-          <h3 className="mb-4 text-4xl font-bold">{`#${tagName}`}</h3>
-          <CardList data={data} />
-        </div>
-      </section>
+      <HeadMeta title={`${tagName} 검색 결과`} />
+      <HeroContent title={`#${tagName}`} description={`${data?.length}개의 결과가 있습니다.`} />
+      <TagNameView data={data} allTags={allTags} tagName={tagName} />
     </>
   );
 };

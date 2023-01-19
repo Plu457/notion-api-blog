@@ -1,11 +1,10 @@
-import React from 'react';
 import { GetStaticProps } from 'next';
-
-import { CardData } from 'types';
 import { getDatabaseItems } from 'cms/notion';
+
+import { CardData } from 'types/CardData';
+import CardItem from 'components/card/CardItem';
 import { parseDatabaseItems } from 'utils/parseDatabaseItems';
 import { insertPreviewImage } from 'utils/previewImage';
-import CardItem from 'components/card/CardItem';
 
 interface NotFoundPageProps {
   data: CardData;

@@ -1,6 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import { getPageItem } from 'cms/notion';
-import { CardData } from 'types';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { CardData } from 'types/CardData';
 
 export interface ImageSrcType {
   cover: CardData['cover'];

@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { CardData } from 'types';
+import { CardData } from 'types/CardData';
 
 import TagItem from './TagItem';
 

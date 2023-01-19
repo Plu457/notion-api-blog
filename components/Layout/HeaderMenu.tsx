@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { AiOutlineHome, AiOutlineTags, AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
-import profile from 'public/image/profile.png';
+import { Images } from 'commons';
 
 const NavTable = {
   '/': {
@@ -40,7 +40,7 @@ const HeaderMenu = ({ isMenuOpen }: HeaderMenuProps) => {
     >
       <div className="flex flex-col h-full py-8">
         <div className="relative w-full mx-auto h-1/4">
-          <Image src={profile} alt="Profile Image" objectFit="contain" layout="fill" />
+          <Image src={Images.PROFILE} alt="Profile Image" objectFit="contain" layout="fill" />
         </div>
         <h1 className="text-2xl font-bold text-center">
           <Link href="/profile">

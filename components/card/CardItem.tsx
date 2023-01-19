@@ -1,13 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import Link from 'next/link';
+import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
-import { CardData } from 'types';
-import { ImageSrcType } from 'pages/api/getImageSrc';
-import IconRenderer from './IconRenderer';
-import TagList from './tags/TagList';
 import { Constant } from 'commons';
-import LoadingSpinner from 'components/LoadingSpinner';
+import { ImageSrcType } from 'pages/api/getImageSrc';
+import { CardData } from 'types/CardData';
+import TagList from 'components/tags/TagList';
+import IconRenderer from './IconRenderer';
 
 interface CardItemProps {
   data: CardData;

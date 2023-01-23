@@ -1,14 +1,12 @@
-import React from 'react';
-
-interface HeroSectionProps {
+interface HeroContentProps {
   title?: string;
   description?: string;
 }
 
-const HeroSection = ({
-  title = 'Notion Devlog',
-  description = 'Notion Devlog is a blog template built with Next.js and Notion API',
-}: HeroSectionProps) => {
+const HeroContent = ({
+  title = "plu457's blog",
+  description = '주니어 개발자의 성장 일기',
+}: HeroContentProps) => {
   return (
     <section>
       <div className="flex bg-[length:100%_55%] bg-no-repeat items-center justify-center px-4 py-16 md:py-32 bg-gradient-to-r from-purple-500 to-blue-500">
@@ -23,4 +21,4 @@ const HeroSection = ({
   );
 };
 
-export default HeroSection;
+export default HeroContent;

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Constant } from 'commons';
 
 interface PaginationProps {

@@ -1,11 +1,10 @@
-import React from 'react';
 import { GetStaticProps } from 'next';
 
-import { CardData } from 'types';
-import { getDatabaseItems } from 'cms/notion';
+import CardItem from 'components/card/CardItem';
+import { CardData } from 'types/CardData';
+import { getCachedDatabaseItems } from 'utils/getCachedDatabaseItems';
 import { parseDatabaseItems } from 'utils/parseDatabaseItems';
 import { insertPreviewImage } from 'utils/previewImage';
-import CardItem from 'components/card/CardItem';
 
 interface NotFoundPageProps {
   data: CardData;
@@ -33,7 +32,7 @@ export const getStaticProps: GetStaticProps<NotFoundPageProps> = async () => {
 
   if (!databaseId) throw new Error('DATABASE_ID is not defined');
 
-  const databaseItems = await getDatabaseItems(databaseId);
+  const databaseItems = await getCachedDatabaseItems(databaseId);
 
   const parsedData = parseDatabaseItems(databaseItems);
 

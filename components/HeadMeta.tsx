@@ -1,17 +1,16 @@
-import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 
 import { Constant } from 'commons';
 
-interface PageHeadProps {
+interface HeadMetaProps {
   title?: string;
   description?: string;
   ogImageSrc?: string;
 }
 
-const PageHead = ({ title, description, ogImageSrc }: PageHeadProps) => {
+const HeadMeta = ({ title, description, ogImageSrc }: HeadMetaProps) => {
   const { asPath } = useRouter();
 
   const siteUrl = process.env.SITE_URL ?? 'https://www.plu457.life';
@@ -55,4 +54,4 @@ const PageHead = ({ title, description, ogImageSrc }: PageHeadProps) => {
   );
 };
 
-export default PageHead;
+export default HeadMeta;

@@ -1,7 +1,5 @@
-import React from 'react';
 import Image from 'next/image';
-
-import { CardData } from 'types';
+import { CardData } from 'types/CardData';
 
 interface IconRendererProps {
   icon: CardData['icon'];

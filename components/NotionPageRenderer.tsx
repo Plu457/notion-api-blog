@@ -3,9 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { defaultMapImageUrl, NotionRenderer } from 'react-notion-x';
 
+import TagItem from 'components/tags/TagItem';
 import { ExtendedRecordMap } from 'notion-types';
-
-import TagItem from 'components/card/tags/TagItem';
 
 const Code = dynamic(() => import('react-notion-x/build/third-party/code').then(m => m.Code));
 const Collection = dynamic(() =>

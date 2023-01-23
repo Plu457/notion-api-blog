@@ -1,9 +1,10 @@
-import { ExtendedRecordMap, RecordMap } from 'notion-types';
-import { CardData } from 'types';
 import got from 'got';
 import lqip from 'lqip-modern';
+import { ExtendedRecordMap } from 'notion-types';
 import { getPageImageUrls } from 'notion-utils';
 import { defaultMapImageUrl } from 'react-notion-x';
+
+import { CardData } from 'types/CardData';
 
 export const makePreviewImage = async (url: string) => {
   const body = await got(url, { responseType: 'buffer', resolveBodyOnly: true });

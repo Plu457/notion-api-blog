@@ -12,7 +12,7 @@ export const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
-interface DatabaseQueryOption {
+export interface DatabaseQueryOption {
   tagName?: string;
 }
 

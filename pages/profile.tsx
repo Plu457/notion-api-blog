@@ -1,9 +1,9 @@
 import { GetStaticProps } from 'next';
 import { ExtendedRecordMap } from 'notion-types';
-
 import { getPageContent } from 'cms/notion';
-import NotionPageRenderer from 'components/notion/NotionPageRenderer';
-import PageHead from 'components/PageHead';
+
+import NotionPageRenderer from 'components/NotionPageRenderer';
+import HeadMeta from 'components/HeadMeta';
 
 interface ProfilePageProps {
   recordMap: ExtendedRecordMap;
@@ -12,7 +12,7 @@ interface ProfilePageProps {
 const ProfilePage = ({ recordMap }: ProfilePageProps) => {
   return (
     <>
-      <PageHead />
+      <HeadMeta />
       <section>
         <NotionPageRenderer recordMap={recordMap} isProfile />
       </section>

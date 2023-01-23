@@ -1,8 +1,8 @@
-import { getDatabaseItems } from 'cms/notion';
 import { GetStaticProps } from 'next';
 
 import { CardData } from 'types/CardData';
 import { getAllTags } from 'utils/getAllTags';
+import { getCachedDatabaseItems } from 'utils/getCachedDatabaseItems';
 import { parseDatabaseItems } from 'utils/parseDatabaseItems';
 
 import HeadMeta from 'components/HeadMeta';
@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps<TagIndexPageProps> = async ({ params
 
   if (!databaseId) throw new Error('DATABASE_ID is not defined');
 
-  const databaseItems = await getDatabaseItems(databaseId);
+  const databaseItems = await getCachedDatabaseItems(databaseId);
 
   const parsedData = parseDatabaseItems(databaseItems);
 

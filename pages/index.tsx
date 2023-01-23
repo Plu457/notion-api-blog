@@ -1,4 +1,3 @@
-import { getDatabaseItems } from 'cms/notion';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -8,6 +7,7 @@ import { CardData } from 'types/CardData';
 import { getAllTags } from 'utils/getAllTags';
 import { parseDatabaseItems } from 'utils/parseDatabaseItems';
 import { insertPreviewImage } from 'utils/previewImage';
+import { getCachedDatabaseItems } from 'utils/getCachedDatabaseItems';
 
 import HeadMeta from 'components/HeadMeta';
 import HeroContent from 'components/HeroContent';
@@ -56,7 +56,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
 
   if (!databaseId) throw new Error('DATABASE_ID is not defined');
 
-  const databaseItems = await getDatabaseItems(databaseId);
+  const databaseItems = await getCachedDatabaseItems(databaseId);
 
   const parsedData = parseDatabaseItems(databaseItems);
 

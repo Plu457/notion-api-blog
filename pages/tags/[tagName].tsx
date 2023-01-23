@@ -1,17 +1,15 @@
-import { getDatabaseItems } from 'cms/notion';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
 import { CardData } from 'types/CardData';
 import { getAllTags } from 'utils/getAllTags';
+import { getCachedDatabaseItems } from 'utils/getCachedDatabaseItems';
 import { parseDatabaseItems } from 'utils/parseDatabaseItems';
 import { insertPreviewImage } from 'utils/previewImage';
 
-import CardList from 'components/card/CardList';
 import HeadMeta from 'components/HeadMeta';
 import HeroContent from 'components/HeroContent';
 import LoadingSpinner from 'components/LoadingSpinner';
-import TagList from 'components/tags/TagList';
 import TagNameView from 'views/TagNameView';
 
 interface TagNameProps {
@@ -48,7 +46,7 @@ export const getStaticProps: GetStaticProps<TagNameProps> = async ({ params }) =
   if (!databaseId) throw new Error('DATABASE_ID is not defined');
   if (!tagName) throw new Error('tagName is not defined');
 
-  const databaseItems = await getDatabaseItems(databaseId, { tagName });
+  const databaseItems = await getCachedDatabaseItems(databaseId, { tagName });
 
   const parsedData = parseDatabaseItems(databaseItems);
 
@@ -71,7 +69,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   if (!databaseId) throw new Error('DATABASE_ID is not defined');
 
-  const databaseItems = await getDatabaseItems(databaseId);
+  const databaseItems = await getCachedDatabaseItems(databaseId);
 
   const parsedData = parseDatabaseItems(databaseItems);
 

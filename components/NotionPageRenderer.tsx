@@ -20,7 +20,9 @@ interface NotionPageRendererProps {
 }
 
 const NotionPageRenderer = ({ recordMap, isProfile }: NotionPageRendererProps) => {
-  const LinkObject = isProfile ? {} : { Link };
+  const LinkObject = isProfile ? {} : Link;
+
+  console.log('LinkObject :>> ', LinkObject);
 
   return (
     <NotionRenderer

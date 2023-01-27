@@ -22,8 +22,6 @@ interface NotionPageRendererProps {
 const NotionPageRenderer = ({ recordMap, isProfile }: NotionPageRendererProps) => {
   const LinkObject = isProfile ? {} : Link;
 
-  console.log('LinkObject :>> ', LinkObject);
-
   return (
     <NotionRenderer
       recordMap={recordMap}
@@ -36,12 +34,12 @@ const NotionPageRenderer = ({ recordMap, isProfile }: NotionPageRendererProps) =
         Code,
         Collection,
         Equation,
-        Image,
+        nextImage: Image,
+        nextLink: Link,
         propertyDateValue: dateProperty => dateProperty.data[0][1][0][1].start_date,
         propertySelectValue: ({ option: { id, color, value } }) => (
           <TagItem key={id} color={color} name={value} />
         ),
-        ...LinkObject,
       }}
     />
   );

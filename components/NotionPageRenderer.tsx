@@ -20,8 +20,6 @@ interface NotionPageRendererProps {
 }
 
 const NotionPageRenderer = ({ recordMap, isProfile }: NotionPageRendererProps) => {
-  const LinkObject = isProfile ? {} : Link;
-
   return (
     <NotionRenderer
       recordMap={recordMap}

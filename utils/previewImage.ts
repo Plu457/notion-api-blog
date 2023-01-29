@@ -9,15 +9,20 @@ import { CardData } from 'types/CardData';
 export const makePreviewImage = async (url: string) => {
   const body = await got(url, { responseType: 'buffer', resolveBodyOnly: true });
 
-  const {
-    metadata: { dataURIBase64, originalWidth, originalHeight },
-  } = await lqip(body);
+  try {
+    const {
+      metadata: { dataURIBase64, originalWidth, originalHeight },
+    } = await lqip(body);
 
-  return {
-    dataURIBase64,
-    originalWidth,
-    originalHeight,
-  };
+    return {
+      dataURIBase64,
+      originalWidth,
+      originalHeight,
+    };
+  } catch (error) {
+    console.error('error: >>', error);
+    return null;
+  }
 };
 
 export type PreviewImageType = Awaited<ReturnType<typeof makePreviewImage>>;

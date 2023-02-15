@@ -10,7 +10,7 @@ const nextConfig = {
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      config.resolve.alias['~'] = path.resolve(__dirname);
+      config.resolve.alias['@'] = path.resolve(__dirname);
     }
     return config;
   },

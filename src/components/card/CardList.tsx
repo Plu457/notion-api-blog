@@ -1,4 +1,4 @@
-import { CardData } from 'types/CardData';
+import { CardData } from '@/types/CardData';
 import CardItem from './CardItem';
 
 interface CardListProps {

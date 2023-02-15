@@ -2,16 +2,16 @@ import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import { Constant } from 'commons';
-import { CardData } from 'types/CardData';
-import { getAllTags } from 'utils/getAllTags';
-import { parseDatabaseItems } from 'utils/parseDatabaseItems';
-import { insertPreviewImage } from 'utils/previewImage';
-import { getCachedDatabaseItems } from 'utils/getCachedDatabaseItems';
+import { Constant } from '@/commons';
+import { CardData } from '@/types/CardData';
+import { getAllTags } from '@/utils/getAllTags';
+import { parseDatabaseItems } from '@/utils/parseDatabaseItems';
+import { insertPreviewImage } from '@/utils/previewImage';
+import { getCachedDatabaseItems } from '@/utils/getCachedDatabaseItems';
 
-import HeadMeta from 'components/HeadMeta';
-import HeroContent from 'components/HeroContent';
-import HomeView from 'views/HomeView';
+import HeadMeta from '@/components/HeadMeta';
+import HeroContent from '@/components/HeroContent';
+import HomeView from '@/views/HomeView';
 
 interface HomeProps {
   data: CardData[];

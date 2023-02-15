@@ -1,4 +1,4 @@
-import { Constant } from 'commons';
+import { Constant } from '@/commons';
 
 interface PaginationProps {
   current: number;

@@ -2,12 +2,9 @@ import { useRouter } from 'next/router';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { SearchResultType } from './api/getSearchResult';
 
-import CardList from 'components/card/CardList';
-import HeadMeta from 'components/HeadMeta';
-import LoadingSpinner from 'components/LoadingSpinner';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { CardData } from 'types/CardData';
-import SearchView from 'views/SearchView';
+import HeadMeta from '@/components/HeadMeta';
+import { CardData } from '@/types/CardData';
+import SearchView from '@/views/SearchView';
 
 const SearchPage = () => {
   const { push, query } = useRouter();

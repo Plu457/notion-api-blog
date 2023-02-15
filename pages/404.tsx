@@ -1,10 +1,10 @@
 import { GetStaticProps } from 'next';
 
-import CardItem from 'components/card/CardItem';
-import { CardData } from 'types/CardData';
-import { getCachedDatabaseItems } from 'utils/getCachedDatabaseItems';
-import { parseDatabaseItems } from 'utils/parseDatabaseItems';
-import { insertPreviewImage } from 'utils/previewImage';
+import CardItem from '@/components/card/CardItem';
+import { CardData } from '@/types/CardData';
+import { getCachedDatabaseItems } from '@/utils/getCachedDatabaseItems';
+import { parseDatabaseItems } from '@/utils/parseDatabaseItems';
+import { insertPreviewImage } from '@/utils/previewImage';
 
 interface NotFoundPageProps {
   data: CardData;

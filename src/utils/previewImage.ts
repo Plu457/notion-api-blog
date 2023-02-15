@@ -4,7 +4,7 @@ import { ExtendedRecordMap } from 'notion-types';
 import { getPageImageUrls } from 'notion-utils';
 import { defaultMapImageUrl } from 'react-notion-x';
 
-import { CardData } from 'types/CardData';
+import { CardData } from '@/types/CardData';
 
 export const makePreviewImage = async (url: string) => {
   const body = await got(url, { responseType: 'buffer', resolveBodyOnly: true });

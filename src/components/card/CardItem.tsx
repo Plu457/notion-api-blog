@@ -2,10 +2,10 @@ import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Constant } from 'commons';
+import { Constant } from '@/commons';
 import { ImageSrcType } from 'pages/api/getImageSrc';
-import { CardData } from 'types/CardData';
-import TagList from 'components/tags/TagList';
+import { CardData } from '@/types/CardData';
+import TagList from '@/components/tags/TagList';
 import IconRenderer from './IconRenderer';
 
 interface CardItemProps {

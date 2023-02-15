@@ -1,8 +1,8 @@
-import { CardData } from 'types/CardData';
-import { getAllTags } from 'utils/getAllTags';
+import { CardData } from '@/types/CardData';
+import { getAllTags } from '@/utils/getAllTags';
 
-import CardList from 'components/card/CardList';
-import TagList from 'components/tags/TagList';
+import CardList from '@/components/card/CardList';
+import TagList from '@/components/tags/TagList';
 
 interface TagIndexViewProps {
   data: Record<string, CardData[]>;

@@ -1,6 +1,6 @@
-import CardList from 'components/card/CardList';
-import TagList from 'components/tags/TagList';
-import { CardData } from 'types/CardData';
+import CardList from '@/components/card/CardList';
+import TagList from '@/components/tags/TagList';
+import { CardData } from '@/types/CardData';
 
 interface TagNameViewProps {
   data: CardData[];

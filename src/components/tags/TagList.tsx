@@ -1,4 +1,4 @@
-import { CardData } from 'types/CardData';
+import { CardData } from '@/types/CardData';
 
 import TagItem from './TagItem';
 

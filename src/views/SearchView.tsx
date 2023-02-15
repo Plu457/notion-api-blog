@@ -1,9 +1,9 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
-import { CardData } from 'types/CardData';
-import CardList from 'components/card/CardList';
-import LoadingSpinner from 'components/LoadingSpinner';
+import { CardData } from '@/types/CardData';
+import CardList from '@/components/card/CardList';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 interface SearchViewProps {
   searchQuery: string;

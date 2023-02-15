@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { getSearchItem } from 'cms/notion';
-import { CardData } from 'types/CardData';
-import { parseDatabaseItems } from 'utils/parseDatabaseItems';
+import { getSearchItem } from '@/cms/notion';
+import { CardData } from '@/types/CardData';
+import { parseDatabaseItems } from '@/utils/parseDatabaseItems';
 
 export interface SearchResultType {
   data: CardData[];

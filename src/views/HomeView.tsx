@@ -1,7 +1,7 @@
-import { CardData } from 'types/CardData';
-import CardList from 'components/card/CardList';
-import Pagination from 'components/Pagination';
-import TagList from 'components/tags/TagList';
+import { CardData } from '@/types/CardData';
+import CardList from '@/components/card/CardList';
+import Pagination from '@/components/Pagination';
+import TagList from '@/components/tags/TagList';
 
 interface HomeViewProps {
   data: CardData[];

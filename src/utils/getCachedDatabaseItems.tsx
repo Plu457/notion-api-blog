@@ -1,4 +1,4 @@
-import { DatabaseQueryOption, getDatabaseItems } from 'cms/notion';
+import { DatabaseQueryOption, getDatabaseItems } from '@/cms/notion';
 import fs from 'fs';
 import path from 'path';
 

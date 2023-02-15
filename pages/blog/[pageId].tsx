@@ -1,12 +1,12 @@
-import { getPageContent } from 'cms/notion';
+import { getPageContent } from '@/cms/notion';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { ExtendedRecordMap } from 'notion-types';
 
-import LoadingSpinner from 'components/LoadingSpinner';
-import { getCachedDatabaseItems } from 'utils/getCachedDatabaseItems';
-import { insertPreviewImageToRecordMap } from 'utils/previewImage';
-import BlogDetailView from 'views/BlogDetailView';
+import LoadingSpinner from '@/components/LoadingSpinner';
+import { getCachedDatabaseItems } from '@/utils/getCachedDatabaseItems';
+import { insertPreviewImageToRecordMap } from '@/utils/previewImage';
+import BlogDetailView from '@/views/BlogDetailView';
 
 interface BlogDetailProps {
   recordMap: ExtendedRecordMap;

@@ -1,4 +1,4 @@
-import { CardData } from 'types/CardData';
+import { CardData } from '@/types/CardData';
 
 export const getAllTags = (data: CardData[]) => {
   let uniqueTags = new Map();

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BaseStyle } from 'commons';
+import { BaseStyle } from '@/commons';
 import { useRouter } from 'next/router';
 
 interface TagItemProps {

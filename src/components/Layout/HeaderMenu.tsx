@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { AiOutlineHome, AiOutlineTags, AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
-import { Images } from 'commons';
+import { Images } from '@/commons';
 
 const NavTable = {
   '/': {

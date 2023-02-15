@@ -1,5 +1,5 @@
-import { getDatabaseItems } from 'cms/notion';
-import { CardData } from 'types/CardData';
+import { getDatabaseItems } from '@/cms/notion';
+import { CardData } from '@/types/CardData';
 
 export const parseDatabaseItems = (databaseItems: Awaited<ReturnType<typeof getDatabaseItems>>) =>
   databaseItems.reduce<CardData[]>((acc, item) => {

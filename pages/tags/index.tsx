@@ -1,14 +1,14 @@
 import { GetStaticProps } from 'next';
 
-import { CardData } from 'types/CardData';
-import { getAllTags } from 'utils/getAllTags';
-import { getCachedDatabaseItems } from 'utils/getCachedDatabaseItems';
-import { parseDatabaseItems } from 'utils/parseDatabaseItems';
+import { CardData } from '@/types/CardData';
+import { getAllTags } from '@/utils/getAllTags';
+import { getCachedDatabaseItems } from '@/utils/getCachedDatabaseItems';
+import { parseDatabaseItems } from '@/utils/parseDatabaseItems';
 
-import HeadMeta from 'components/HeadMeta';
-import HeroContent from 'components/HeroContent';
-import { insertPreviewImage } from 'utils/previewImage';
-import TagIndexView from 'views/TagIndexView';
+import HeadMeta from '@/components/HeadMeta';
+import HeroContent from '@/components/HeroContent';
+import { insertPreviewImage } from '@/utils/previewImage';
+import TagIndexView from '@/views/TagIndexView';
 
 interface TagIndexPageProps {
   data: Record<string, CardData[]>;

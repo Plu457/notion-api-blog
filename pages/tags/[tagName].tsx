@@ -1,16 +1,16 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
-import { CardData } from 'types/CardData';
-import { getAllTags } from 'utils/getAllTags';
-import { getCachedDatabaseItems } from 'utils/getCachedDatabaseItems';
-import { parseDatabaseItems } from 'utils/parseDatabaseItems';
-import { insertPreviewImage } from 'utils/previewImage';
+import { CardData } from '@/types/CardData';
+import { getAllTags } from '@/utils/getAllTags';
+import { getCachedDatabaseItems } from '@/utils/getCachedDatabaseItems';
+import { parseDatabaseItems } from '@/utils/parseDatabaseItems';
+import { insertPreviewImage } from '@/utils/previewImage';
 
-import HeadMeta from 'components/HeadMeta';
-import HeroContent from 'components/HeroContent';
-import LoadingSpinner from 'components/LoadingSpinner';
-import TagNameView from 'views/TagNameView';
+import HeadMeta from '@/components/HeadMeta';
+import HeroContent from '@/components/HeroContent';
+import LoadingSpinner from '@/components/LoadingSpinner';
+import TagNameView from '@/views/TagNameView';
 
 interface TagNameProps {
   data: CardData[];

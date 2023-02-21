@@ -37,7 +37,7 @@ const Home = ({ data, allTags }: HomeProps) => {
   return (
     <>
       <HeadMeta />
-      <HeroContent />
+      {/* <HeroContent /> */}
       <HomeView
         data={data}
         allTags={allTags}

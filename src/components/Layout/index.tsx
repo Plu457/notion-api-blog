@@ -7,6 +7,7 @@ const Layout = ({ children }: PropsWithChildren) => {
   return (
     <>
       <Header />
+      <hr />
       <main>{children}</main>
       <Footer />
       <ToTopButton />

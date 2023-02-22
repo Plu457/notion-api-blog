@@ -5,6 +5,7 @@ import { AiOutlineMenu, AiOutlineSearch } from 'react-icons/ai';
 import HeaderMenu from './HeaderMenu';
 import OverlayCurtain from './OverlayCurtain';
 import { useRouter } from 'next/router';
+import { Constant } from '@/commons';
 
 const Header = () => {
   const { pathname } = useRouter();
@@ -30,16 +31,12 @@ const Header = () => {
               <Link href="/">Plu457.dev</Link>
             </h1>
 
-            <ul className="flex gap-3 justify-between">
-              <li className="py-4 hover:border-b border-b-blue-500">
-                <Link href="/">게시물</Link>
-              </li>
-              <li className="py-4 hover:border-b border-b-blue-500">
-                <Link href="/tags">태그</Link>
-              </li>
-              <li className="py-4 hover:border-b border-b-blue-500">
-                <Link href="/">이력서</Link>
-              </li>
+            <ul className="flex gap-3 justify-between items-center">
+              {Constant.NavItemList.map(({ id, name, path }) => (
+                <li key={id} className="py-5 hover:border-b border-b-blue-500">
+                  <Link href={path}>{name}</Link>
+                </li>
+              ))}
             </ul>
           </div>
 

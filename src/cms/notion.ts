@@ -12,11 +12,15 @@ export const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
-export interface DatabaseQueryOption {
-  tagName?: string;
-}
+export const getDatabaseItems = async (databaseId: string, options?: string[]) => {
+  const tags = Array.isArray(options) ? options : [];
+  const tagFilters = tags?.map(tagName => ({
+    property: propertyTable.Tags,
+    multi_select: {
+      contains: tagName,
+    },
+  }));
 
-export const getDatabaseItems = async (databaseId: string, option?: DatabaseQueryOption) => {
   const databaseItems = await notion.databases.query({
     database_id: databaseId,
     filter: {
@@ -27,12 +31,7 @@ export const getDatabaseItems = async (databaseId: string, option?: DatabaseQuer
             equals: true,
           },
         },
-        {
-          property: propertyTable.Tags,
-          multi_select: {
-            contains: option?.tagName ?? '',
-          },
-        },
+        ...tagFilters,
       ],
     },
     sorts: [
@@ -42,6 +41,8 @@ export const getDatabaseItems = async (databaseId: string, option?: DatabaseQuer
       },
     ],
   });
+
+  console.log('databaseItems: >> ', databaseItems);
 
   return databaseItems.results;
 };

@@ -4,32 +4,23 @@ import { useRouter } from 'next/router';
 
 interface TagItemProps {
   name: string;
-  color: keyof typeof BaseStyle.colors;
 }
 
-const TagItem = ({ name, color }: TagItemProps) => {
-  const { push, prefetch } = useRouter();
-
-  const pathToTagName = `/tags/${name.toLowerCase()}`;
-
-  const onClick = () => {
-    push(pathToTagName);
-  };
-
-  useEffect(() => {
-    prefetch(pathToTagName);
-  }, [pathToTagName, prefetch]);
-
+const TagItem = ({ name, isChecked, toggleValue, disabled, checked }: TagItemProps) => {
   return (
-    <button
-      className="px-2 py-1 text-sm font-light transition-all duration-300 border rounded-xl hover:-translate-y-1 hover:shadow-md"
-      style={{
-        backgroundColor: BaseStyle.colors[color],
-      }}
-      onClick={onClick}
+    <label
+      className={`block px-5 py-3 bg-gray-100 border border-white rounded-3xl cursor-pointer hover:border-red-300 ${
+        isChecked(name) ? 'border-red-300' : ''
+      }`}
     >
+      <input
+        type="checkbox"
+        className="sr-only"
+        checked={isChecked(name)}
+        onChange={({ target: { checked } }) => toggleValue({ checked, value: name })}
+      />
       {name}
-    </button>
+    </label>
   );
 };
 

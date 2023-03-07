@@ -1,10 +1,10 @@
-import { DatabaseQueryOption, getDatabaseItems } from '@/cms/notion';
+import { getDatabaseItems } from '@/cms/notion';
 import fs from 'fs';
 import path from 'path';
 
 const OPTION_QUERY = 'option';
 
-export const getCachedDatabaseItems = async (databaseId: string, option?: DatabaseQueryOption) => {
+export const getCachedDatabaseItems = async (databaseId: string, option?: string[]) => {
   if (process.env.NODE_ENV === 'development') return await getDatabaseItems(databaseId, option);
 
   const cacheKey = new URLSearchParams({});

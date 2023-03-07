@@ -34,6 +34,10 @@ const Home = ({ data, allTags }: HomeProps) => {
     });
   };
 
+  // const dataByTag = data.filter(({ tags }) =>
+  //   ['에러해결', 'NEXTJS'].every(tagName => tags.some(tag => tag.name === tagName)),
+  // );
+
   return (
     <>
       <HeadMeta />

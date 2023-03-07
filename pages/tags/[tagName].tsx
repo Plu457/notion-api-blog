@@ -46,7 +46,7 @@ export const getStaticProps: GetStaticProps<TagNameProps> = async ({ params }) =
   if (!databaseId) throw new Error('DATABASE_ID is not defined');
   if (!tagName) throw new Error('tagName is not defined');
 
-  const databaseItems = await getCachedDatabaseItems(databaseId, { tagName });
+  const databaseItems = await getCachedDatabaseItems(databaseId, [tagName]);
 
   const parsedData = parseDatabaseItems(databaseItems);
 

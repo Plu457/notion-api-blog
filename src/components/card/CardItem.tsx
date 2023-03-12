@@ -62,9 +62,7 @@ const CardItem = ({ data }: CardItemProps) => {
             </div>
           </a>
         </Link>
-        <div className="mt-4">
-          <TagList tags={tags} />
-        </div>
+        <div className="mt-4">{/* <TagList tags={tags} /> */}</div>
       </article>
     </li>
   );

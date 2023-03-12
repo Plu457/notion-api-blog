@@ -42,8 +42,6 @@ export const getDatabaseItems = async (databaseId: string, options?: string[]) =
     ],
   });
 
-  console.log('databaseItems: >> ', databaseItems);
-
   return databaseItems.results;
 };
 

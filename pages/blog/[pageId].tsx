@@ -6,7 +6,7 @@ import { ExtendedRecordMap } from 'notion-types';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { getCachedDatabaseItems } from '@/utils/getCachedDatabaseItems';
 import { insertPreviewImageToRecordMap } from '@/utils/previewImage';
-import BlogDetailView from '@/views/BlogDetailView';
+import BlogDetailView from '@/views/Blog/BlogDetailView';
 
 interface BlogDetailProps {
   recordMap: ExtendedRecordMap;

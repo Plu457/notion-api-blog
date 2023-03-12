@@ -35,9 +35,8 @@ const NotionPageRenderer = ({ recordMap, isProfile }: NotionPageRendererProps) =
         nextImage: Image,
         nextLink: Link,
         propertyDateValue: dateProperty => dateProperty.data[0][1][0][1].start_date,
-        propertySelectValue: ({ option: { id, color, value } }) => (
-          <TagItem key={id} view color={color} name={value} />
-        ),
+        propertySelectValue: ({ option }) =>
+          option ? <TagItem key={option.id} view color={option.color} name={option.value} /> : null,
       }}
     />
   );

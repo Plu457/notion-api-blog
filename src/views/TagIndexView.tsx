@@ -12,8 +12,8 @@ interface TagIndexViewProps {
 const TagIndexView = ({ data, allTags }: TagIndexViewProps) => {
   return (
     <>
-      <h1>Hello</h1>
-      {/* {allTags.map(({ id, name }) => (
+      {/* <h1>Hello</h1> */}
+      {allTags.map(({ id, name }) => (
         <section
           key={id}
           className="flex flex-col-reverse md:flex-row m-4 min-h-[60vh] max-w-6xl mx-auto px-4 gap-8"
@@ -30,7 +30,7 @@ const TagIndexView = ({ data, allTags }: TagIndexViewProps) => {
             <CardList data={data[name]} />
           </div>
         </section>
-      ))} */}
+      ))}
     </>
   );
 };

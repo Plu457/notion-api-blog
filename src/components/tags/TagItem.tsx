@@ -1,14 +1,23 @@
 import { BaseStyle } from '@/commons';
+import { useEffect } from 'react';
 
 interface TagItemProps {
   name: string;
+  tagTotal?: number;
   view?: boolean;
   isChecked?: (value: string) => boolean;
-  toggleValue?: ({ checked, value }: { checked: boolean; value: string }) => void;
+  handleToggleValue?: ({ checked, value }: { checked: boolean; value: string }) => void;
   color?: keyof typeof BaseStyle.colors;
 }
 
-const TagItem = ({ name, view = false, color, isChecked, toggleValue }: TagItemProps) => {
+const TagItem = ({
+  name,
+  tagTotal,
+  view = false,
+  color,
+  isChecked,
+  handleToggleValue,
+}: TagItemProps) => {
   if (view) {
     const backgroundColor = color ? BaseStyle.colors[color] : '';
     return (
@@ -31,7 +40,7 @@ const TagItem = ({ name, view = false, color, isChecked, toggleValue }: TagItemP
         type="checkbox"
         className="sr-only"
         checked={isChecked?.(name)}
-        onChange={({ target: { checked } }) => toggleValue?.({ checked, value: name })}
+        onChange={({ target: { checked } }) => handleToggleValue?.({ checked, value: name })}
       />
       {name}
     </label>

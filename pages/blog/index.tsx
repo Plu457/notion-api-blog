@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Constant } from '@/commons';
 import { CardData } from '@/types/CardData';
@@ -22,6 +22,7 @@ const BlogPage = ({ data, allTags }: BlogProps) => {
   const currentPage = query.page ? parseInt(query.page.toString()) : 1;
 
   const [selectedTagList, setSelectedTagList] = useState<string[]>([]);
+  const tagTotal = selectedTagList.length;
 
   const filteredData = useMemo(() => {
     if (!selectedTagList.length) {
@@ -33,24 +34,21 @@ const BlogPage = ({ data, allTags }: BlogProps) => {
     );
   }, [data, selectedTagList]);
 
-  const total = useMemo(() => {
-    return filteredData.length;
-  }, [filteredData]);
-
+  const handleToggleValue = useCallback(
+    ({ checked, value }: { checked: boolean; value: string }) => {
+      setSelectedTagList(prevList => {
+        if (checked) {
+          return [...prevList, value];
+        }
+        return prevList.filter(v => v !== value);
+      });
+    },
+    [setSelectedTagList],
+  );
   const isChecked = useCallback(
     (value: string) => selectedTagList.includes(value),
     [selectedTagList],
   );
-
-  const toggleValue = useCallback(({ checked, value }: { checked: boolean; value: string }) => {
-    setSelectedTagList(prevList => {
-      if (checked) {
-        return [...prevList, value];
-      }
-
-      return prevList.filter(v => v !== value);
-    });
-  }, []);
 
   const postData = useMemo(() => {
     const start = Constant.POSTS_PER_PAGE * (currentPage - 1);
@@ -58,6 +56,7 @@ const BlogPage = ({ data, allTags }: BlogProps) => {
 
     return filteredData.slice(start, end);
   }, [currentPage, filteredData]);
+  const postTotal = useMemo(() => filteredData.length, [filteredData]);
 
   const handlePageChange = useCallback(
     (page: number) => {
@@ -69,17 +68,38 @@ const BlogPage = ({ data, allTags }: BlogProps) => {
     [push],
   );
 
+  const [activeTagList, setActiveTagList] = useState<string[]>([]);
+  useEffect(() => {
+    const activeTags: string[] = [];
+
+    filteredData.forEach(item => {
+      if (
+        selectedTagList.length === 0 ||
+        item.tags.some(tag => selectedTagList.includes(tag.name))
+      ) {
+        item.tags.forEach(tag => {
+          activeTags.push(tag.name);
+        });
+      }
+    });
+
+    setActiveTagList(Array.from(new Set(activeTags)));
+  }, [selectedTagList, filteredData]);
+
+  console.log('selectedTagList: >> ', selectedTagList);
+  console.log('activeTagList: >> ', activeTagList);
   return (
     <>
       <HeadMeta />
       <BlogView
-        total={total}
+        tagTotal={tagTotal}
+        postTotal={postTotal}
         allTags={allTags}
         postData={postData}
         currentPage={currentPage}
         handlePageChange={handlePageChange}
         isChecked={isChecked}
-        toggleValue={toggleValue}
+        handleToggleValue={handleToggleValue}
       />
     </>
   );

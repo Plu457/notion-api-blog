@@ -1,4 +1,5 @@
 import { Constant } from '@/commons';
+import { useCallback } from 'react';
 
 interface PaginationProps {
   current: number;
@@ -7,52 +8,54 @@ interface PaginationProps {
 }
 
 const Pagination = ({ current, total, onPageChange }: PaginationProps) => {
+  //* 전체 페이지 수 계산
   const lastPageNumber = Math.ceil(total / Constant.POSTS_PER_PAGE);
 
-  const handleClick = (page: number) => {
-    if (onPageChange) {
-      onPageChange(page);
-    }
-  };
+  //* 페이지 변경 처리하는 함수
+  const handleClick = useCallback(
+    (page: number) => {
+      onPageChange?.(page);
+    },
+    [onPageChange],
+  );
+
+  //* 페이지네이션 버튼들을 생성하는 함수
+  const renderPaginationButtons = () =>
+    //* 지정된 범위 내의 페이지 버튼을 생성하기 위해 배열을 생성
+    Array.from(
+      { length: Constant.PAGINATION_RANGE * 2 + 1 },
+      (_, index) => current + index - Constant.PAGINATION_RANGE,
+    )
+      //* 유효한 페이지만 필터링 (조건: 1 이상, 마지막 페이지 이하)
+      .filter(pageIndex => pageIndex > 0 && pageIndex <= lastPageNumber)
+      //* 필터링된 페이지 인덱스를 사용하여 PaginationButton 컴포넌트 생성
+      .map(pageIndex => (
+        <PaginationButton
+          key={pageIndex}
+          to={pageIndex}
+          onClick={handleClick}
+          label={pageIndex.toString()}
+          disabled={pageIndex === current}
+        />
+      ));
 
   return (
     <div className="flex gap-1">
       <PaginationButton
         to={current - 1}
         disabled={current === 1}
-        onClick={() => handleClick(current - 1)}
-      >
-        &lt;
-      </PaginationButton>
+        onClick={handleClick}
+        label="&lt;"
+      />
 
-      {Array.from(Array(Constant.PAGINATION_RANGE), (_, index) => current - index - 1)
-        .reverse()
-        .map(pageIndex =>
-          pageIndex > 0 ? (
-            <PaginationButton key={pageIndex} to={pageIndex} onClick={() => handleClick(pageIndex)}>
-              {pageIndex}
-            </PaginationButton>
-          ) : null,
-        )}
-
-      <button className="px-4 py-2 bg-gray-100 rounded-lg">{current}</button>
-
-      {Array.from(Array(Constant.PAGINATION_RANGE), (_, index) => current + index + 1).map(
-        pageIndex =>
-          pageIndex <= lastPageNumber ? (
-            <PaginationButton key={pageIndex} to={pageIndex} onClick={() => handleClick(pageIndex)}>
-              {pageIndex}
-            </PaginationButton>
-          ) : null,
-      )}
+      {renderPaginationButtons()}
 
       <PaginationButton
         to={current + 1}
         disabled={current === lastPageNumber}
-        onClick={() => handleClick(current + 1)}
-      >
-        &gt;
-      </PaginationButton>
+        onClick={handleClick}
+        label="&gt;"
+      />
     </div>
   );
 };
@@ -60,20 +63,28 @@ const Pagination = ({ current, total, onPageChange }: PaginationProps) => {
 export default Pagination;
 
 interface PaginationButtonProps {
-  children: React.ReactNode;
+  label: string;
   disabled?: boolean;
   to: number;
   onClick?: (page: number) => void;
 }
 
-const PaginationButton = ({ children, to, disabled = false, onClick }: PaginationButtonProps) => {
+const PaginationButton = ({ label, to, disabled = false, onClick }: PaginationButtonProps) => {
+  const handleClick = useCallback(() => {
+    if (onClick) {
+      onClick(to);
+    }
+  }, [to, onClick]);
+
   return (
     <button
       disabled={disabled}
-      onClick={() => onClick && onClick(to)}
-      className="px-4 py-2 rounded-lg hover:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed disabled:bg-white"
+      onClick={handleClick}
+      className={`px-4 py-2 rounded-lg ${
+        disabled ? 'bg-gray-100' : 'hover:bg-gray-100'
+      } disabled:text-gray-400 disabled:cursor-not-allowed disabled:bg-white`}
     >
-      {children}
+      {label}
     </button>
   );
 };

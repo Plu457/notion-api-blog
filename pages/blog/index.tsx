@@ -22,7 +22,6 @@ const BlogPage = ({ data, allTags }: BlogProps) => {
   const currentPage = query.page ? parseInt(query.page.toString()) : 1;
 
   const [selectedTagList, setSelectedTagList] = useState<string[]>([]);
-  const tagTotal = selectedTagList.length;
 
   const filteredData = useMemo(() => {
     if (!selectedTagList.length) {
@@ -34,41 +33,45 @@ const BlogPage = ({ data, allTags }: BlogProps) => {
     );
   }, [data, selectedTagList]);
 
-  const handleToggleValue = useCallback(
-    ({ checked, value }: { checked: boolean; value: string }) => {
-      setSelectedTagList(prevList => {
-        if (checked) {
-          return [...prevList, value];
-        }
-        return prevList.filter(v => v !== value);
-      });
-    },
-    [setSelectedTagList],
-  );
-  const isChecked = useCallback(
-    (value: string) => selectedTagList.includes(value),
-    [selectedTagList],
-  );
-
   const postData = useMemo(() => {
     const start = Constant.POSTS_PER_PAGE * (currentPage - 1);
     const end = Constant.POSTS_PER_PAGE * currentPage;
 
     return filteredData.slice(start, end);
   }, [currentPage, filteredData]);
-  const postTotal = useMemo(() => filteredData.length, [filteredData]);
-
-  const handlePageChange = useCallback(
-    (page: number) => {
-      push({
-        pathname: '/blog',
-        query: { page },
-      });
-    },
-    [push],
-  );
 
   const [activeTagList, setActiveTagList] = useState<string[]>([]);
+
+  const BlogPageProps = {
+    handleToggleValue: useCallback(({ checked, value }: { checked: boolean; value: string }) => {
+      setSelectedTagList(prevList => {
+        if (checked) {
+          return [...prevList, value];
+        }
+        return prevList.filter(v => v !== value);
+      });
+    }, []),
+
+    isChecked: useCallback((value: string) => selectedTagList.includes(value), [selectedTagList]),
+    highlightedTags: useCallback((value: string) => activeTagList.includes(value), [activeTagList]),
+
+    handlePageChange: useCallback(
+      (page: number) => {
+        push({
+          pathname: '/blog',
+          query: { page },
+        });
+      },
+      [push],
+    ),
+
+    allTags,
+    postData,
+    currentPage,
+    postTotal: useMemo(() => filteredData.length, [filteredData]),
+    tagTotal: useMemo(() => selectedTagList.length, [selectedTagList]),
+  };
+
   useEffect(() => {
     const activeTags: string[] = [];
 
@@ -86,21 +89,10 @@ const BlogPage = ({ data, allTags }: BlogProps) => {
     setActiveTagList(Array.from(new Set(activeTags)));
   }, [selectedTagList, filteredData]);
 
-  console.log('selectedTagList: >> ', selectedTagList);
-  console.log('activeTagList: >> ', activeTagList);
   return (
     <>
       <HeadMeta />
-      <BlogView
-        tagTotal={tagTotal}
-        postTotal={postTotal}
-        allTags={allTags}
-        postData={postData}
-        currentPage={currentPage}
-        handlePageChange={handlePageChange}
-        isChecked={isChecked}
-        handleToggleValue={handleToggleValue}
-      />
+      <BlogView {...BlogPageProps} />
     </>
   );
 };

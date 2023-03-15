@@ -3,22 +3,22 @@ import { useEffect } from 'react';
 
 interface TagItemProps {
   name: string;
-  tagTotal?: number;
-  view?: boolean;
+  isReadOnly?: boolean;
   isChecked?: (value: string) => boolean;
+  highlightedTags?: (value: string) => boolean;
   handleToggleValue?: ({ checked, value }: { checked: boolean; value: string }) => void;
   color?: keyof typeof BaseStyle.colors;
 }
 
 const TagItem = ({
   name,
-  tagTotal,
-  view = false,
+  isReadOnly = false,
   color,
   isChecked,
+  highlightedTags,
   handleToggleValue,
 }: TagItemProps) => {
-  if (view) {
+  if (isReadOnly) {
     const backgroundColor = color ? BaseStyle.colors[color] : '';
     return (
       <button
@@ -30,10 +30,17 @@ const TagItem = ({
     );
   }
 
+  const style = {
+    base: 'block px-5 py-3 rounded-3xl bg-gray-100 border border-white cursor-pointer',
+    highlighted: 'bg-black text-white',
+    unhighlighted: 'bg-gray-100/30 text-black/30',
+    borderRed: 'border-red-500',
+  };
+
   return (
     <label
-      className={`block px-5 py-3 bg-gray-50 border rounded-3xl cursor-pointer hover:border-red-500 ${
-        isChecked?.(name) ? 'border-red-300' : 'border-white'
+      className={`${style.base} hover:${style.borderRed} ${
+        highlightedTags?.(name) ? (isChecked?.(name) ? style.highlighted : '') : style.unhighlighted
       }`}
     >
       <input

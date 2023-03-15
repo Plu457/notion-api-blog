@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useCallback, useEffect, useState } from 'react';
 
 import { Constant } from '@/commons';
-import { ImageSrcType } from 'pages/api/getImageSrc';
 import { CardData } from '@/types/CardData';
-import TagList from '@/components/tags/TagList';
+import { ImageSrcType } from 'pages/api/getImageSrc';
 import IconRenderer from './IconRenderer';
 
 interface CardItemProps {
@@ -17,11 +16,8 @@ const CardItem = ({ data }: CardItemProps) => {
 
   const [coverSrc, setCoverSrc] = useState(cover);
   const [iconSrc, setIconSrc] = useState(icon);
-  const [isLoading, setIsLoading] = useState(true);
 
   const getImageSrc = useCallback(async () => {
-    setIsLoading(true);
-
     const res = await fetch(`api/getImageSrc?id=${id}`);
     const { cover, icon }: ImageSrcType = await res.json();
 
@@ -62,7 +58,6 @@ const CardItem = ({ data }: CardItemProps) => {
             </div>
           </a>
         </Link>
-        <div className="mt-4">{/* <TagList tags={tags} /> */}</div>
       </article>
     </li>
   );

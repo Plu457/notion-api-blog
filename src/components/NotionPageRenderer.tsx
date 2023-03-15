@@ -16,10 +16,9 @@ const Equation = dynamic(() =>
 
 interface NotionPageRendererProps {
   recordMap: ExtendedRecordMap;
-  isProfile?: boolean;
 }
 
-const NotionPageRenderer = ({ recordMap, isProfile }: NotionPageRendererProps) => {
+const NotionPageRenderer = ({ recordMap }: NotionPageRendererProps) => {
   return (
     <NotionRenderer
       recordMap={recordMap}

@@ -1,5 +1,4 @@
 import { BaseStyle } from '@/commons';
-import { useEffect } from 'react';
 
 interface TagItemProps {
   name: string;
@@ -10,39 +9,35 @@ interface TagItemProps {
   color?: keyof typeof BaseStyle.colors;
 }
 
-const TagItem = ({
-  name,
-  isReadOnly = false,
-  color,
-  isChecked,
-  highlightedTags,
-  handleToggleValue,
-}: TagItemProps) => {
-  if (isReadOnly) {
-    const backgroundColor = color ? BaseStyle.colors[color] : '';
-    return (
-      <button
-        className="px-2 py-1 text-sm font-light transition-all duration-300 border rounded-xl hover:-translate-y-1 hover:shadow-md"
-        style={{ backgroundColor }}
-      >
-        {name}
-      </button>
-    );
+const ReadOnlyTag = ({ name, color }) => {
+  const backgroundColor = color ? BaseStyle.colors[color] : '';
+  return (
+    <button
+      className="px-2 py-1 text-sm font-light transition-all duration-300 border rounded-xl hover:-translate-y-1 hover:shadow-md"
+      style={{ backgroundColor }}
+    >
+      {name}
+    </button>
+  );
+};
+
+const getTagItemClassNames = (style, isChecked, highlightedTags, name) => {
+  const classNames = [style.base, `hover:${style.borderRed}`];
+
+  if (highlightedTags?.(name)) {
+    classNames.push(isChecked?.(name) ? style.selected : style.highlighted);
+  } else {
+    classNames.push(style.unhighlighted);
   }
 
-  const style = {
-    base: 'block px-5 py-3 rounded-3xl bg-gray-100 border border-white cursor-pointer',
-    highlighted: 'bg-black text-white',
-    unhighlighted: 'bg-gray-100/30 text-black/30',
-    borderRed: 'border-red-500',
-  };
+  return classNames.join(' ');
+};
+
+const SelectableTag = ({ name, isChecked, highlightedTags, handleToggleValue, style }) => {
+  const classNames = getTagItemClassNames(style, isChecked, highlightedTags, name);
 
   return (
-    <label
-      className={`${style.base} hover:${style.borderRed} ${
-        highlightedTags?.(name) ? (isChecked?.(name) ? style.highlighted : '') : style.unhighlighted
-      }`}
-    >
+    <label className={classNames}>
       <input
         type="checkbox"
         className="sr-only"
@@ -51,6 +46,37 @@ const TagItem = ({
       />
       {name}
     </label>
+  );
+};
+
+const TagItem = ({
+  name,
+  isReadOnly = false,
+  color,
+  isChecked,
+  highlightedTags,
+  handleToggleValue,
+}: TagItemProps) => {
+  const style = {
+    base: 'block px-5 py-3 rounded-3xl border border-white cursor-pointer',
+    highlighted: 'bg-gray-100',
+    unhighlighted: 'bg-gray-100/30 text-black/30',
+    selected: 'bg-black text-white',
+    borderRed: 'border-red-500',
+  };
+
+  if (isReadOnly) {
+    return <ReadOnlyTag name={name} color={color} />;
+  }
+
+  return (
+    <SelectableTag
+      name={name}
+      isChecked={isChecked}
+      highlightedTags={highlightedTags}
+      handleToggleValue={handleToggleValue}
+      style={style}
+    />
   );
 };
 

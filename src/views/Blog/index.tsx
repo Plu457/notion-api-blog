@@ -11,7 +11,7 @@ interface BlogViewProps {
   currentPage: number;
   handlePageChange: (page: number) => void;
   isChecked: (value: string) => boolean;
-  highlightedTags: (value: string) => boolean;
+  isHighlighted: (value: string) => boolean;
   handleToggleValue: ({ checked, value }: { checked: boolean; value: string }) => void;
 }
 
@@ -22,7 +22,7 @@ const BlogView = ({
   currentPage,
   handlePageChange,
   isChecked,
-  highlightedTags,
+  isHighlighted,
   handleToggleValue,
 }: BlogViewProps) => {
   return (
@@ -32,7 +32,7 @@ const BlogView = ({
         <TagList
           tags={allTags}
           isChecked={isChecked}
-          highlightedTags={highlightedTags}
+          isHighlighted={isHighlighted}
           handleToggleValue={handleToggleValue}
         />
       </header>

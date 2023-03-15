@@ -4,7 +4,7 @@ interface TagItemProps {
   name: string;
   isReadOnly?: boolean;
   isChecked?: (value: string) => boolean;
-  highlightedTags?: (value: string) => boolean;
+  isHighlighted?: (value: string) => boolean;
   handleToggleValue?: ({ checked, value }: { checked: boolean; value: string }) => void;
   color?: keyof typeof BaseStyle.colors;
 }
@@ -21,10 +21,10 @@ const ReadOnlyTag = ({ name, color }) => {
   );
 };
 
-const getTagItemClassNames = (style, isChecked, highlightedTags, name) => {
+const getTagItemClassNames = (style, isChecked, isHighlighted, name) => {
   const classNames = [style.base, `hover:${style.borderRed}`];
 
-  if (highlightedTags?.(name)) {
+  if (isHighlighted?.(name)) {
     classNames.push(isChecked?.(name) ? style.selected : style.highlighted);
   } else {
     classNames.push(style.unhighlighted);
@@ -33,8 +33,8 @@ const getTagItemClassNames = (style, isChecked, highlightedTags, name) => {
   return classNames.join(' ');
 };
 
-const SelectableTag = ({ name, isChecked, highlightedTags, handleToggleValue, style }) => {
-  const classNames = getTagItemClassNames(style, isChecked, highlightedTags, name);
+const SelectableTag = ({ name, isChecked, isHighlighted, handleToggleValue, style }) => {
+  const classNames = getTagItemClassNames(style, isChecked, isHighlighted, name);
 
   return (
     <label className={classNames}>
@@ -54,7 +54,7 @@ const TagItem = ({
   isReadOnly = false,
   color,
   isChecked,
-  highlightedTags,
+  isHighlighted,
   handleToggleValue,
 }: TagItemProps) => {
   const style = {
@@ -73,7 +73,7 @@ const TagItem = ({
     <SelectableTag
       name={name}
       isChecked={isChecked}
-      highlightedTags={highlightedTags}
+      isHighlighted={isHighlighted}
       handleToggleValue={handleToggleValue}
       style={style}
     />

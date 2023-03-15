@@ -17,6 +17,37 @@ interface BlogProps {
   allTags: CardData['tags'];
 }
 
+const useActiveTagList = (
+  selectedTagList: string[],
+  filteredData: CardData[],
+): [string[], (value: string) => boolean] => {
+  const [activeTagList, setActiveTagList] = useState<string[]>([]);
+
+  useEffect(() => {
+    const activeTags: string[] = [];
+
+    filteredData.forEach(item => {
+      if (
+        selectedTagList.length === 0 ||
+        item.tags.some(tag => selectedTagList.includes(tag.name))
+      ) {
+        item.tags.forEach(tag => {
+          activeTags.push(tag.name);
+        });
+      }
+    });
+
+    setActiveTagList(Array.from(new Set(activeTags)));
+  }, [selectedTagList, filteredData]);
+
+  const isHighlighted = useCallback(
+    (value: string) => activeTagList.includes(value),
+    [activeTagList],
+  );
+
+  return [activeTagList, isHighlighted];
+};
+
 const BlogPage = ({ data, allTags }: BlogProps) => {
   const { query, push } = useRouter();
   const currentPage = query.page ? parseInt(query.page.toString()) : 1;
@@ -40,54 +71,46 @@ const BlogPage = ({ data, allTags }: BlogProps) => {
     return filteredData.slice(start, end);
   }, [currentPage, filteredData]);
 
-  const [activeTagList, setActiveTagList] = useState<string[]>([]);
-
-  const BlogPageProps = {
-    handleToggleValue: useCallback(({ checked, value }: { checked: boolean; value: string }) => {
+  const handleToggleValue = useCallback(
+    ({ checked, value }: { checked: boolean; value: string }) => {
       setSelectedTagList(prevList => {
         if (checked) {
           return [...prevList, value];
         }
         return prevList.filter(v => v !== value);
       });
-    }, []),
+    },
+    [],
+  );
 
-    isChecked: useCallback((value: string) => selectedTagList.includes(value), [selectedTagList]),
-    highlightedTags: useCallback((value: string) => activeTagList.includes(value), [activeTagList]),
+  const isChecked = useCallback(
+    (value: string) => selectedTagList.includes(value),
+    [selectedTagList],
+  );
 
-    handlePageChange: useCallback(
-      (page: number) => {
-        push({
-          pathname: '/blog',
-          query: { page },
-        });
-      },
-      [push],
-    ),
+  const [activeTagList, isHighlighted] = useActiveTagList(selectedTagList, filteredData);
 
+  const handlePageChange = useCallback(
+    (page: number) => {
+      push({
+        pathname: '/blog',
+        query: { page },
+      });
+    },
+    [push],
+  );
+
+  const BlogPageProps = {
+    handleToggleValue,
+    isChecked,
+    isHighlighted,
+    handlePageChange,
     allTags,
     postData,
     currentPage,
     postTotal: useMemo(() => filteredData.length, [filteredData]),
     tagTotal: useMemo(() => selectedTagList.length, [selectedTagList]),
   };
-
-  useEffect(() => {
-    const activeTags: string[] = [];
-
-    filteredData.forEach(item => {
-      if (
-        selectedTagList.length === 0 ||
-        item.tags.some(tag => selectedTagList.includes(tag.name))
-      ) {
-        item.tags.forEach(tag => {
-          activeTags.push(tag.name);
-        });
-      }
-    });
-
-    setActiveTagList(Array.from(new Set(activeTags)));
-  }, [selectedTagList, filteredData]);
 
   return (
     <>

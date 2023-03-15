@@ -14,7 +14,7 @@ const ProfilePage = ({ recordMap }: ProfilePageProps) => {
     <>
       <HeadMeta />
       <section>
-        <NotionPageRenderer recordMap={recordMap} isProfile />
+        <NotionPageRenderer recordMap={recordMap} />
       </section>
     </>
   );

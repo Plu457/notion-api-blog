@@ -11,9 +11,7 @@ interface CardItemProps {
   data: CardData;
 }
 
-const CardItem = ({ data }: CardItemProps) => {
-  const { id, cover, icon, title, description, published, tags, expiryTime, preview } = data;
-
+const useImageLoading = (id: string, expiryTime: string, cover: string, icon: CardData['icon']) => {
   const [coverSrc, setCoverSrc] = useState(cover);
   const [iconSrc, setIconSrc] = useState(icon);
 
@@ -30,6 +28,14 @@ const CardItem = ({ data }: CardItemProps) => {
 
     if (isExpired) getImageSrc();
   }, [expiryTime, getImageSrc]);
+
+  return { coverSrc, iconSrc, getImageSrc };
+};
+
+const CardItem = ({ data }: CardItemProps) => {
+  const { id, cover, icon, title, description, published, expiryTime, preview } = data;
+
+  const { coverSrc, iconSrc, getImageSrc } = useImageLoading(id, expiryTime, cover, icon);
 
   return (
     <li className="list-none">

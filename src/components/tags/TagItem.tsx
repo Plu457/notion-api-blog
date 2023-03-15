@@ -22,7 +22,7 @@ const ReadOnlyTag = ({ name, color }) => {
 };
 
 const getTagItemClassNames = (style, isChecked, isHighlighted, name) => {
-  const classNames = [style.base, `hover:${style.borderRed}`];
+  const classNames = [style.base];
 
   if (isHighlighted?.(name)) {
     classNames.push(isChecked?.(name) ? style.selected : style.highlighted);
@@ -59,10 +59,9 @@ const TagItem = ({
 }: TagItemProps) => {
   const style = {
     base: 'block px-5 py-3 rounded-3xl border border-white cursor-pointer',
-    highlighted: 'bg-gray-100',
+    highlighted: 'bg-gray-100 hover:border-red-500',
     unhighlighted: 'bg-gray-100/30 text-black/30',
-    selected: 'bg-black text-white',
-    borderRed: 'border-red-500',
+    selected: 'bg-black text-white hover:border-red-500',
   };
 
   if (isReadOnly) {

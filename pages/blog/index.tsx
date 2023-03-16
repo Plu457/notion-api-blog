@@ -12,10 +12,7 @@ import { insertPreviewImage } from '@/utils/previewImage';
 import HeadMeta from '@/components/HeadMeta';
 import BlogView from '@/views/Blog';
 
-interface BlogProps {
-  data: CardData[];
-  allTags: CardData['tags'];
-}
+import { BlogPageProps } from '@/types/BlogTypes';
 
 const useActiveTagList = (
   selectedTagList: string[],
@@ -48,7 +45,7 @@ const useActiveTagList = (
   return [activeTagList, isHighlighted];
 };
 
-const BlogPage = ({ data, allTags }: BlogProps) => {
+const BlogPage = ({ data, allTags }: BlogPageProps) => {
   const { query, push } = useRouter();
   const currentPage = query.page ? parseInt(query.page.toString()) : 1;
 
@@ -122,7 +119,7 @@ const BlogPage = ({ data, allTags }: BlogProps) => {
 
 export default BlogPage;
 
-export const getStaticProps: GetStaticProps<BlogProps> = async () => {
+export const getStaticProps: GetStaticProps<BlogPageProps> = async () => {
   const databaseId = process.env.DATABASE_ID;
 
   if (!databaseId) throw new Error('DATABASE_ID is not defined');

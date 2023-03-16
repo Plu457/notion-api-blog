@@ -1,19 +1,8 @@
-import { CardData } from '@/types/CardData';
 import CardList from '@/components/card/CardList';
 import Pagination from '@/components/Pagination';
 import TagList from '@/components/tags/TagList';
 
-interface BlogViewProps {
-  tagTotal: number;
-  postTotal: number;
-  allTags: CardData['tags'];
-  postData: CardData[];
-  currentPage: number;
-  handlePageChange: (page: number) => void;
-  isChecked: (value: string) => boolean;
-  isHighlighted: (value: string) => boolean;
-  handleToggleValue: ({ checked, value }: { checked: boolean; value: string }) => void;
-}
+import { BlogViewProps } from '@/types/BlogTypes';
 
 const BlogView = ({
   postTotal,

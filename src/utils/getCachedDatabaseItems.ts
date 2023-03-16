@@ -4,7 +4,7 @@ import path from 'path';
 
 const OPTION_QUERY = 'option';
 
-export const getCachedDatabaseItems = async (databaseId: string, option?: string[]) => {
+const getCachedDatabaseItems = async (databaseId: string, option?: string[]) => {
   if (process.env.NODE_ENV === 'development') return await getDatabaseItems(databaseId, option);
 
   const cacheKey = new URLSearchParams({});
@@ -39,3 +39,5 @@ export const getCachedDatabaseItems = async (databaseId: string, option?: string
 
   return cachedData;
 };
+
+export default getCachedDatabaseItems;

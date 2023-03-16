@@ -2,9 +2,7 @@ import { GetStaticProps } from 'next';
 
 import CardItem from '@/components/card/CardItem';
 import { CardData } from '@/types/CardData';
-import { getCachedDatabaseItems } from '@/utils/getCachedDatabaseItems';
-import { parseDatabaseItems } from '@/utils/parseDatabaseItems';
-import { insertPreviewImage } from '@/utils/previewImage';
+import { getCachedDatabaseItems, parseDatabaseItems, previewImage } from '@/utils';
 
 interface NotFoundPageProps {
   data: CardData;
@@ -36,7 +34,7 @@ export const getStaticProps: GetStaticProps<NotFoundPageProps> = async () => {
 
   const parsedData = parseDatabaseItems(databaseItems);
 
-  const dataWithPreview = await insertPreviewImage(parsedData);
+  const dataWithPreview = await previewImage.insertPreviewImage(parsedData);
 
   return {
     props: {

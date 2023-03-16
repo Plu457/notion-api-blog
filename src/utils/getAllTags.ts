@@ -1,6 +1,6 @@
 import { CardData } from '@/types/CardData';
 
-export const getAllTags = (data: CardData[]) =>
+const getAllTags = (data: CardData[]) =>
   data.reduce<CardData['tags']>((acc, { tags }) => {
     tags.forEach(tag => {
       if (!acc.find(item => item.id === tag.id)) {
@@ -10,3 +10,5 @@ export const getAllTags = (data: CardData[]) =>
 
     return acc;
   }, []);
+
+export default getAllTags;

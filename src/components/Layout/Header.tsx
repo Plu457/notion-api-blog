@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
-import { AiOutlineMenu, AiOutlineSearch } from 'react-icons/ai';
-import HeaderMenu from './HeaderMenu';
-import OverlayCurtain from './OverlayCurtain';
-import { useRouter } from 'next/router';
 import { Constant } from '@/commons';
+import { useRouter } from 'next/router';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 const Header = () => {
   const { pathname } = useRouter();

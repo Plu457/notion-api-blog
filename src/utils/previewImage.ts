@@ -6,7 +6,7 @@ import { defaultMapImageUrl } from 'react-notion-x';
 
 import { CardData } from '@/types/CardData';
 
-export const makePreviewImage = async (url: string) => {
+const makePreviewImage = async (url: string) => {
   const body = await got(url, { responseType: 'buffer', resolveBodyOnly: true });
 
   try {
@@ -27,7 +27,7 @@ export const makePreviewImage = async (url: string) => {
 
 export type PreviewImageType = Awaited<ReturnType<typeof makePreviewImage>>;
 
-export const insertPreviewImage = async (data: CardData[]): Promise<CardData[]> =>
+const insertPreviewImage = async (data: CardData[]): Promise<CardData[]> =>
   await Promise.all(
     data.map(async item => ({
       ...item,
@@ -35,7 +35,7 @@ export const insertPreviewImage = async (data: CardData[]): Promise<CardData[]> 
     })),
   );
 
-export const insertPreviewImageToRecordMap = async (
+const insertPreviewImageToRecordMap = async (
   recordMap: ExtendedRecordMap,
 ): Promise<Record<string, PreviewImageType>> => {
   const urls = getPageImageUrls(recordMap, {
@@ -47,4 +47,11 @@ export const insertPreviewImageToRecordMap = async (
   );
 
   return Object.fromEntries(previewImageMap);
+};
+
+// eslint-disable-next-line import/no-anonymous-default-export
+export default {
+  makePreviewImage,
+  insertPreviewImage,
+  insertPreviewImageToRecordMap,
 };

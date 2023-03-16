@@ -1,7 +1,7 @@
 import { getDatabaseItems } from '@/cms/notion';
 import { CardData } from '@/types/CardData';
 
-export const parseDatabaseItems = (databaseItems: Awaited<ReturnType<typeof getDatabaseItems>>) =>
+const parseDatabaseItems = (databaseItems: Awaited<ReturnType<typeof getDatabaseItems>>) =>
   databaseItems.reduce<CardData[]>((acc, item) => {
     if (!('properties' in item)) return acc;
 
@@ -43,3 +43,5 @@ export const parseDatabaseItems = (databaseItems: Awaited<ReturnType<typeof getD
 
     return acc;
   }, []);
+
+export default parseDatabaseItems;

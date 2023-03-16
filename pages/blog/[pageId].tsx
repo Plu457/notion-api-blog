@@ -4,9 +4,8 @@ import { useRouter } from 'next/router';
 import { ExtendedRecordMap } from 'notion-types';
 
 import LoadingSpinner from '@/components/LoadingSpinner';
-import { getCachedDatabaseItems } from '@/utils/getCachedDatabaseItems';
-import { insertPreviewImageToRecordMap } from '@/utils/previewImage';
 import BlogDetailView from '@/views/Blog/BlogDetailView';
+import { getCachedDatabaseItems, previewImage } from '@/utils';
 
 interface BlogDetailProps {
   recordMap: ExtendedRecordMap;
@@ -34,7 +33,7 @@ export const getStaticProps: GetStaticProps<BlogDetailProps> = async ({ params }
 
   const recordMap = await getPageContent(pageId.toString());
 
-  const preview_images = await insertPreviewImageToRecordMap(recordMap);
+  const preview_images = await previewImage.insertPreviewImageToRecordMap(recordMap);
 
   return {
     props: { recordMap: { ...recordMap, preview_images } },

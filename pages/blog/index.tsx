@@ -1,49 +1,15 @@
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { Constant } from '@/commons';
-import { CardData } from '@/types/CardData';
-import { getAllTags } from '@/utils/getAllTags';
-import { getCachedDatabaseItems } from '@/utils/getCachedDatabaseItems';
-import { parseDatabaseItems } from '@/utils/parseDatabaseItems';
-import { insertPreviewImage } from '@/utils/previewImage';
 
 import HeadMeta from '@/components/HeadMeta';
 import BlogView from '@/views/Blog';
 
+import { useActiveTagList } from '@/hooks';
 import { BlogPageProps } from '@/types/BlogTypes';
-
-const useActiveTagList = (
-  selectedTagList: string[],
-  filteredData: CardData[],
-): [string[], (value: string) => boolean] => {
-  const [activeTagList, setActiveTagList] = useState<string[]>([]);
-
-  useEffect(() => {
-    const activeTags: string[] = [];
-
-    filteredData.forEach(item => {
-      if (
-        selectedTagList.length === 0 ||
-        item.tags.some(tag => selectedTagList.includes(tag.name))
-      ) {
-        item.tags.forEach(tag => {
-          activeTags.push(tag.name);
-        });
-      }
-    });
-
-    setActiveTagList(Array.from(new Set(activeTags)));
-  }, [selectedTagList, filteredData]);
-
-  const isHighlighted = useCallback(
-    (value: string) => activeTagList.includes(value),
-    [activeTagList],
-  );
-
-  return [activeTagList, isHighlighted];
-};
+import { getAllTags, getCachedDatabaseItems, parseDatabaseItems, previewImage } from '@/utils';
 
 const BlogPage = ({ data, allTags }: BlogPageProps) => {
   const { query, push } = useRouter();
@@ -128,7 +94,7 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async () => {
 
   const parsedData = parseDatabaseItems(databaseItems);
 
-  const dataWithPreview = await insertPreviewImage(parsedData);
+  const dataWithPreview = await previewImage.insertPreviewImage(parsedData);
 
   const allTags = getAllTags(parsedData);
 

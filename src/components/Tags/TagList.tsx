@@ -1,12 +1,5 @@
-import { CardData } from '@/types/CardData';
 import TagItem from './TagItem';
-
-interface TagListProps {
-  tags: CardData['tags'];
-  isChecked: (value: string) => boolean;
-  isHighlighted: (value: string) => boolean;
-  handleToggleValue: ({ checked, value }: { checked: boolean; value: string }) => void;
-}
+import { TagListProps } from './TagTypes';
 
 const TagList = ({ tags, isChecked, isHighlighted, handleToggleValue }: TagListProps) => {
   return (

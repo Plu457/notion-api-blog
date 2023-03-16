@@ -1,15 +1,12 @@
 import { BaseStyle } from '@/commons';
+import {
+  GetTagItemClassNamesParams,
+  ReadOnlyTagProps,
+  SelectableTagProps,
+  TagItemProps,
+} from './TagTypes';
 
-interface TagItemProps {
-  name: string;
-  isReadOnly?: boolean;
-  isChecked?: (value: string) => boolean;
-  isHighlighted?: (value: string) => boolean;
-  handleToggleValue?: ({ checked, value }: { checked: boolean; value: string }) => void;
-  color?: keyof typeof BaseStyle.colors;
-}
-
-const ReadOnlyTag = ({ name, color }) => {
+const ReadOnlyTag = ({ name, color }: ReadOnlyTagProps) => {
   const backgroundColor = color ? BaseStyle.colors[color] : '';
   return (
     <button
@@ -21,7 +18,12 @@ const ReadOnlyTag = ({ name, color }) => {
   );
 };
 
-const getTagItemClassNames = (style, isChecked, isHighlighted, name) => {
+const getTagItemClassNames = ({
+  style,
+  isChecked,
+  isHighlighted,
+  name,
+}: GetTagItemClassNamesParams) => {
   const classNames = [style.base];
 
   if (isHighlighted?.(name)) {
@@ -33,8 +35,14 @@ const getTagItemClassNames = (style, isChecked, isHighlighted, name) => {
   return classNames.join(' ');
 };
 
-const SelectableTag = ({ name, isChecked, isHighlighted, handleToggleValue, style }) => {
-  const classNames = getTagItemClassNames(style, isChecked, isHighlighted, name);
+const SelectableTag = ({
+  name,
+  isChecked,
+  isHighlighted,
+  handleToggleValue,
+  style,
+}: SelectableTagProps) => {
+  const classNames = getTagItemClassNames({ style, isChecked, isHighlighted, name });
 
   return (
     <label className={classNames}>

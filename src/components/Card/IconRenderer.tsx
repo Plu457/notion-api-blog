@@ -1,9 +1,5 @@
 import Image from 'next/image';
-import { CardData } from '@/types/CardData';
-
-interface IconRendererProps {
-  icon: CardData['icon'];
-}
+import { IconRendererProps } from './CardTypes';
 
 const IconRenderer = ({ icon }: IconRendererProps) => {
   if (!icon) return null;

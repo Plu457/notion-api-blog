@@ -1,9 +1,5 @@
-import { CardData } from '@/types/CardData';
 import CardItem from './CardItem';
-
-interface CardListProps {
-  data: CardData[];
-}
+import { CardListProps } from './CardTypes';
 
 const CardList = ({ data }: CardListProps) => {
   return (

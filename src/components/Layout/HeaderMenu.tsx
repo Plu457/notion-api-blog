@@ -1,10 +1,9 @@
-import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { AiOutlineHome, AiOutlineTags, AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
 import { Images } from '@/commons';
+import { AiOutlineHome, AiOutlineSearch, AiOutlineTags, AiOutlineUser } from 'react-icons/ai';
 
 const NavTable = {
   '/': {
@@ -32,6 +31,15 @@ interface HeaderMenuProps {
 const HeaderMenu = ({ isMenuOpen }: HeaderMenuProps) => {
   const { asPath } = useRouter();
 
+  const getMenuItemClass = (href: string) => {
+    const isActive = asPath === href;
+    const baseClass = 'text-xl px-8 py-6 cursor-pointer flex flex-row items-center gap-2';
+
+    return `${baseClass} ${
+      isActive ? 'text-black bg-gray-100' : 'text-gray-500 hover:text-black hover:bg-gray-100'
+    }`;
+  };
+
   return (
     <aside
       className={`z-50 fixed top-0 bottom-0 w-3/5 max-w-sm bg-white transition-all duration-500 ${
@@ -48,16 +56,11 @@ const HeaderMenu = ({ isMenuOpen }: HeaderMenuProps) => {
           </Link>
         </h1>
 
-        <ul className="flex flex-col mt-8 text-gray-500">
+        <ul className="flex flex-col mt-8">
           {Object.entries(NavTable).map(([href, value]) => (
-            <li
-              key={href}
-              className={`text-xl  hover:text-black hover:bg-gray-100 ${
-                asPath === href ? 'text-black bg-gray-100' : ''
-              }`}
-            >
+            <li key={href} className={getMenuItemClass(href)}>
               <Link href={href}>
-                <a className="flex flex-row items-center gap-2 px-8 py-6 cursor-pointer">
+                <a>
                   <span>{value.icon}</span>
                   {value.name}
                 </a>

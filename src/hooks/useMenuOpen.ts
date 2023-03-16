@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-const useMenuOpen = (initialState = false) => {
+type UseMenuOpenReturnType = [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+
+const useMenuOpen = (initialState: boolean = false): UseMenuOpenReturnType => {
   const [isMenuOpen, setIsMenuOpen] = useState(initialState);
   const { pathname } = useRouter();
 

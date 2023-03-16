@@ -46,7 +46,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   if (!databaseId) throw Error('DATABASE_ID is not defined');
 
-  const databaseItems = await getCachedDatabaseItems(databaseId);
+  const databaseItems = await getCachedDatabaseItems({ databaseId });
 
   const paths = databaseItems.map(({ id: pageId }) => ({ params: { pageId } }));
 

@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps<NotFoundPageProps> = async () => {
 
   if (!databaseId) throw new Error('DATABASE_ID is not defined');
 
-  const databaseItems = await getCachedDatabaseItems(databaseId);
+  const databaseItems = await getCachedDatabaseItems({ databaseId });
 
   const parsedData = parseDatabaseItems(databaseItems);
 

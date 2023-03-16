@@ -12,9 +12,13 @@ export const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
-export const getDatabaseItems = async (databaseId: string, options?: string[]) => {
-  const tags = Array.isArray(options) ? options : [];
-  const tagFilters = tags?.map(tagName => ({
+export interface DatabaseOption {
+  databaseId: string;
+  options?: string[];
+}
+
+export const getDatabaseItems = async ({ databaseId, options = [] }: DatabaseOption) => {
+  const tagFilters = options.map(tagName => ({
     property: propertyTable.Tags,
     multi_select: {
       contains: tagName,

@@ -1,15 +1,16 @@
-import { getDatabaseItems } from '@/cms/notion';
+import { DatabaseOption, getDatabaseItems } from '@/cms/notion';
 import fs from 'fs';
 import path from 'path';
 
 const OPTION_QUERY = 'option';
 
-const getCachedDatabaseItems = async (databaseId: string, option?: string[]) => {
-  if (process.env.NODE_ENV === 'development') return await getDatabaseItems(databaseId, option);
+const getCachedDatabaseItems = async ({ databaseId, options }: DatabaseOption) => {
+  if (process.env.NODE_ENV === 'development')
+    return await getDatabaseItems({ databaseId, options });
 
   const cacheKey = new URLSearchParams({});
 
-  if (option) cacheKey.append(OPTION_QUERY, JSON.stringify(option));
+  if (options) cacheKey.append(OPTION_QUERY, JSON.stringify(options));
 
   const CACHE_PATH = path.join(
     __dirname,
@@ -26,7 +27,7 @@ const getCachedDatabaseItems = async (databaseId: string, option?: string[]) => 
   }
 
   if (!cachedData.length) {
-    cachedData = await getDatabaseItems(databaseId, option);
+    cachedData = await getDatabaseItems({ databaseId, options });
 
     try {
       if (!fs.existsSync(CACHE_PATH)) {

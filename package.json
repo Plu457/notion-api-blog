@@ -13,6 +13,7 @@
     "@giscus/react": "^2.2.6",
     "@notionhq/client": "^2.2.2",
     "@vercel/og": "^0.0.27",
+    "framer-motion": "^10.3.4",
     "got": "^12.5.3",
     "lqip-modern": "^2.0.0",
     "next": "12.3.1",

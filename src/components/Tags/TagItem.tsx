@@ -50,6 +50,7 @@ const SelectableTag = ({
         type="checkbox"
         className="sr-only"
         checked={isChecked?.(name)}
+        disabled={!isHighlighted?.(name)}
         onChange={({ target: { checked } }) => handleToggleValue?.({ checked, value: name })}
       />
       {name}

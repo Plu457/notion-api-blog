@@ -37,7 +37,6 @@ const BlogPage = ({ data, allTags }: BlogPageProps) => {
   const handleToggleValue = useCallback(
     ({ checked, value }: { checked: boolean; value: string }) => {
       if (currentPage !== 1) {
-        // 페이지 번호가 1이 아닌 경우, 페이지 번호를 1로 이동
         push({
           pathname: '/blog',
           query: { page: 1 },

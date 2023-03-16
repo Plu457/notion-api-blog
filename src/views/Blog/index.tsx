@@ -1,6 +1,6 @@
-import CardList from '@/components/card/CardList';
+import CardList from '@/components/Card/CardList';
 import Pagination from '@/components/Pagination';
-import TagList from '@/components/tags/TagList';
+import TagList from '@/components/Tags/TagList';
 
 import { BlogViewProps } from '@/types/BlogTypes';
 

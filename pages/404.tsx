@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 
-import CardItem from '@/components/card/CardItem';
+import CardItem from '@/components/Card/CardItem';
 import { CardData } from '@/types/CardData';
 import { getCachedDatabaseItems, parseDatabaseItems, previewImage } from '@/utils';
 

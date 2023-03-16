@@ -3,20 +3,16 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { Images } from '@/commons';
-import { AiOutlineHome, AiOutlineSearch, AiOutlineTags, AiOutlineUser } from 'react-icons/ai';
+import { AiOutlineHome, AiOutlineTags, AiOutlineUser } from 'react-icons/ai';
 
 const NavTable = {
   '/': {
     name: 'Home',
     icon: <AiOutlineHome />,
   },
-  '/tags': {
-    name: 'Tags',
+  '/blog?page=1': {
+    name: 'Devlog',
     icon: <AiOutlineTags />,
-  },
-  '/search': {
-    name: 'Search',
-    icon: <AiOutlineSearch />,
   },
   '/profile': {
     name: 'Profile',

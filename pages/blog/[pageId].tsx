@@ -48,7 +48,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const databaseItems = await getCachedDatabaseItems({ databaseId });
 
-  const paths = databaseItems.map(({ id: pageId }) => ({ params: { pageId } }));
+  const paths = databaseItems.map(({ id: pageId }: { id: string }) => ({ params: { pageId } }));
 
   return {
     paths,

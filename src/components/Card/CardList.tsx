@@ -1,8 +1,7 @@
 import { motion } from 'framer-motion';
-import CardItem from './CardItem';
 import { CardListProps } from './CardTypes';
 
-const CardList = ({ data }: CardListProps) => {
+const CardList = ({ data, renderCardItem }: CardListProps) => {
   return (
     <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {data.map((item, i) => (
@@ -13,7 +12,7 @@ const CardList = ({ data }: CardListProps) => {
           transition={{ duration: 0.5, delay: (i + 1) * 0.1 }}
           viewport={{ once: true }}
         >
-          <CardItem key={item.id} data={item} />
+          {renderCardItem(item)}
         </motion.li>
       ))}
     </ul>

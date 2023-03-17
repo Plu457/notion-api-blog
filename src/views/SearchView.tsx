@@ -1,9 +1,10 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
-import { CardData } from '@/types/CardData';
+import CardItem from '@/components/Card/CardItem';
 import CardList from '@/components/Card/CardList';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import { CardData } from '@/types/CardData';
 
 interface SearchViewProps {
   searchQuery: string;
@@ -48,7 +49,10 @@ const SearchView = ({
               <LoadingSpinner />
             </div>
           ) : (
-            <CardList data={postData} />
+            <CardList
+              data={postData}
+              renderCardItem={item => <CardItem key={item.id} data={item} />}
+            />
           )}
           {!isLoading && postData.length === 0 && searchQuery.length ? (
             <div className="text-center">No Results Found</div>

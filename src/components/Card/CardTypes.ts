@@ -6,8 +6,8 @@ export interface IconRendererProps {
 
 export interface CardListProps {
   data: CardData[];
+  renderCardItem: (item: CardData) => JSX.Element;
 }
-
 export interface CardItemProps {
   data: CardData;
 }

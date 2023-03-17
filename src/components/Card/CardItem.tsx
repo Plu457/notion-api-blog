@@ -3,9 +3,9 @@ import Link from 'next/link';
 
 import { Constant } from '@/commons';
 import { useImageLoading } from '@/hooks';
+import Format from '@/utils/Format';
 import { CardItemProps } from './CardTypes';
 import IconRenderer from './IconRenderer';
-import { Format } from '@/utils';
 
 const CardItem = ({ data }: CardItemProps) => {
   const { id, cover, icon, title, description, published, expiryTime, preview } = data;

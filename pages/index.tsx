@@ -1,10 +1,17 @@
 import HeadMeta from '@/components/HeadMeta';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const Home = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push('/blog?page=1');
+  }, [router]);
+
   return (
     <>
       <HeadMeta />
-      <h1>Hello</h1>
     </>
   );
 };

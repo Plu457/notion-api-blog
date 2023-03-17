@@ -5,6 +5,7 @@ import { Constant } from '@/commons';
 import { useImageLoading } from '@/hooks';
 import { CardItemProps } from './CardTypes';
 import IconRenderer from './IconRenderer';
+import { Format } from '@/utils';
 
 const CardItem = ({ data }: CardItemProps) => {
   const { id, cover, icon, title, description, published, expiryTime, preview } = data;
@@ -31,7 +32,9 @@ const CardItem = ({ data }: CardItemProps) => {
               <IconRenderer icon={iconSrc} />
               {title}
             </h2>
-            {description ? <p className="text-gray-700">{description}</p> : null}
+            {description ? (
+              <p className="text-gray-700">{Format.truncateText(description, 100)}</p>
+            ) : null}
             <time className="font-light text-gray-500">{published}</time>
           </div>
         </a>

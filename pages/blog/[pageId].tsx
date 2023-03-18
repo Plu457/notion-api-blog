@@ -6,6 +6,8 @@ import { ExtendedRecordMap } from 'notion-types';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import BlogDetailView from '@/views/Blog/BlogDetailView';
 import { getCachedDatabaseItems, previewImage } from '@/utils';
+import HeadMeta from '@/components/HeadMeta';
+import Format from '@/utils/Format';
 
 interface BlogDetailProps {
   recordMap: ExtendedRecordMap;
@@ -21,7 +23,15 @@ const BlogDetailPage = ({ recordMap }: BlogDetailProps) => {
       </section>
     );
 
-  return <BlogDetailView recordMap={recordMap} />;
+  const title = Format.getPageProperty(recordMap, 'title');
+  const description = Format.getPageProperty(recordMap, 'SEzr');
+
+  return (
+    <>
+      <HeadMeta title={title} description={description} />
+      <BlogDetailView recordMap={recordMap} />
+    </>
+  );
 };
 
 export default BlogDetailPage;

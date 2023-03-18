@@ -5,8 +5,8 @@ import Script from 'next/script';
 import { Constant } from '@/commons';
 
 interface HeadMetaProps {
-  title?: string;
-  description?: string;
+  title?: string | null;
+  description?: string | null;
   ogImageSrc?: string;
 }
 

@@ -22,8 +22,9 @@ const BlogView = ({
         <h2 className="mb-8 text-6xl font-bold">Devlog</h2>
         <TagList
           tagList={allTags}
-          renderTagItem={({ name }) => (
+          renderTagItem={({ id, name }) => (
             <TagItem
+              key={id}
               name={name}
               isChecked={isChecked}
               isHighlighted={isHighlighted}

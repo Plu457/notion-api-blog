@@ -4,7 +4,7 @@ import { CardData } from '@/types/CardData';
 //* TagList 컴포넌트 타입
 export interface TagListProps {
   tagList: CardData['tags'];
-  renderTagItem: (item: { name: string }) => JSX.Element;
+  renderTagItem: (item: { id: string; name: string }) => JSX.Element;
 }
 
 //* TagItem 컴포넌트 타입

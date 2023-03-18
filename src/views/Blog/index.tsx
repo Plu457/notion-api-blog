@@ -34,7 +34,7 @@ const BlogView = ({
         />
       </header>
 
-      <main className="">
+      <main>
         <CardList data={postData} renderCardItem={item => <CardItem key={item.id} data={item} />} />
         <div className="flex justify-center my-4">
           <Pagination current={currentPage} total={postTotal} onPageChange={handlePageChange} />

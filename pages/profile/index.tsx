@@ -32,6 +32,7 @@ export const getStaticProps: GetStaticProps<ProfilePageProps> = async () => {
 
     return {
       props: { recordMap },
+      revalidate: 60,
     };
   } catch (error) {
     throw new Error('Error while fetching profile page');

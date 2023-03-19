@@ -18,7 +18,7 @@ export default {
       id: 'devLog',
       name: 'Devlog',
       title: '개발 관련 게시물들이 존재합니다.',
-      path: '/blog?page=1',
+      path: '/blog',
     },
     {
       id: 'aboutMe',

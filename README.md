@@ -51,6 +51,8 @@ yarn dev
 
 ## [배포링크](https://www.plu457.life)
 
+## [개발문서 (작성중)](https://www.plu457.life/blog/731e649a-b820-4d4a-b3fb-8d3d57532e20)
+
 ---
 
 <br />
@@ -222,3 +224,9 @@ yarn dev
 | `Rename: `   | 파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우    |
 | `Remove: `   | 파일을 삭제하는 작업만 수행한 경우                    |
 ```
+
+# 에러 해결
+
+- [[ Notion API ] 멀티 옵션에서 삭제해도 기록이 남는 문제 해결 방법](https://www.plu457.life/blog/d2a06837-0838-4486-a8f4-b8b41c9d1878)
+
+- [[ Notion API ] 파비콘의 의한 미리보기 에러](https://www.plu457.life/blog/6c86af64-579c-4ab1-abb8-8e49bb9bd320)

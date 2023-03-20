@@ -13,7 +13,7 @@ export default {
   DEFAULT_OG_IMAGE_SRC: '/api/og',
 
   //* Navbar 사용
-  NavItemList: [
+  NAV_ITEM_LIST: [
     {
       id: 'devLog',
       name: 'Devlog',

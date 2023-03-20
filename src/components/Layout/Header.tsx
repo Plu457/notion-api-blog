@@ -8,7 +8,7 @@ import HeaderMenu from './HeaderMenu';
 import OverlayCurtain from './OverlayCurtain';
 
 const renderNavigationItems = (pathname: string) => {
-  return Constant.NavItemList.map(({ id, name, path }) => {
+  return Constant.NAV_ITEM_LIST.map(({ id, name, path }) => {
     const isActive = pathname === path;
     const borderBottomClasses = isActive ? 'text-blue-500' : '';
 

@@ -4,5 +4,16 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    function ({ addComponents }) {
+      addComponents({
+        '.postTotal::after': {
+          content: 'attr(data-post-total)',
+          position: 'absolute',
+          fontSize: '1.5rem',
+          top: '0px',
+        },
+      });
+    },
+  ],
 };

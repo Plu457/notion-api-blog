@@ -19,7 +19,12 @@ const BlogView = ({
   return (
     <section className="flex flex-col m-4 min-h-[60vh] max-w-6xl mx-auto px-4 gap-8 ">
       <header className="mt-16 py-4">
-        <h2 className="mb-8 text-6xl font-bold">Devlog</h2>
+        <h2
+          className={`relative mb-8 text-6xl font-bold postTotal`}
+          data-post-total={`${postTotal}`}
+        >
+          Devlog
+        </h2>
         <TagList
           tagList={allTags}
           renderTagItem={({ id, name }) => (

@@ -17,6 +17,8 @@ const BlogPage = ({ data, allTags }: BlogPageProps) => {
   const [selectedTagList, setSelectedTagList] = useState<string[]>([]);
   const filteredData = useFilteredData(data, selectedTagList);
   const postData = usePostData(filteredData, currentPage);
+  const postTotal = useMemo(() => filteredData.length, [filteredData]);
+  const tagTotal = useMemo(() => selectedTagList.length, [selectedTagList]);
 
   //* 비즈니스 로직
   const [activeTagList, isHighlighted] = useActiveTagList(selectedTagList, filteredData);
@@ -29,8 +31,6 @@ const BlogPage = ({ data, allTags }: BlogPageProps) => {
     (value: string) => selectedTagList.includes(value),
     [selectedTagList],
   );
-  const postTotal = useMemo(() => filteredData.length, [filteredData]);
-  const tagTotal = useMemo(() => selectedTagList.length, [selectedTagList]);
 
   //* View 로직
   return (

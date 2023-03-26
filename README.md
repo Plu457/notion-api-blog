@@ -78,6 +78,13 @@ yarn dev
 <br />
 <br />
 
+# 블로그 관련 게시글
+
+- [SSG를 사용하여 데이터를 캐싱하는 방법](https://www.plu457.life/blog/25f860f0-0b68-415f-b26d-86f67a181990)
+
+<br />
+<br />
+
 # 에러 해결
 
 - [[ Notion API ] 멀티 옵션에서 삭제해도 기록이 남는 문제 해결 방법](https://www.plu457.life/blog/d2a06837-0838-4486-a8f4-b8b41c9d1878)

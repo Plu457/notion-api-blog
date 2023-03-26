@@ -2,90 +2,51 @@ import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
 
-import { Constant } from '@/commons';
-
 import HeadMeta from '@/components/HeadMeta';
 import BlogView from '@/views/Blog';
 
-import { useActiveTagList } from '@/hooks';
+import { useActiveTagList, useBlogActions, useFilteredData, usePostData } from '@/hooks';
 import { BlogPageProps } from '@/types/BlogTypes';
 import { getAllTags, getCachedDatabaseItems, parseDatabaseItems, previewImage } from '@/utils';
 
 const BlogPage = ({ data, allTags }: BlogPageProps) => {
-  const { query, push } = useRouter();
-  const currentPage = query.page ? parseInt(query.page.toString()) : 1;
+  //* 데이터 로직
+  const router = useRouter();
+  const currentPage = router.query.page ? parseInt(router.query.page.toString()) : 1;
 
   const [selectedTagList, setSelectedTagList] = useState<string[]>([]);
+  const filteredData = useFilteredData(data, selectedTagList);
+  const postData = usePostData(filteredData, currentPage);
 
-  const filteredData = useMemo(() => {
-    if (!selectedTagList.length) {
-      return data;
-    }
-
-    return data.filter(item =>
-      selectedTagList.every(tagName => item.tags.some(tag => tag.name === tagName)),
-    );
-  }, [data, selectedTagList]);
-
-  const postData = useMemo(() => {
-    const start = Constant.POSTS_PER_PAGE * (currentPage - 1);
-    const end = Constant.POSTS_PER_PAGE * currentPage;
-
-    return filteredData.slice(start, end);
-  }, [currentPage, filteredData]);
-
-  const handleToggleValue = useCallback(
-    ({ checked, value }: { checked: boolean; value: string }) => {
-      if (currentPage !== 1) {
-        push({
-          pathname: '/blog',
-          query: { page: 1 },
-        });
-      }
-
-      setSelectedTagList(prevList => {
-        if (checked) {
-          return [...prevList, value];
-        }
-        return prevList.filter(v => v !== value);
-      });
-    },
-    [currentPage, push],
-  );
-
+  //* 비즈니스 로직
+  const [activeTagList, isHighlighted] = useActiveTagList(selectedTagList, filteredData);
+  const { handlePageChange, handleToggleValue } = useBlogActions({
+    currentPage,
+    router,
+    setSelectedTagList,
+  });
   const isChecked = useCallback(
     (value: string) => selectedTagList.includes(value),
     [selectedTagList],
   );
+  const postTotal = useMemo(() => filteredData.length, [filteredData]);
+  const tagTotal = useMemo(() => selectedTagList.length, [selectedTagList]);
 
-  const [activeTagList, isHighlighted] = useActiveTagList(selectedTagList, filteredData);
-
-  const handlePageChange = useCallback(
-    (page: number) => {
-      push({
-        pathname: '/blog',
-        query: { page },
-      });
-    },
-    [push],
-  );
-
-  const BlogPageProps = {
-    handleToggleValue,
-    isChecked,
-    isHighlighted,
-    handlePageChange,
-    allTags,
-    postData,
-    currentPage,
-    postTotal: useMemo(() => filteredData.length, [filteredData]),
-    tagTotal: useMemo(() => selectedTagList.length, [selectedTagList]),
-  };
-
+  //* View 로직
   return (
     <>
       <HeadMeta />
-      <BlogView {...BlogPageProps} />
+      <BlogView
+        handleToggleValue={handleToggleValue}
+        isChecked={isChecked}
+        isHighlighted={isHighlighted}
+        handlePageChange={handlePageChange}
+        allTags={allTags}
+        postData={postData}
+        currentPage={currentPage}
+        postTotal={postTotal}
+        tagTotal={tagTotal}
+      />
     </>
   );
 };

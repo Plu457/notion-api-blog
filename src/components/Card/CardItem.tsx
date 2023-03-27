@@ -12,13 +12,16 @@ const CardItem = ({ data }: CardItemProps) => {
 
   const { coverSrc, iconSrc, getImageSrc } = useImageLoading({ id, expiryTime, cover, icon });
 
+  const formattedImage =
+    coverSrc + Format.getParametersForUnsplash({ width: 726, height: 464, format: 'webp' });
+
   return (
     <article className="transform transition-all duration-300 hover:-translate-y-2">
       <Link href={`/blog/${id}`}>
         <a>
           <div className="relative pt-[64%] overflow-hidden rounded-lg mb-4">
             <Image
-              src={coverSrc}
+              src={formattedImage}
               alt={title}
               layout="fill"
               objectFit="cover"

@@ -22,8 +22,18 @@ const getPageProperty = (recordMap: ExtendedRecordMap, propertyName: string): st
   return null;
 };
 
+interface UnsplashParameters {
+  width: number;
+  height: number;
+  format: 'jpg' | 'webp';
+}
+const getParametersForUnsplash = ({ width, height, format }: UnsplashParameters) => {
+  return `&w=${width}&h=${height}&fm=${format}`;
+};
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   truncateText,
   getPageProperty,
+  getParametersForUnsplash,
 };

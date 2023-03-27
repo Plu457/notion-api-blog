@@ -1,5 +1,5 @@
 import { DatabaseOption, getDatabaseItems } from '@/cms/notion';
-import fs from 'fs';
+import { promises as fs } from 'fs';
 import path from 'path';
 
 const OPTION_QUERY = 'option';
@@ -19,9 +19,11 @@ const getCachePath = (options?: string[]): string => {
   return path.join(__dirname, cacheFileName);
 };
 
-const readCachedData = (cachePath: string): Awaited<ReturnType<typeof getDatabaseItems>> | null => {
+const readCachedData = async (
+  cachePath: string,
+): Promise<Awaited<ReturnType<typeof getDatabaseItems>> | null> => {
   try {
-    const fileData = fs.readFileSync(cachePath, 'utf-8');
+    const fileData = await fs.readFile(cachePath, 'utf-8');
     return JSON.parse(fileData);
   } catch (error) {
     if (error instanceof Error) console.error(error.message);
@@ -29,19 +31,16 @@ const readCachedData = (cachePath: string): Awaited<ReturnType<typeof getDatabas
   }
 };
 
-const writeCachedData = (
+const writeCachedData = async (
   cachePath: string,
   data: Awaited<ReturnType<typeof getDatabaseItems>>,
-): boolean => {
+): Promise<boolean> => {
   try {
-    if (!fs.existsSync(cachePath)) {
-      fs.writeFileSync(cachePath, JSON.stringify(data));
-      return true;
-    }
-  } catch (error) {
-    if (error instanceof Error) console.error(error.message);
+    await fs.access(cachePath);
+  } catch {
+    await fs.writeFile(cachePath, JSON.stringify(data));
+    return true;
   }
-
   return false;
 };
 
@@ -51,11 +50,11 @@ const getCachedDatabaseItems = async ({ databaseId, options }: DatabaseOption) =
   }
 
   const cachePath = getCachePath(options);
-  let cachedData = readCachedData(cachePath);
+  let cachedData = await readCachedData(cachePath);
 
   if (!cachedData || !cachedData.length) {
     cachedData = await getDatabaseItems({ databaseId, options });
-    writeCachedData(cachePath, cachedData);
+    await writeCachedData(cachePath, cachedData);
   }
 
   return cachedData;

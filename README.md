@@ -51,9 +51,27 @@ yarn dev
 
 ## [배포링크](https://www.plu457.life)
 
+<br />
+
 ## [개발문서 (작성중)](https://www.plu457.life/blog/731e649a-b820-4d4a-b3fb-8d3d57532e20)
 
----
+<br />
+
+# 블로그 관련 게시글
+
+- [SSG를 사용하여 데이터를 캐싱하는 방법](https://www.plu457.life/blog/25f860f0-0b68-415f-b26d-86f67a181990)
+- [[ Next.js ] 이미지 최적화를 통해 사용자 경험을 개선하는 방법](https://www.plu457.life/blog/ff3e6bc5-61e3-45c9-9412-458f54636de3#5f4f4f96f53342508def74e844f15f99)
+
+<br />
+<br />
+
+# 에러 해결
+
+- [[ Notion API ] 멀티 옵션에서 삭제해도 기록이 남는 문제 해결 방법](https://www.plu457.life/blog/d2a06837-0838-4486-a8f4-b8b41c9d1878)
+
+- [[ Notion API ] 파비콘의 의한 미리보기 에러](https://www.plu457.life/blog/6c86af64-579c-4ab1-abb8-8e49bb9bd320)
+
+- [[ Vercel ] - 사용량 제한 해결](https://www.plu457.life/blog/2c1ce9a4-21c9-40d8-bce2-f3557bcdd95f)
 
 <br />
 <br />
@@ -72,26 +90,6 @@ yarn dev
 - React Icons: 간편하게 아이콘을 사용하기 위해 사용했습니다.
 - LQIP(Modern) : 이미지 로딩 성능을 개선하고, 사용자 경험을 향상시키기 위해 사용했습니다.
 - Giscus : 다른 댓글 라이브러리와 비교하여 디자인이 깔끔하기 때문에 사용했습니다.
-
----
-
-<br />
-<br />
-
-# 블로그 관련 게시글
-
-- [SSG를 사용하여 데이터를 캐싱하는 방법](https://www.plu457.life/blog/25f860f0-0b68-415f-b26d-86f67a181990)
-
-<br />
-<br />
-
-# 에러 해결
-
-- [[ Notion API ] 멀티 옵션에서 삭제해도 기록이 남는 문제 해결 방법](https://www.plu457.life/blog/d2a06837-0838-4486-a8f4-b8b41c9d1878)
-
-- [[ Notion API ] 파비콘의 의한 미리보기 에러](https://www.plu457.life/blog/6c86af64-579c-4ab1-abb8-8e49bb9bd320)
-
-- [[ Vercel ] - 사용량 제한 해결](https://www.plu457.life/blog/2c1ce9a4-21c9-40d8-bce2-f3557bcdd95f)
 
 <br />
 <br />

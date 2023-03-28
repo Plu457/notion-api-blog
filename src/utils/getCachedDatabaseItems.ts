@@ -38,8 +38,12 @@ const writeCachedData = async (
   try {
     await fs.access(cachePath);
   } catch {
-    await fs.writeFile(cachePath, JSON.stringify(data));
-    return true;
+    try {
+      await fs.writeFile(cachePath, JSON.stringify(data));
+      return true;
+    } catch (writeError) {
+      if (writeError instanceof Error) console.error(writeError.message);
+    }
   }
   return false;
 };

@@ -34,18 +34,16 @@ const readCachedData = async (
 const writeCachedData = async (
   cachePath: string,
   data: Awaited<ReturnType<typeof getDatabaseItems>>,
-): Promise<boolean> => {
+): Promise<void> => {
   try {
     await fs.access(cachePath);
   } catch {
     try {
       await fs.writeFile(cachePath, JSON.stringify(data));
-      return true;
     } catch (writeError) {
       if (writeError instanceof Error) console.error(writeError.message);
     }
   }
-  return false;
 };
 
 const getCachedDatabaseItems = async ({ databaseId, options }: DatabaseOption) => {

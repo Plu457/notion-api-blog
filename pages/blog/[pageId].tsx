@@ -43,7 +43,14 @@ export const getStaticProps: GetStaticProps<BlogDetailProps> = async ({ params }
 
   const recordMap = await getPageContent(pageId.toString());
 
-  const preview_images = await previewImage.insertPreviewImageToRecordMap(recordMap);
+  const formatRecordMap = Format.formatRecordMapImageSize({
+    recordMap,
+    width: 2000,
+    height: 582,
+    format: 'webp',
+  });
+
+  const preview_images = await previewImage.insertPreviewImageToRecordMap(formatRecordMap);
 
   return {
     props: { recordMap: { ...recordMap, preview_images } },

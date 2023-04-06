@@ -22,6 +22,31 @@ const getPageProperty = (recordMap: ExtendedRecordMap, propertyName: string): st
   return null;
 };
 
+interface FormatRecordMapImageSizeParams {
+  recordMap: ExtendedRecordMap;
+  width: number;
+  height: number;
+  format: 'jpg' | 'webp';
+}
+
+const formatRecordMapImageSize = ({
+  recordMap,
+  width,
+  height,
+  format,
+}: FormatRecordMapImageSizeParams): ExtendedRecordMap => {
+  const pageBlock = Object.values(recordMap.block).find(({ value }) => value.type === 'page');
+
+  if (pageBlock && pageBlock.value.format && pageBlock.value.format.page_cover) {
+    const originalImageUrl = pageBlock.value.format.page_cover;
+    const imageUrlWithNewSize =
+      originalImageUrl + getParametersForUnsplash({ width, height, format });
+    pageBlock.value.format.page_cover = imageUrlWithNewSize;
+  }
+
+  return recordMap;
+};
+
 interface UnsplashParameters {
   width: number;
   height: number;
@@ -35,5 +60,6 @@ const getParametersForUnsplash = ({ width, height, format }: UnsplashParameters)
 export default {
   truncateText,
   getPageProperty,
+  formatRecordMapImageSize,
   getParametersForUnsplash,
 };

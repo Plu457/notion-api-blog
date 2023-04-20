@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app';
+import { RecoilRoot } from 'recoil';
 import Layout from '@/components/Layout';
 
 import '@/styles/globals.css';
@@ -9,9 +10,11 @@ import '@/styles/notionStyle.scss';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <RecoilRoot>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </RecoilRoot>
   );
 }
 

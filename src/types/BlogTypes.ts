@@ -2,7 +2,7 @@ import { CardData } from '@/types/CardData';
 
 export interface BlogPageProps {
   data: CardData[];
-  allTags: CardData['tags'];
+  allTags?: CardData['tags'];
 }
 
 export interface BlogViewProps {

@@ -6,7 +6,12 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import HeadMeta from '@/components/HeadMeta';
 import BlogView from '@/views/Blog';
 
-import { filteredDataState, postDataState, selectedTagListState } from '@/recoil/post';
+import {
+  activeTagListSelector,
+  filteredDataState,
+  postDataState,
+  selectedTagListState,
+} from '@/recoil/post';
 import { useActiveTagList, useBlogActions, useFilteredData, usePostData } from '@/hooks';
 import { BlogPageProps } from '@/types/BlogTypes';
 import { getAllTags, getCachedDatabaseItems, parseDatabaseItems, previewImage } from '@/utils';
@@ -25,7 +30,13 @@ const BlogPage = ({ data, allTags }: BlogPageProps) => {
   const tagTotal = useMemo(() => selectedTagList.length, [selectedTagList]);
 
   //* 비즈니스 로직
-  const [activeTagList, isHighlighted] = useActiveTagList(selectedTagList, filteredData);
+  const activeTagList = useRecoilValue(activeTagListSelector);
+
+  const isHighlighted = useCallback(
+    (value: string) => activeTagList.includes(value),
+    [activeTagList],
+  );
+
   const { handlePageChange, handleToggleValue } = useBlogActions({
     currentPage,
     router,

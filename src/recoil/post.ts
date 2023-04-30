@@ -7,8 +7,13 @@ export const dataState = atom<CardData[]>({
   default: [],
 });
 
-export const selectedTagListState = atom({
+export const selectedTagListState = atom<string[]>({
   key: 'selectedTagListState',
+  default: [],
+});
+
+export const activeTagListState = atom<string[]>({
+  key: 'activeTagListState',
   default: [],
 });
 
@@ -30,6 +35,33 @@ export const filteredDataState = selector({
     return data.filter(item =>
       selectedTagList.every(tagName => item.tags.some(tag => tag.name === tagName)),
     );
+  },
+});
+
+export const activeTagListSelector = selector<string[]>({
+  key: 'activeTagListSelector',
+  get: ({ get }) => {
+    const selectedTagList = get(selectedTagListState);
+    const filteredData = get(filteredDataState);
+
+    if (!selectedTagList.length) {
+      return [];
+    }
+
+    const activeTags: string[] = [];
+
+    filteredData.forEach(item => {
+      if (
+        selectedTagList.length === 0 ||
+        item.tags.some(tag => selectedTagList.includes(tag.name))
+      ) {
+        item.tags.forEach(tag => {
+          activeTags.push(tag.name);
+        });
+      }
+    });
+
+    return Array.from(new Set(activeTags));
   },
 });
 

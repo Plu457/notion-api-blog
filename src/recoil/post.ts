@@ -44,10 +44,6 @@ export const activeTagListSelector = selector<string[]>({
     const selectedTagList = get(selectedTagListState);
     const filteredData = get(filteredDataState);
 
-    if (!selectedTagList.length) {
-      return [];
-    }
-
     const activeTags: string[] = [];
 
     filteredData.forEach(item => {

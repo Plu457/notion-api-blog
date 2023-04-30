@@ -17,7 +17,7 @@ import { BlogPageProps } from '@/types/BlogTypes';
 import { getAllTags, getCachedDatabaseItems, parseDatabaseItems, previewImage } from '@/utils';
 import useInitializeDataState from '@/hooks/useInitializeDataState';
 
-const BlogPage = ({ data, allTags }: BlogPageProps) => {
+const BlogPage = ({ data, allTags = [] }: BlogPageProps) => {
   useInitializeDataState({ data });
   //* 데이터 로직
   const router = useRouter();

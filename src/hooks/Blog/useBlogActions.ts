@@ -1,13 +1,13 @@
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
+import { currentPageState, selectedTagListState } from '@/recoil/post';
 
-interface UseBlogActionsProps {
-  currentPage: number;
-  router: ReturnType<typeof useRouter>;
-  setSelectedTagList: React.Dispatch<React.SetStateAction<string[]>>;
-}
+const useBlogActions = () => {
+  const router = useRouter();
+  const currentPage = useRecoilValue(currentPageState);
+  const setSelectedTagList = useSetRecoilState(selectedTagListState);
 
-const useBlogActions = ({ currentPage, router, setSelectedTagList }: UseBlogActionsProps) => {
   const handlePageChange = useCallback(
     (page: number) => {
       router.push({

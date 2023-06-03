@@ -2,8 +2,13 @@ import { atom, selector } from 'recoil';
 import { Constant } from '@/commons';
 import { CardData } from '@/types/CardData';
 
-export const dataState = atom<CardData[]>({
-  key: 'dataState',
+export const postState = atom<CardData[]>({
+  key: 'postState',
+  default: [],
+});
+
+export const tagState = atom<CardData['tags']>({
+  key: 'tagState',
   default: [],
 });
 
@@ -26,7 +31,7 @@ export const filteredDataState = selector({
   key: 'filteredDataState',
   get: ({ get }) => {
     const selectedTagList = get(selectedTagListState);
-    const data = get(dataState);
+    const data = get(postState);
 
     if (!selectedTagList.length) {
       return data;
@@ -44,7 +49,7 @@ export const activeTagListSelector = selector<string[]>({
     const selectedTagList = get(selectedTagListState);
     const filteredData = get(filteredDataState);
 
-    const activeTags: string[] = [];
+    const activeTags: Set<string> = new Set();
 
     filteredData.forEach(item => {
       if (
@@ -52,12 +57,12 @@ export const activeTagListSelector = selector<string[]>({
         item.tags.some(tag => selectedTagList.includes(tag.name))
       ) {
         item.tags.forEach(tag => {
-          activeTags.push(tag.name);
+          activeTags.add(tag.name);
         });
       }
     });
 
-    return Array.from(new Set(activeTags));
+    return Array.from(activeTags);
   },
 });
 
@@ -70,5 +75,21 @@ export const postDataState = selector({
     const end = Constant.POSTS_PER_PAGE * currentPage;
 
     return filteredData.slice(start, end);
+  },
+});
+
+export const postTotalState = selector({
+  key: 'postTotalSelector',
+  get: ({ get }) => {
+    const filteredData = get(filteredDataState);
+    return filteredData.length;
+  },
+});
+
+export const tagTotal = selector({
+  key: 'tagTotalSelector',
+  get: ({ get }) => {
+    const selectedTagList = get(selectedTagListState);
+    return selectedTagList.length;
   },
 });

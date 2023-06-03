@@ -5,6 +5,9 @@ import {
   SelectableTagProps,
   TagItemProps,
 } from './TagTypes';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { activeTagListSelector, selectedTagListState } from '@/recoil/post';
+import { useBlogActions } from '@/hooks';
 
 const ReadOnlyTag = ({ name, color }: ReadOnlyTagProps) => {
   const backgroundColor = color ? BaseStyle.colors[color] : '';
@@ -58,14 +61,14 @@ const SelectableTag = ({
   );
 };
 
-const TagItem = ({
-  name,
-  isReadOnly = false,
-  color,
-  isChecked,
-  isHighlighted,
-  handleToggleValue,
-}: TagItemProps) => {
+const TagItem = ({ name, isReadOnly = false, color }: TagItemProps) => {
+  const activeTagList = useRecoilValue(activeTagListSelector);
+  const selectedTagList = useRecoilValue(selectedTagListState);
+  const { handleToggleValue } = useBlogActions();
+
+  const isHighlighted = (value: string) => activeTagList.includes(value);
+  const isChecked = (value: string) => selectedTagList.includes(value);
+
   const style = {
     base: 'block px-5 py-3 rounded-3xl border border-white cursor-pointer',
     highlighted: 'bg-gray-100 hover:border-red-500',

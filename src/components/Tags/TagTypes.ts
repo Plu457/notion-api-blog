@@ -3,7 +3,7 @@ import { CardData } from '@/types/CardData';
 
 //* TagList 컴포넌트 타입
 export interface TagListProps {
-  tagList: CardData['tags'];
+  tagList: CardData['tags'] | undefined;
   renderTagItem: (item: { id: string; name: string }) => JSX.Element;
 }
 
@@ -24,9 +24,6 @@ export interface SelectableTagProps {
 export interface TagItemProps {
   name: string;
   isReadOnly?: boolean;
-  isChecked?: (value: string) => boolean;
-  isHighlighted?: (value: string) => boolean;
-  handleToggleValue?: ({ checked, value }: { checked: boolean; value: string }) => void;
   color?: keyof typeof BaseStyle.colors;
 }
 

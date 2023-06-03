@@ -1,21 +1,17 @@
+import { useRecoilValue } from 'recoil';
+import { postDataState, postTotalState, tagState } from '@/recoil/post';
+
 import CardItem from '@/components/Card/CardItem';
 import CardList from '@/components/Card/CardList';
 import Pagination from '@/components/Pagination';
 import TagItem from '@/components/Tags/TagItem';
 import TagList from '@/components/Tags/TagList';
 
-import { BlogViewProps } from '@/types/BlogTypes';
+const BlogView = () => {
+  const postTotal = useRecoilValue(postTotalState);
+  const postData = useRecoilValue(postDataState);
+  const tagList = useRecoilValue(tagState);
 
-const BlogView = ({
-  postTotal,
-  allTags,
-  postData,
-  currentPage,
-  handlePageChange,
-  isChecked,
-  isHighlighted,
-  handleToggleValue,
-}: BlogViewProps) => {
   return (
     <section className="flex flex-col m-4 min-h-[60vh] max-w-6xl mx-auto px-4 gap-8 ">
       <header className="mt-16 py-4">
@@ -26,23 +22,15 @@ const BlogView = ({
           Devlog
         </h2>
         <TagList
-          tagList={allTags}
-          renderTagItem={({ id, name }) => (
-            <TagItem
-              key={id}
-              name={name}
-              isChecked={isChecked}
-              isHighlighted={isHighlighted}
-              handleToggleValue={handleToggleValue}
-            />
-          )}
+          tagList={tagList}
+          renderTagItem={({ id, name }) => <TagItem key={id} name={name} />}
         />
       </header>
 
       <main>
         <CardList data={postData} renderCardItem={item => <CardItem key={item.id} data={item} />} />
         <div className="flex justify-center my-4">
-          <Pagination current={currentPage} total={postTotal} onPageChange={handlePageChange} />
+          <Pagination />
         </div>
       </main>
     </section>

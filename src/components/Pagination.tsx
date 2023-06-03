@@ -1,5 +1,8 @@
 import { Constant } from '@/commons';
+import { useBlogActions } from '@/hooks';
+import { currentPageState, postTotalState } from '@/recoil/post';
 import { useCallback } from 'react';
+import { useRecoilValue } from 'recoil';
 
 interface PaginationProps {
   current: number;
@@ -7,8 +10,11 @@ interface PaginationProps {
   onPageChange?: (page: number) => void;
 }
 
-const Pagination = ({ current, total, onPageChange }: PaginationProps) => {
-  //* 전체 페이지 수 계산
+const Pagination = () => {
+  const current = useRecoilValue(currentPageState);
+  const total = useRecoilValue(postTotalState);
+  const { handlePageChange: onPageChange } = useBlogActions();
+
   const lastPageNumber = Math.ceil(total / Constant.POSTS_PER_PAGE);
 
   //* 페이지 변경 처리하는 함수

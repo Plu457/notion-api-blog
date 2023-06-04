@@ -1,10 +1,9 @@
+import { IArticle } from '@/types/article';
 import got from 'got';
 import lqip from 'lqip-modern';
 import { ExtendedRecordMap } from 'notion-types';
 import { getPageImageUrls } from 'notion-utils';
 import { defaultMapImageUrl } from 'react-notion-x';
-
-import { CardData } from '@/types/CardData';
 
 const makePreviewImage = async (url: string) => {
   const body = await got(url, { responseType: 'buffer', resolveBodyOnly: true });
@@ -27,7 +26,7 @@ const makePreviewImage = async (url: string) => {
 
 export type PreviewImageType = Awaited<ReturnType<typeof makePreviewImage>>;
 
-const insertPreviewImage = async (data: CardData[]): Promise<CardData[]> =>
+const insertPreviewImage = async (data: IArticle[]): Promise<IArticle[]> =>
   await Promise.all(
     data.map(async item => ({
       ...item,

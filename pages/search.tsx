@@ -2,16 +2,16 @@ import { useRouter } from 'next/router';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { SearchResultType } from './api/getSearchResult';
 
-import HeadMeta from '@/components/HeadMeta';
-import { CardData } from '@/types/CardData';
 import SearchView from '@/views/SearchView';
+import { IArticle } from '@/types/article';
+import HeadMeta from '@/components/HeadMeta';
 
 const SearchPage = () => {
   const { push, query } = useRouter();
   const searchQuery = query.q?.toString() ?? '';
 
   const [inputValue, setInputValue] = useState('');
-  const [postData, setPostData] = useState<CardData[]>([]);
+  const [postData, setPostData] = useState<IArticle[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {

@@ -1,19 +1,19 @@
-import { getPageContent } from '@/cms/notion';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { ExtendedRecordMap } from 'notion-types';
 
+import { getPageContent } from '@/cms/notion';
+import { getCachedDatabaseItems, previewImage } from '@/utils';
+import Format from '@/utils/Format';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import BlogDetailView from '@/views/Blog/BlogDetailView';
-import { getCachedDatabaseItems, previewImage } from '@/utils';
 import HeadMeta from '@/components/HeadMeta';
-import Format from '@/utils/Format';
 
-interface BlogDetailProps {
+interface IBlogDetail {
   recordMap: ExtendedRecordMap;
 }
 
-const BlogDetailPage = ({ recordMap }: BlogDetailProps) => {
+const BlogDetailPage = ({ recordMap }: IBlogDetail) => {
   const { isFallback } = useRouter();
 
   if (isFallback)
@@ -36,7 +36,7 @@ const BlogDetailPage = ({ recordMap }: BlogDetailProps) => {
 
 export default BlogDetailPage;
 
-export const getStaticProps: GetStaticProps<BlogDetailProps> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<IBlogDetail> = async ({ params }) => {
   const pageId = params?.pageId;
 
   if (!pageId) throw Error('PageId is not defined');

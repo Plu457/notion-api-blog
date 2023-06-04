@@ -1,11 +1,10 @@
 import { useRecoilValue } from 'recoil';
 import { postDataState, postTotalState, tagState } from '@/recoil/post';
 
-import CardItem from '@/components/Card/CardItem';
-import CardList from '@/components/Card/CardList';
 import Pagination from '@/components/Pagination';
 import TagItem from '@/components/Tags/TagItem';
 import TagList from '@/components/Tags/TagList';
+import { Article, ArticleList } from '@/components';
 
 const BlogView = () => {
   const postTotal = useRecoilValue(postTotalState);
@@ -28,7 +27,10 @@ const BlogView = () => {
       </header>
 
       <main>
-        <CardList data={postData} renderCardItem={item => <CardItem key={item.id} data={item} />} />
+        <ArticleList
+          data={postData}
+          renderArticle={item => <Article key={item.id} data={item} />}
+        />
         <div className="flex justify-center my-4">
           <Pagination />
         </div>

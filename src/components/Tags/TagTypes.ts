@@ -1,9 +1,9 @@
 import { BaseStyle } from '@/commons';
-import { CardData } from '@/types/CardData';
+import { IArticle } from '@/types/article';
 
 //* TagList 컴포넌트 타입
 export interface TagListProps {
-  tagList: CardData['tags'] | undefined;
+  tagList: IArticle['tags'] | undefined;
   renderTagItem: (item: { id: string; name: string }) => JSX.Element;
 }
 

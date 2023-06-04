@@ -1,12 +1,9 @@
-import { CardData } from '@/types/CardData';
+import { IArticle } from '@/types/article';
 import { useCallback, useEffect, useState } from 'react';
 
-type UseActiveTagListReturnType = [string[], (value: string) => boolean];
+type ReturnType = [string[], (value: string) => boolean];
 
-const useActiveTagList = (
-  selectedTagList: string[],
-  filteredData: CardData[],
-): UseActiveTagListReturnType => {
+const useActiveTagList = (selectedTagList: string[], filteredData: IArticle[]): ReturnType => {
   const [activeTagList, setActiveTagList] = useState<string[]>([]);
 
   useEffect(() => {

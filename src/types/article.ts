@@ -4,7 +4,7 @@ import {
 } from '@notionhq/client/build/src/api-endpoints';
 import { PreviewImageType } from '@/utils/previewImage';
 
-export interface CardData {
+export interface IArticle {
   id: string;
   cover: string;
   icon: PageObjectResponse['icon'];

@@ -1,8 +1,8 @@
 import { getDatabaseItems } from '@/cms/notion';
-import { CardData } from '@/types/CardData';
+import { IArticle } from '@/types/article';
 
 const parseDatabaseItems = (databaseItems: Awaited<ReturnType<typeof getDatabaseItems>>) =>
-  databaseItems.reduce<CardData[]>((acc, item) => {
+  databaseItems.reduce<IArticle[]>((acc, item) => {
     if (!('properties' in item)) return acc;
 
     const { Description, Published, Tags, Name } = item.properties;

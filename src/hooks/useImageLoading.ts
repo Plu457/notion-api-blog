@@ -1,15 +1,15 @@
-import { CardData } from '@/types/CardData';
+import { IArticle } from '@/types/article';
 import { ImageSrcType } from 'pages/api/getImageSrc';
 import { useCallback, useEffect, useState } from 'react';
 
-export interface UseImageLoadingProps {
+export interface Props {
   id: string;
   expiryTime: string;
   cover: string;
-  icon: CardData['icon'];
+  icon: IArticle['icon'];
 }
 
-const useImageLoading = ({ id, expiryTime, cover, icon }: UseImageLoadingProps) => {
+const useImageLoading = ({ id, expiryTime, cover, icon }: Props) => {
   const [coverSrc, setCoverSrc] = useState(cover);
   const [iconSrc, setIconSrc] = useState(icon);
 

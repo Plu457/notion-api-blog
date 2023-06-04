@@ -1,13 +1,14 @@
+import { useRecoilValue } from 'recoil';
+import { activeTagListSelector, selectedTagListState } from '@/recoil/post';
+
 import { BaseStyle } from '@/commons';
+import { useBlogActions } from '@/hooks';
 import {
   GetTagItemClassNamesParams,
   ReadOnlyTagProps,
   SelectableTagProps,
   TagItemProps,
 } from './TagTypes';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { activeTagListSelector, selectedTagListState } from '@/recoil/post';
-import { useBlogActions } from '@/hooks';
 
 const ReadOnlyTag = ({ name, color }: ReadOnlyTagProps) => {
   const backgroundColor = color ? BaseStyle.colors[color] : '';

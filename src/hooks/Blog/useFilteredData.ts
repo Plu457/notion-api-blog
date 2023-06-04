@@ -1,7 +1,7 @@
-import { CardData } from '@/types/CardData';
 import { useMemo } from 'react';
+import { IArticle } from '@/types/article';
 
-const useFilteredData = (data: CardData[], selectedTagList: string[]) => {
+const useFilteredData = (data: IArticle[], selectedTagList: string[]) => {
   return useMemo(() => {
     if (!selectedTagList.length) {
       return data;

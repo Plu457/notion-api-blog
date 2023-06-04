@@ -1,13 +1,13 @@
 import { atom, selector } from 'recoil';
 import { Constant } from '@/commons';
-import { CardData } from '@/types/CardData';
+import { IArticle } from '@/types/article';
 
-export const postState = atom<CardData[]>({
+export const postState = atom<IArticle[]>({
   key: 'postState',
   default: [],
 });
 
-export const tagState = atom<CardData['tags']>({
+export const tagState = atom<IArticle['tags']>({
   key: 'tagState',
   default: [],
 });
@@ -83,13 +83,5 @@ export const postTotalState = selector({
   get: ({ get }) => {
     const filteredData = get(filteredDataState);
     return filteredData.length;
-  },
-});
-
-export const tagTotal = selector({
-  key: 'tagTotalSelector',
-  get: ({ get }) => {
-    const selectedTagList = get(selectedTagListState);
-    return selectedTagList.length;
   },
 });

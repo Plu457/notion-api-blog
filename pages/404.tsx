@@ -1,14 +1,14 @@
 import { GetStaticProps } from 'next';
 
-import CardItem from '@/components/Card/CardItem';
-import { CardData } from '@/types/CardData';
 import { getCachedDatabaseItems, parseDatabaseItems, previewImage } from '@/utils';
+import { Article } from '@/components';
+import { IArticle } from '@/types/article';
 
-interface NotFoundPageProps {
-  data: CardData;
+interface Props {
+  data: IArticle;
 }
 
-const NotFoundPage = ({ data }: NotFoundPageProps) => {
+const NotFoundPage = ({ data }: Props) => {
   return (
     <section>
       <div className="flex flex-col items-center justify-center max-w-4xl min-h-screen gap-4 mx-auto">
@@ -17,7 +17,7 @@ const NotFoundPage = ({ data }: NotFoundPageProps) => {
           <h2 className="text-4xl font-extrabold">해당 페이지가 존재하지 않습니다!</h2>
           <p className="text-2xl">대신 이런 글은 어떠세요?</p>
         </div>
-        <CardItem data={data} />
+        <Article data={data} />
       </div>
     </section>
   );
@@ -25,7 +25,7 @@ const NotFoundPage = ({ data }: NotFoundPageProps) => {
 
 export default NotFoundPage;
 
-export const getStaticProps: GetStaticProps<NotFoundPageProps> = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const databaseId = process.env.DATABASE_ID;
 
   if (!databaseId) throw new Error('DATABASE_ID is not defined');

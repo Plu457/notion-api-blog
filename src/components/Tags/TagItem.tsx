@@ -9,6 +9,7 @@ import {
   SelectableTagProps,
   TagItemProps,
 } from './TagTypes';
+import { useCallback, useMemo } from 'react';
 
 const ReadOnlyTag = ({ name, color }: ReadOnlyTagProps) => {
   const backgroundColor = color ? BaseStyle.colors[color] : '';
@@ -67,15 +68,24 @@ const TagItem = ({ name, isReadOnly = false, color }: TagItemProps) => {
   const selectedTagList = useRecoilValue(selectedTagListState);
   const { handleToggleValue } = useBlogActions();
 
-  const isHighlighted = (value: string) => activeTagList.includes(value);
-  const isChecked = (value: string) => selectedTagList.includes(value);
+  const isHighlighted = useCallback(
+    (value: string) => activeTagList.includes(value),
+    [activeTagList],
+  );
+  const isChecked = useCallback(
+    (value: string) => selectedTagList.includes(value),
+    [selectedTagList],
+  );
 
-  const style = {
-    base: 'block px-5 py-3 rounded-3xl border border-white cursor-pointer',
-    highlighted: 'bg-gray-100 hover:border-red-500',
-    unhighlighted: 'bg-gray-100/30 text-black/30',
-    selected: 'bg-black text-white hover:border-red-500',
-  };
+  const style = useMemo(
+    () => ({
+      base: 'block px-5 py-3 rounded-3xl border border-white cursor-pointer',
+      highlighted: 'bg-gray-100 hover:border-red-500',
+      unhighlighted: 'bg-gray-100/30 text-black/30',
+      selected: 'bg-black text-white hover:border-red-500',
+    }),
+    [],
+  );
 
   if (isReadOnly) {
     return <ReadOnlyTag name={name} color={color} />;

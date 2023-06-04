@@ -15,8 +15,12 @@ const useInitializeDataState = ({ data, tagList = [] }: IBlogPage) => {
 
   useEffect(() => {
     setPostState(data);
-    setCurrentPageState(currentPage);
     setTagState(tagList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setCurrentPageState(currentPage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 };

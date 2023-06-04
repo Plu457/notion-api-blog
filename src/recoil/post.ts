@@ -17,11 +17,6 @@ export const selectedTagListState = atom<string[]>({
   default: [],
 });
 
-export const activeTagListState = atom<string[]>({
-  key: 'activeTagListState',
-  default: [],
-});
-
 export const currentPageState = atom({
   key: 'currentPageState',
   default: 1,

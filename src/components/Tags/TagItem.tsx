@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import { activeTagListSelector, selectedTagListState } from '@/recoil/post';
 
 import { BaseStyle } from '@/commons';
-import { useBlogActions } from '@/hooks';
+import { useBlogNavigation } from '@/hooks';
 import {
   GetTagItemClassNamesParams,
   ReadOnlyTagProps,
@@ -44,7 +44,7 @@ const SelectableTag = ({
   name,
   isChecked,
   isHighlighted,
-  handleToggleValue,
+  toggleTagInList,
   style,
 }: SelectableTagProps) => {
   const classNames = getTagItemClassNames({ style, isChecked, isHighlighted, name });
@@ -56,7 +56,7 @@ const SelectableTag = ({
         className="sr-only"
         checked={isChecked?.(name)}
         disabled={!isHighlighted?.(name)}
-        onChange={({ target: { checked } }) => handleToggleValue?.({ checked, value: name })}
+        onChange={({ target: { checked } }) => toggleTagInList?.({ checked, value: name })}
       />
       {name}
     </label>
@@ -66,7 +66,7 @@ const SelectableTag = ({
 const TagItem = ({ name, isReadOnly = false, color }: TagItemProps) => {
   const activeTagList = useRecoilValue(activeTagListSelector);
   const selectedTagList = useRecoilValue(selectedTagListState);
-  const { handleToggleValue } = useBlogActions();
+  const { toggleTagInList } = useBlogNavigation();
 
   const isHighlighted = useCallback(
     (value: string) => activeTagList.includes(value),
@@ -96,7 +96,7 @@ const TagItem = ({ name, isReadOnly = false, color }: TagItemProps) => {
       name={name}
       isChecked={isChecked}
       isHighlighted={isHighlighted}
-      handleToggleValue={handleToggleValue}
+      toggleTagInList={toggleTagInList}
       style={style}
     />
   );

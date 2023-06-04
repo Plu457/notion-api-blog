@@ -4,8 +4,12 @@ import { IArticle } from '@/types/article';
 const parseDatabaseItems = (databaseItems: Awaited<ReturnType<typeof getDatabaseItems>>) =>
   databaseItems.reduce<IArticle[]>((acc, item) => {
     if (!('properties' in item)) return acc;
+    if (item.parent.type !== 'database_id') return acc;
 
-    const { Description, Published, Tags, Name } = item.properties;
+    const { Description, Published, Tags, Name, Public } = item.properties;
+
+    const isPublic = Public.type === 'checkbox' ? Public.checkbox : false;
+    if (!isPublic) return acc;
 
     const cover =
       item.cover?.type === 'external' ? item.cover.external.url : item.cover?.file?.url || '';

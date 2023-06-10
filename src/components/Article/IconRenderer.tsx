@@ -1,5 +1,9 @@
 import Image from 'next/image';
-import { IconRendererProps } from './CardTypes';
+import { IArticle } from '@/types/article';
+
+interface IconRendererProps {
+  icon: IArticle['icon'];
+}
 
 const IconRenderer = ({ icon }: IconRendererProps) => {
   if (!icon) return null;

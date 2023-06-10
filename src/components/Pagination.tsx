@@ -1,28 +1,22 @@
 import { Constant } from '@/commons';
-import { useBlogActions } from '@/hooks';
+import { useBlogNavigation } from '@/hooks';
 import { currentPageState, postTotalState } from '@/recoil/post';
 import { useCallback } from 'react';
 import { useRecoilValue } from 'recoil';
 
-interface PaginationProps {
-  current: number;
-  total: number;
-  onPageChange?: (page: number) => void;
-}
-
 const Pagination = () => {
   const current = useRecoilValue(currentPageState);
   const total = useRecoilValue(postTotalState);
-  const { handlePageChange: onPageChange } = useBlogActions();
+  const { navigateToPage } = useBlogNavigation();
 
   const lastPageNumber = Math.ceil(total / Constant.POSTS_PER_PAGE);
 
   //* 페이지 변경 처리하는 함수
   const handleClick = useCallback(
     (page: number) => {
-      onPageChange?.(page);
+      navigateToPage?.(page);
     },
-    [onPageChange],
+    [navigateToPage],
   );
 
   //* 페이지네이션 버튼들을 생성하는 함수

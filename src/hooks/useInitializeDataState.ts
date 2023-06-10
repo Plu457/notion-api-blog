@@ -3,9 +3,9 @@ import { useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 
 import { currentPageState, postState, tagState } from '@/recoil/post';
-import { BlogPageProps } from '@/types/BlogTypes';
+import { IBlogPage } from '@/types/BlogTypes';
 
-const useInitializeDataState = ({ data, allTags = [] }: BlogPageProps) => {
+const useInitializeDataState = ({ data, tagList = [] }: IBlogPage) => {
   const router = useRouter();
   const currentPage = router.query.page ? parseInt(router.query.page.toString()) : 1;
 
@@ -15,8 +15,12 @@ const useInitializeDataState = ({ data, allTags = [] }: BlogPageProps) => {
 
   useEffect(() => {
     setPostState(data);
+    setTagState(tagList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     setCurrentPageState(currentPage);
-    setTagState(allTags);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 };

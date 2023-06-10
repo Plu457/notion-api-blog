@@ -1,7 +1,12 @@
+import { IArticle } from '@/types/article';
 import { motion } from 'framer-motion';
-import { CardListProps } from './CardTypes';
 
-const CardList = ({ data, renderCardItem }: CardListProps) => {
+interface IArticleList {
+  data: IArticle[];
+  renderArticle: (item: IArticle) => JSX.Element;
+}
+
+const ArticleList = ({ data, renderArticle }: IArticleList) => {
   return (
     <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {data.map((item, i) => (
@@ -12,11 +17,11 @@ const CardList = ({ data, renderCardItem }: CardListProps) => {
           transition={{ duration: 0.5, delay: (i + 1) * 0.1 }}
           viewport={{ once: true }}
         >
-          {renderCardItem(item)}
+          {renderArticle(item)}
         </motion.li>
       ))}
     </ul>
   );
 };
 
-export default CardList;
+export default ArticleList;

@@ -1,14 +1,14 @@
 import { GetStaticProps } from 'next';
 
 import { useInitializeDataState } from '@/hooks';
-import { BlogPageProps } from '@/types/BlogTypes';
+import { IBlogPage } from '@/types/BlogTypes';
 import { getAllTags, getCachedDatabaseItems, parseDatabaseItems, previewImage } from '@/utils';
 
 import HeadMeta from '@/components/HeadMeta';
 import BlogView from '@/views/Blog';
 
-const BlogPage = ({ data, allTags }: BlogPageProps) => {
-  useInitializeDataState({ data, allTags });
+const BlogPage = ({ data, tagList }: IBlogPage) => {
+  useInitializeDataState({ data, tagList });
 
   return (
     <>
@@ -20,7 +20,7 @@ const BlogPage = ({ data, allTags }: BlogPageProps) => {
 
 export default BlogPage;
 
-export const getStaticProps: GetStaticProps<BlogPageProps> = async () => {
+export const getStaticProps: GetStaticProps<IBlogPage> = async () => {
   const databaseId = process.env.DATABASE_ID;
 
   if (!databaseId) throw new Error('DATABASE_ID is not defined');
@@ -31,12 +31,12 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async () => {
 
   const dataWithPreview = await previewImage.insertPreviewImage(parsedData);
 
-  const allTags = getAllTags(parsedData);
+  const tagList = getAllTags(parsedData);
 
   return {
     props: {
       data: dataWithPreview,
-      allTags,
+      tagList,
     },
     revalidate: 60,
   };

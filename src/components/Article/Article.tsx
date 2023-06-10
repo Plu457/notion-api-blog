@@ -3,11 +3,15 @@ import Link from 'next/link';
 
 import { Constant } from '@/commons';
 import { useImageLoading } from '@/hooks';
+import { IArticle } from '@/types/article';
 import Format from '@/utils/Format';
-import { CardItemProps } from './CardTypes';
 import IconRenderer from './IconRenderer';
 
-const CardItem = ({ data }: CardItemProps) => {
+interface Props {
+  data: IArticle;
+}
+
+const Article = ({ data }: Props) => {
   const { id, cover, icon, title, description, published, expiryTime, preview } = data;
 
   const { coverSrc, iconSrc, getImageSrc } = useImageLoading({ id, expiryTime, cover, icon });
@@ -46,4 +50,4 @@ const CardItem = ({ data }: CardItemProps) => {
   );
 };
 
-export default CardItem;
+export default Article;

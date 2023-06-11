@@ -6,38 +6,22 @@ import { getAllTags, getCachedDatabaseItems, parseDatabaseItems, previewImage } 
 
 import HeadMeta from '@/components/HeadMeta';
 import BlogView from '@/views/Blog';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
-const BlogPage = ({ data, allTags }: BlogPageProps) => {
-  useInitializeDataState({ data, allTags });
+const BlogPage = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push('/blog/page/1');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
       <HeadMeta />
-      <BlogView />
     </>
   );
 };
 
 export default BlogPage;
-
-export const getStaticProps: GetStaticProps<BlogPageProps> = async () => {
-  const databaseId = process.env.DATABASE_ID;
-
-  if (!databaseId) throw new Error('DATABASE_ID is not defined');
-
-  const databaseItems = await getCachedDatabaseItems({ databaseId });
-
-  const parsedData = parseDatabaseItems(databaseItems);
-
-  const dataWithPreview = await previewImage.insertPreviewImage(parsedData);
-
-  const allTags = getAllTags(parsedData);
-
-  return {
-    props: {
-      data: dataWithPreview,
-      allTags,
-    },
-    revalidate: 60,
-  };
-};

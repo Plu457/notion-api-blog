@@ -19,7 +19,7 @@ const BlogPageWithPage = ({ data, allTags }: BlogPageProps) => {
 
 export default BlogPageWithPage;
 
-export const getStaticProps: GetStaticProps<BlogPageProps, { pageId: string }> = async ({
+export const getStaticProps: GetStaticProps<BlogPageProps, { pageIndex: string }> = async ({
   params,
 }) => {
   const databaseId = process.env.DATABASE_ID;
@@ -27,13 +27,16 @@ export const getStaticProps: GetStaticProps<BlogPageProps, { pageId: string }> =
   if (!databaseId) throw new Error('DATABASE_ID is not defined');
 
   const databaseItems = await getCachedDatabaseItems({ databaseId });
-  const page = params?.pageId ? Number(params.pageId) : 1;
+  const page = params?.pageIndex ? Number(params.pageIndex) : 1;
 
   const parsedData = parseDatabaseItems(databaseItems);
   const dataWithPreview = await previewImage.insertPreviewImage(parsedData);
   const allTags = getAllTags(parsedData);
 
-  const paginatedData = dataWithPreview.slice((page - 1) * 9, page * 9);
+  const paginatedData = dataWithPreview.slice(
+    (page - 1) * Constant.POSTS_PER_PAGE,
+    page * Constant.POSTS_PER_PAGE,
+  );
 
   return {
     props: {
@@ -52,10 +55,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const databaseItems = await getCachedDatabaseItems({ databaseId });
 
   const totalPosts = databaseItems.length;
-  const totalPages = Math.ceil(totalPosts / 9);
+  const totalPages = Math.ceil(totalPosts / Constant.POSTS_PER_PAGE);
 
   const paths = Array.from({ length: totalPages }, (_, i) => ({
-    params: { pageId: (i + 1).toString() },
+    params: { pageIndex: String(i + 1) },
   }));
 
   return {

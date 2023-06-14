@@ -2,12 +2,12 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { ExtendedRecordMap } from 'notion-types';
 
-import { getPageContent } from '@/cms/notion';
-import { getCachedDatabaseItems, previewImage } from '@/utils';
-import Format from '@/utils/Format';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import BlogDetailView from '@/views/Blog/BlogDetailView';
+import { getDatabaseItems, getPageContent } from '@/cms/notion';
 import HeadMeta from '@/components/HeadMeta';
+import LoadingSpinner from '@/components/LoadingSpinner';
+import { previewImage } from '@/utils';
+import Format from '@/utils/Format';
+import BlogDetailView from '@/views/Blog/BlogDetailView';
 
 interface IArticleDetail {
   recordMap: ExtendedRecordMap;
@@ -56,7 +56,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   if (!databaseId) throw Error('DATABASE_ID is not defined');
 
-  const databaseItems = await getCachedDatabaseItems({ databaseId });
+  const databaseItems = await getDatabaseItems({ databaseId });
 
   const paths = databaseItems.map(({ id }: { id: string }) => ({ params: { id } }));
 

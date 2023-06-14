@@ -12,6 +12,7 @@
   "dependencies": {
     "@giscus/react": "^2.2.6",
     "@notionhq/client": "^2.2.2",
+    "@vercel/analytics": "^1.0.1",
     "@vercel/og": "^0.0.27",
     "framer-motion": "^10.3.4",
     "got": "^12.5.3",

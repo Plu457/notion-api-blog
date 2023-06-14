@@ -26,7 +26,7 @@ const NotFoundPage = ({ data }: Props) => {
 export default NotFoundPage;
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const databaseId = process.env.DATABASE_ID;
+  const databaseId = process.env.NEXT_PUBLIC_PROGRAMMING_ID;
 
   if (!databaseId) throw new Error('DATABASE_ID is not defined');
 

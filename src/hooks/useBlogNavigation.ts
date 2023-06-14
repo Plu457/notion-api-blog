@@ -1,16 +1,17 @@
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
 import { currentPageState, selectedTagListState } from '@/recoil/post';
 
 const useBlogNavigation = () => {
   const router = useRouter();
+
+  const category = router.pathname.split('/')[1];
   const currentPage = useRecoilValue(currentPageState);
   const setSelectedTagList = useSetRecoilState(selectedTagListState);
 
   const navigateToPage = (page: number) => {
     router.push({
-      pathname: '/blog',
+      pathname: `/${category}`,
       query: { page },
     });
   };

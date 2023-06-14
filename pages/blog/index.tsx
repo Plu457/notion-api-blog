@@ -21,9 +21,9 @@ const BlogPage = ({ data, tagList }: IBlogPage) => {
 export default BlogPage;
 
 export const getStaticProps: GetStaticProps<IBlogPage> = async () => {
-  const databaseId = process.env.DATABASE_ID;
+  const databaseId = process.env.NEXT_PUBLIC_PROGRAMMING_ID;
 
-  if (!databaseId) throw new Error('DATABASE_ID is not defined');
+  if (!databaseId) throw new Error('데이터를 불러올 수 없습니다. (PROGRAMMING_ID)');
 
   const databaseItems = await getCachedDatabaseItems({ databaseId });
 

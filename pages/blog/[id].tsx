@@ -37,20 +37,13 @@ const ArticleDetailPage = ({ recordMap }: IArticleDetail) => {
 export default ArticleDetailPage;
 
 export const getStaticProps: GetStaticProps<IArticleDetail> = async ({ params }) => {
-  const postId = params?.postId;
+  const id = params?.id;
 
-  if (!postId) throw Error('postId is not defined');
+  if (!id) throw Error('id is not defined');
 
-  const recordMap = await getPageContent(postId.toString());
+  const recordMap = await getPageContent(id.toString());
 
-  const formatRecordMap = Format.formatRecordMapImageSize({
-    recordMap,
-    width: 2000,
-    height: 582,
-    format: 'webp',
-  });
-
-  const preview_images = await previewImage.insertPreviewImageToRecordMap(formatRecordMap);
+  const preview_images = await previewImage.insertPreviewImageToRecordMap(recordMap);
 
   return {
     props: { recordMap: { ...recordMap, preview_images } },
@@ -59,13 +52,13 @@ export const getStaticProps: GetStaticProps<IArticleDetail> = async ({ params })
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const databaseId = process.env.DATABASE_ID;
+  const databaseId = process.env.NEXT_PUBLIC_PROGRAMMING_ID;
 
   if (!databaseId) throw Error('DATABASE_ID is not defined');
 
   const databaseItems = await getCachedDatabaseItems({ databaseId });
 
-  const paths = databaseItems.map(({ id: postId }: { id: string }) => ({ params: { postId } }));
+  const paths = databaseItems.map(({ id }: { id: string }) => ({ params: { id } }));
 
   return {
     paths,

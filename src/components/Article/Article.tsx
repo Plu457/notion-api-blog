@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import { Constant } from '@/commons';
 import { IArticle } from '@/types/article';
@@ -11,11 +12,14 @@ interface Props {
 }
 
 const Article = ({ data }: Props) => {
+  const router = useRouter();
+
+  const category = router.pathname.split('/')[1];
   const { id, icon, title, description, published, preview, proxy } = data;
 
   return (
     <article className="transform transition-all duration-300 hover:-translate-y-2">
-      <Link href={`/post/${id}`}>
+      <Link href={`/${category}/${id}`}>
         <a>
           <div className="relative pt-[64%] overflow-hidden rounded-lg mb-4">
             <Image

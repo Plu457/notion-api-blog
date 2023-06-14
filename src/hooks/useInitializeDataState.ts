@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 
 import { currentPageState, postState, tagState } from '@/recoil/post';
@@ -10,14 +10,20 @@ const useInitializeDataState = ({ data, tagList = [] }: IBlogPage) => {
   const currentPage = router.query.page ? parseInt(router.query.page.toString()) : 1;
 
   const setPostState = useSetRecoilState(postState);
-  const setCurrentPageState = useSetRecoilState(currentPageState);
+  const resetPostState = useResetRecoilState(postState);
+
   const setTagState = useSetRecoilState(tagState);
+  const resetTagState = useResetRecoilState(tagState);
+
+  const setCurrentPageState = useSetRecoilState(currentPageState);
 
   useEffect(() => {
+    resetPostState();
+    resetTagState();
     setPostState(data);
     setTagState(tagList);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [data, tagList, router.asPath]);
 
   useEffect(() => {
     setCurrentPageState(currentPage);

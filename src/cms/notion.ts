@@ -1,6 +1,7 @@
 import { Client } from '@notionhq/client';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { NotionAPI } from 'notion-client';
+import { ExtendedRecordMap } from 'notion-types';
 
 export const propertyTable = {
   Public: 'Public',
@@ -76,25 +77,21 @@ export const getSearchItem = async (query: string) => {
 
 export const reactNotionApi = new NotionAPI();
 
+const removeExpiredUrls = (signedUrls: Record<string, string>) => {
+  return Object.keys(signedUrls).reduce<Record<string, string>>((acc, key) => {
+    if (signedUrls[key].indexOf('expirationTimestamp') === -1) {
+      acc[key] = signedUrls[key];
+    }
+
+    return acc;
+  }, {});
+};
+
 export const getPageContent = async (pageId: string) => {
   const recordMap = await reactNotionApi.getPage(pageId);
+  const cleanedSignedUrls = removeExpiredUrls(recordMap.signed_urls);
 
-  const signedUrls = recordMap.signed_urls;
-
-  const filteredSignedUrls = Object.keys(signedUrls).reduce<typeof recordMap.signed_urls>(
-    (acc, key) => {
-      if (signedUrls[key].indexOf('expirationTimestamp') > -1) {
-        return acc;
-      }
-
-      acc[key] = signedUrls[key];
-
-      return acc;
-    },
-    {},
-  );
-
-  recordMap.signed_urls = filteredSignedUrls;
+  recordMap.signed_urls = cleanedSignedUrls;
 
   return recordMap;
 };

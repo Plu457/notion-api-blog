@@ -12,6 +12,9 @@ export interface IArticle {
   description: string;
   tags: MultiSelectPropertyItemObjectResponse['multi_select'];
   title: string;
-  expiryTime: string;
   preview?: PreviewImageType;
+  proxy?: {
+    cover: string;
+    icon: string;
+  };
 }

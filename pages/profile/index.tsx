@@ -23,7 +23,7 @@ const ProfilePage = ({ recordMap }: ProfilePageProps) => {
 export default ProfilePage;
 
 export const getStaticProps: GetStaticProps<ProfilePageProps> = async () => {
-  const profilePageId = process.env.NEXT_PUBLIC_MAINBLOG_ID;
+  const profilePageId = process.env.PROFILE_ID;
 
   if (!profilePageId) throw new Error('PROFILE_ID is not defined');
 

@@ -52,7 +52,7 @@ export const getStaticProps: GetStaticProps<IArticleDetail> = async ({ params })
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const databaseId = process.env.NEXT_PUBLIC_PROGRAMMING_ID;
+  const databaseId = process.env.NEXT_PUBLIC_MAINBLOG_ID;
 
   if (!databaseId) throw Error('DATABASE_ID is not defined');
 

@@ -79,5 +79,22 @@ export const reactNotionApi = new NotionAPI();
 export const getPageContent = async (pageId: string) => {
   const recordMap = await reactNotionApi.getPage(pageId);
 
+  const signedUrls = recordMap.signed_urls;
+
+  const filteredSignedUrls = Object.keys(signedUrls).reduce<typeof recordMap.signed_urls>(
+    (acc, key) => {
+      if (signedUrls[key].indexOf('expirationTimestamp') > -1) {
+        return acc;
+      }
+
+      acc[key] = signedUrls[key];
+
+      return acc;
+    },
+    {},
+  );
+
+  recordMap.signed_urls = filteredSignedUrls;
+
   return recordMap;
 };

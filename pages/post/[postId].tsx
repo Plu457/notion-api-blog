@@ -37,11 +37,11 @@ const BlogDetailPage = ({ recordMap }: BlogDetailProps) => {
 export default BlogDetailPage;
 
 export const getStaticProps: GetStaticProps<BlogDetailProps> = async ({ params }) => {
-  const pageId = params?.pageId;
+  const postId = params?.postId;
 
-  if (!pageId) throw Error('PageId is not defined');
+  if (!postId) throw Error('postId is not defined');
 
-  const recordMap = await getPageContent(pageId.toString());
+  const recordMap = await getPageContent(postId.toString());
 
   const formatRecordMap = Format.formatRecordMapImageSize({
     recordMap,
@@ -65,7 +65,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const databaseItems = await getCachedDatabaseItems({ databaseId });
 
-  const paths = databaseItems.map(({ id: pageId }: { id: string }) => ({ params: { pageId } }));
+  const paths = databaseItems.map(({ id: postId }: { id: string }) => ({ params: { postId } }));
 
   return {
     paths,

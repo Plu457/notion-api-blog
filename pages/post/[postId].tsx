@@ -9,11 +9,11 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 import BlogDetailView from '@/views/Blog/BlogDetailView';
 import HeadMeta from '@/components/HeadMeta';
 
-interface IBlogDetail {
+interface IArticleDetail {
   recordMap: ExtendedRecordMap;
 }
 
-const BlogDetailPage = ({ recordMap }: IBlogDetail) => {
+const ArticleDetailPage = ({ recordMap }: IArticleDetail) => {
   const { isFallback } = useRouter();
 
   if (isFallback)
@@ -34,14 +34,14 @@ const BlogDetailPage = ({ recordMap }: IBlogDetail) => {
   );
 };
 
-export default BlogDetailPage;
+export default ArticleDetailPage;
 
-export const getStaticProps: GetStaticProps<IBlogDetail> = async ({ params }) => {
-  const pageId = params?.pageId;
+export const getStaticProps: GetStaticProps<IArticleDetail> = async ({ params }) => {
+  const postId = params?.postId;
 
-  if (!pageId) throw Error('PageId is not defined');
+  if (!postId) throw Error('postId is not defined');
 
-  const recordMap = await getPageContent(pageId.toString());
+  const recordMap = await getPageContent(postId.toString());
 
   const formatRecordMap = Format.formatRecordMapImageSize({
     recordMap,
@@ -65,7 +65,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const databaseItems = await getCachedDatabaseItems({ databaseId });
 
-  const paths = databaseItems.map(({ id: pageId }: { id: string }) => ({ params: { pageId } }));
+  const paths = databaseItems.map(({ id: postId }: { id: string }) => ({ params: { postId } }));
 
   return {
     paths,

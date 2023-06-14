@@ -21,7 +21,7 @@ const Article = ({ data }: Props) => {
 
   return (
     <article className="transform transition-all duration-300 hover:-translate-y-2">
-      <Link href={`/blog/${id}`}>
+      <Link href={`/post/${id}`}>
         <a>
           <div className="relative pt-[64%] overflow-hidden rounded-lg mb-4">
             <Image

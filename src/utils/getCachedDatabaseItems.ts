@@ -2,7 +2,7 @@ import { DatabaseOption, getDatabaseItems } from '@/cms/notion';
 import { promises as fs } from 'fs';
 import path from 'path';
 const OPTION_QUERY = 'option';
-const revalidateTime = 60 * 1000;
+const revalidateTime = 5 * 60 * 1000;
 
 const createCacheKey = (options?: string[]): string => {
   const cacheKey = new URLSearchParams({});

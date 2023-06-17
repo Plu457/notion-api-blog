@@ -47,7 +47,7 @@ export const getStaticProps: GetStaticProps<IArticleDetail> = async ({ params })
 
   return {
     props: { recordMap: { ...recordMap, preview_images } },
-    revalidate: 60,
+    revalidate: 300,
   };
 };
 

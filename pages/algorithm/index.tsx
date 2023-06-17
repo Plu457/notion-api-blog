@@ -38,6 +38,6 @@ export const getStaticProps: GetStaticProps<IBlogPage> = async () => {
       data: dataWithPreview,
       tagList,
     },
-    revalidate: 60,
+    revalidate: 300,
   };
 };

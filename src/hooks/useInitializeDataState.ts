@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 
-import { currentPageState, postState, tagState } from '@/recoil/post';
+import { currentPageState, postState, selectedTagListState, tagState } from '@/recoil/post';
 import { IBlogPage } from '@/types/BlogTypes';
 
 const useInitializeDataState = ({ data, tagList = [] }: IBlogPage) => {
@@ -17,9 +17,12 @@ const useInitializeDataState = ({ data, tagList = [] }: IBlogPage) => {
 
   const setCurrentPageState = useSetRecoilState(currentPageState);
 
+  const resetSelectedTagList = useResetRecoilState(selectedTagListState);
+
   useEffect(() => {
     resetPostState();
     resetTagState();
+    resetSelectedTagList();
     setPostState(data);
     setTagState(tagList);
     // eslint-disable-next-line react-hooks/exhaustive-deps

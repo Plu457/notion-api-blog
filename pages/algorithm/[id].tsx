@@ -3,11 +3,10 @@ import { useRouter } from 'next/router';
 import { ExtendedRecordMap } from 'notion-types';
 
 import { getDatabaseItems, getPageContent } from '@/cms/notion';
-import HeadMeta from '@/components/HeadMeta';
-import LoadingSpinner from '@/components/LoadingSpinner';
 import { previewImage } from '@/utils';
 import Format from '@/utils/Format';
 import AlgorithmDetailView from '@/views/Algorithm/AlgorithmDetailView';
+import { HeadMeta, LoadingSpinner } from '@/components';
 
 interface IArticleDetail {
   recordMap: ExtendedRecordMap;

@@ -4,8 +4,8 @@ import { useInitializeDataState } from '@/hooks';
 import { IBlogPage } from '@/types/BlogTypes';
 import { getAllTags, getCachedDatabaseItems, parseDatabaseItems, previewImage } from '@/utils';
 
-import HeadMeta from '@/components/HeadMeta';
 import BlogView from '@/views/Blog';
+import { HeadMeta } from '@/components';
 
 const BlogPage = ({ data, tagList }: IBlogPage) => {
   useInitializeDataState({ data, tagList });

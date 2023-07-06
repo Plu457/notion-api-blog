@@ -2,8 +2,7 @@ import { GetStaticProps } from 'next';
 import { ExtendedRecordMap } from 'notion-types';
 import { getPageContent } from '@/cms/notion';
 
-import NotionPageRenderer from '@/components/NotionPageRenderer';
-import HeadMeta from '@/components/HeadMeta';
+import { HeadMeta, NotionPageRenderer } from '@/components';
 
 interface ProfilePageProps {
   recordMap: ExtendedRecordMap;

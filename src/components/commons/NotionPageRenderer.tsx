@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { defaultMapImageUrl, NotionRenderer } from 'react-notion-x';
 
-import TagItem from '@/components/Tags/TagItem';
+import TagItem from '../Tags/TagItem';
 import { ExtendedRecordMap } from 'notion-types';
 
 const Code = dynamic(() => import('react-notion-x/build/third-party/code').then(m => m.Code), {

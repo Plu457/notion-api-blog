@@ -1,7 +1,7 @@
 import Giscus from '@giscus/react';
 import { ExtendedRecordMap } from 'notion-types';
 
-import NotionPageRenderer from '@/components/NotionPageRenderer';
+import { NotionPageRenderer } from '@/components';
 
 interface IAlgorithmDetailView {
   recordMap: ExtendedRecordMap;

@@ -1,10 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { postDataState, postTotalState, tagState } from '@/recoil/post';
 
-import Pagination from '@/components/Pagination';
-import TagItem from '@/components/Tags/TagItem';
-import TagList from '@/components/Tags/TagList';
-import { Article, ArticleList } from '@/components';
+import { Article, ArticleList, Pagination, TagItem, TagList } from '@/components';
 
 const AlgorithmView = () => {
   const postTotal = useRecoilValue(postTotalState);

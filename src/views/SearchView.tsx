@@ -1,8 +1,7 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
-import LoadingSpinner from '@/components/LoadingSpinner';
-import { Article, ArticleList } from '@/components';
+import { Article, ArticleList, LoadingSpinner } from '@/components';
 import { IArticle } from '@/types/article';
 
 interface Props {

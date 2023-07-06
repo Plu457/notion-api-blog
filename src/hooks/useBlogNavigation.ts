@@ -1,39 +1,34 @@
-import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { useRouter } from 'next/router';
-import { currentPageState, selectedTagListState } from '@/recoil/post';
+import { currentPageState } from '@/recoil/post';
 
 const useBlogNavigation = () => {
   const router = useRouter();
-
   const category = router.pathname.split('/')[1];
   const currentPage = useRecoilValue(currentPageState);
-  const setSelectedTagList = useSetRecoilState(selectedTagListState);
 
-  const navigateToPage = (page: number) => {
+  const navigateTo = ({ page, tags }: { page?: number; tags?: string[] }) => {
     router.push({
       pathname: `/${category}`,
-      query: { page },
+      query: {
+        page: page || currentPage,
+        q: tags ? tags.join('+') : undefined,
+      },
     });
   };
 
-  const resetPage = () => {
-    if (currentPage !== 1) {
-      navigateToPage(1);
-    }
-  };
+  const toggleTagInList = ({ checked, value }: { checked: boolean; value: string }) => {
+    const currentTags = router.query.q ? router.query.q.toString().split('+') : [];
 
-  const toggleTagInList = (tag: { checked: boolean; value: string }) => {
-    resetPage();
-    setSelectedTagList(prevList => {
-      if (tag.checked) {
-        return [...prevList, tag.value];
-      }
-      return prevList.filter(v => v !== tag.value);
-    });
+    const updatedTags = checked
+      ? [...currentTags, value]
+      : currentTags.filter(currentTag => currentTag !== value);
+
+    navigateTo({ page: 1, tags: updatedTags });
   };
 
   return {
-    navigateToPage,
+    navigateTo,
     toggleTagInList,
   };
 };

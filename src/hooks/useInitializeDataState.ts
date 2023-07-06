@@ -17,6 +17,7 @@ const useInitializeDataState = ({ data, tagList = [] }: IBlogPage) => {
 
   const setCurrentPageState = useSetRecoilState(currentPageState);
 
+  const setSelectedTagList = useSetRecoilState(selectedTagListState);
   const resetSelectedTagList = useResetRecoilState(selectedTagListState);
 
   useEffect(() => {
@@ -25,6 +26,12 @@ const useInitializeDataState = ({ data, tagList = [] }: IBlogPage) => {
     resetSelectedTagList();
     setPostState(data);
     setTagState(tagList);
+
+    if (router.query.q) {
+      const tagsFromQueryString = router.query.q.toString().split('+');
+      setSelectedTagList(tagsFromQueryString);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, tagList, router.asPath]);
 

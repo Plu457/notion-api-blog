@@ -28,12 +28,14 @@ const useInitializeDataState = ({ data, tagList = [] }: IBlogPage) => {
     setTagState(tagList);
 
     if (router.query.q) {
-      const tagsFromQueryString = router.query.q.toString().split('+');
+      const tagsFromQueryString = decodeURIComponent(
+        router.query.q.toString().replace(/\+/g, ' '),
+      ).split(' ');
       setSelectedTagList(tagsFromQueryString);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, tagList, router.asPath]);
+  }, [data, tagList, router.asPath, router.query]);
 
   useEffect(() => {
     setCurrentPageState(currentPage);

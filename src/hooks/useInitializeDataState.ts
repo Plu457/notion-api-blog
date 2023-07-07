@@ -35,17 +35,15 @@ const useInitializeDataState = ({ data, tagList = [] }: IBlogPage) => {
     resetAndSetState({ resetFn: resetPostState, setFn: setPostState, value: data });
     resetAndSetState({ resetFn: resetTagState, setFn: setTagState, value: tagList });
 
-    if (router.query.q) {
-      const tagsFromQueryString = decodeURIComponent(
-        router.query.q.toString().replace(/\+/g, ' '),
-      ).split(' ');
+    const tagsFromQueryString = router.query.q
+      ? decodeURIComponent(router.query.q.toString().replace(/\+/g, ' ')).split(' ')
+      : [];
 
-      resetAndSetState({
-        resetFn: resetSelectedTagList,
-        setFn: setSelectedTagList,
-        value: tagsFromQueryString,
-      });
-    }
+    resetAndSetState({
+      resetFn: resetSelectedTagList,
+      setFn: setSelectedTagList,
+      value: tagsFromQueryString,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, tagList, router.asPath, router.query]);
 

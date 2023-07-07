@@ -18,11 +18,17 @@ const useBlogNavigation = () => {
   const currentPage = useRecoilValue(currentPageState);
 
   const navigateTo = ({ page, tags }: NavigateToParams) => {
-    const encodedTags = tags?.join(' ');
-
     const url = new URL(router.asPath, window.location.origin);
     url.pathname = `/${category}`;
-    url.search = `?q=${encodedTags || ''}&page=${String(page || currentPage)}`;
+
+    const params = new URLSearchParams();
+    params.set('page', String(page || currentPage));
+
+    if (tags && tags.length > 0) {
+      params.set('q', tags.join(' '));
+    }
+
+    url.search = params.toString();
 
     const displayUrl = url.toString().replace(/%20/g, '+');
 

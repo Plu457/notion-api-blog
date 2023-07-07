@@ -5,35 +5,47 @@ import { useRouter } from 'next/router';
 import { currentPageState, postState, selectedTagListState, tagState } from '@/recoil/post';
 import { IBlogPage } from '@/types/BlogTypes';
 
+interface resetAndSetStateParams {
+  resetFn: () => void;
+  setFn: (value: any) => void;
+  value: any;
+}
+
 const useInitializeDataState = ({ data, tagList = [] }: IBlogPage) => {
   const router = useRouter();
-  const currentPage = router.query.page ? parseInt(router.query.page.toString()) : 1;
+  const currentPage = parseInt(router.query.page?.toString() ?? '1');
 
-  const setPostState = useSetRecoilState(postState);
+  const resetAndSetState = ({ resetFn, setFn, value }: resetAndSetStateParams) => {
+    resetFn();
+    setFn(value);
+  };
+
   const resetPostState = useResetRecoilState(postState);
+  const setPostState = useSetRecoilState(postState);
 
-  const setTagState = useSetRecoilState(tagState);
   const resetTagState = useResetRecoilState(tagState);
+  const setTagState = useSetRecoilState(tagState);
+
+  const resetSelectedTagList = useResetRecoilState(selectedTagListState);
+  const setSelectedTagList = useSetRecoilState(selectedTagListState);
 
   const setCurrentPageState = useSetRecoilState(currentPageState);
 
-  const setSelectedTagList = useSetRecoilState(selectedTagListState);
-  const resetSelectedTagList = useResetRecoilState(selectedTagListState);
-
   useEffect(() => {
-    resetPostState();
-    resetTagState();
-    resetSelectedTagList();
-    setPostState(data);
-    setTagState(tagList);
+    resetAndSetState({ resetFn: resetPostState, setFn: setPostState, value: data });
+    resetAndSetState({ resetFn: resetTagState, setFn: setTagState, value: tagList });
 
     if (router.query.q) {
       const tagsFromQueryString = decodeURIComponent(
         router.query.q.toString().replace(/\+/g, ' '),
       ).split(' ');
-      setSelectedTagList(tagsFromQueryString);
-    }
 
+      resetAndSetState({
+        resetFn: resetSelectedTagList,
+        setFn: setSelectedTagList,
+        value: tagsFromQueryString,
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, tagList, router.asPath, router.query]);
 

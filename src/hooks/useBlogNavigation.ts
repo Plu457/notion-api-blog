@@ -2,12 +2,22 @@ import { useRecoilValue } from 'recoil';
 import { useRouter } from 'next/router';
 import { currentPageState } from '@/recoil/post';
 
+interface NavigateToParams {
+  page?: number;
+  tags?: string[];
+}
+
+interface ToggleTagInListParams {
+  checked: boolean;
+  value: string;
+}
+
 const useBlogNavigation = () => {
   const router = useRouter();
   const category = router.pathname.split('/')[1];
   const currentPage = useRecoilValue(currentPageState);
 
-  const navigateTo = ({ page, tags }: { page?: number; tags?: string[] }) => {
+  const navigateTo = ({ page, tags }: NavigateToParams) => {
     const encodedTags = tags?.join(' ');
 
     const url = new URL(router.asPath, window.location.origin);
@@ -21,7 +31,7 @@ const useBlogNavigation = () => {
     router.replace(displayUrl, undefined, { shallow: true });
   };
 
-  const toggleTagInList = ({ checked, value }: { checked: boolean; value: string }) => {
+  const toggleTagInList = ({ checked, value }: ToggleTagInListParams) => {
     const currentTags = router.query.q
       ? decodeURIComponent(router.query.q.toString().replace(/\+/g, ' ')).split(' ')
       : [];

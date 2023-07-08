@@ -1,7 +1,8 @@
 import { GetStaticProps } from 'next';
 import { ExtendedRecordMap } from 'notion-types';
-import { getPageContent } from '@/cms/notion';
+import { useRouter } from 'next/router';
 
+import { getPageContent } from '@/cms/notion';
 import { HeadMeta, NotionPageRenderer } from '@/components';
 
 interface ProfilePageProps {
@@ -9,11 +10,13 @@ interface ProfilePageProps {
 }
 
 const ProfilePage = ({ recordMap }: ProfilePageProps) => {
+  const { pathname } = useRouter();
+
   return (
     <>
       <HeadMeta />
       <section>
-        <NotionPageRenderer recordMap={recordMap} />
+        <NotionPageRenderer recordMap={recordMap} isProfilePage={pathname} />
       </section>
     </>
   );

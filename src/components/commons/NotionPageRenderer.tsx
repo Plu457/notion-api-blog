@@ -24,11 +24,13 @@ const Modal = dynamic(() => import('react-notion-x/build/third-party/modal').the
 
 interface NotionPageRendererProps {
   recordMap: ExtendedRecordMap;
+  isProfilePage?: string;
 }
 
-const NotionPageRenderer = ({ recordMap }: NotionPageRendererProps) => {
+const NotionPageRenderer = ({ recordMap, isProfilePage }: NotionPageRendererProps) => {
   return (
     <NotionRenderer
+      className={isProfilePage === '/profile' ? 'mt-9' : ''}
       recordMap={recordMap}
       fullPage={true}
       disableHeader={true}

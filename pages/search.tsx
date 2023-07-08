@@ -4,7 +4,7 @@ import { SearchResultType } from './api/getSearchResult';
 
 import SearchView from '@/views/SearchView';
 import { IArticle } from '@/types/article';
-import HeadMeta from '@/components/HeadMeta';
+import { HeadMeta } from '@/components';
 
 const SearchPage = () => {
   const { push, query } = useRouter();

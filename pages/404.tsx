@@ -1,8 +1,9 @@
 import { GetStaticProps } from 'next';
 
-import { getCachedDatabaseItems, parseDatabaseItems, previewImage } from '@/utils';
+import { getDatabaseItems } from '@/cms/notion';
 import { Article } from '@/components';
 import { IArticle } from '@/types/article';
+import { parseDatabaseItems, previewImage } from '@/utils';
 
 interface Props {
   data: IArticle;
@@ -26,11 +27,11 @@ const NotFoundPage = ({ data }: Props) => {
 export default NotFoundPage;
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const databaseId = process.env.DATABASE_ID;
+  const databaseId = process.env.NEXT_PUBLIC_MAINBLOG_ID;
 
   if (!databaseId) throw new Error('DATABASE_ID is not defined');
 
-  const databaseItems = await getCachedDatabaseItems({ databaseId });
+  const databaseItems = await getDatabaseItems({ databaseId });
 
   const parsedData = parseDatabaseItems(databaseItems);
 

@@ -1,38 +1,56 @@
-import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
-import { currentPageState, selectedTagListState } from '@/recoil/post';
+import { currentPageState } from '@/recoil/post';
+
+interface NavigateToParams {
+  page?: number;
+  tags?: string[];
+}
+
+interface ToggleTagInListParams {
+  checked: boolean;
+  value: string;
+}
 
 const useBlogNavigation = () => {
   const router = useRouter();
+  const category = router.pathname.split('/')[1];
   const currentPage = useRecoilValue(currentPageState);
-  const setSelectedTagList = useSetRecoilState(selectedTagListState);
 
-  const navigateToPage = (page: number) => {
-    router.push({
-      pathname: '/blog',
-      query: { page },
-    });
-  };
+  const navigateTo = ({ page, tags }: NavigateToParams) => {
+    const url = new URL(router.asPath, window.location.origin);
+    url.pathname = `/${category}`;
 
-  const resetPage = () => {
-    if (currentPage !== 1) {
-      navigateToPage(1);
+    const params = new URLSearchParams();
+    params.set('page', String(page || currentPage));
+
+    if (tags && tags.length > 0) {
+      params.set('q', tags.join(' '));
     }
+
+    url.search = params.toString();
+
+    const displayUrl = url.toString().replace(/%20/g, '+');
+
+    window.history.pushState({}, '', displayUrl);
+
+    router.replace(displayUrl, undefined, { shallow: true });
   };
 
-  const toggleTagInList = (tag: { checked: boolean; value: string }) => {
-    resetPage();
-    setSelectedTagList(prevList => {
-      if (tag.checked) {
-        return [...prevList, tag.value];
-      }
-      return prevList.filter(v => v !== tag.value);
-    });
+  const toggleTagInList = ({ checked, value }: ToggleTagInListParams) => {
+    const currentTags = router.query.q
+      ? decodeURIComponent(router.query.q.toString().replace(/\+/g, ' ')).split(' ')
+      : [];
+
+    const updatedTags = checked
+      ? [...currentTags, value]
+      : currentTags.filter(currentTag => currentTag !== value);
+
+    navigateTo({ page: 1, tags: updatedTags });
   };
 
   return {
-    navigateToPage,
+    navigateTo,
     toggleTagInList,
   };
 };

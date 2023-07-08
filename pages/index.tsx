@@ -1,4 +1,4 @@
-import HeadMeta from '@/components/HeadMeta';
+import { HeadMeta } from '@/components';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 

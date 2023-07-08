@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { defaultMapImageUrl, NotionRenderer } from 'react-notion-x';
 
-import TagItem from '@/components/Tags/TagItem';
+import TagItem from '../Tags/TagItem';
 import { ExtendedRecordMap } from 'notion-types';
 
 const Code = dynamic(() => import('react-notion-x/build/third-party/code').then(m => m.Code), {
@@ -24,11 +24,13 @@ const Modal = dynamic(() => import('react-notion-x/build/third-party/modal').the
 
 interface NotionPageRendererProps {
   recordMap: ExtendedRecordMap;
+  isProfilePage?: string;
 }
 
-const NotionPageRenderer = ({ recordMap }: NotionPageRendererProps) => {
+const NotionPageRenderer = ({ recordMap, isProfilePage }: NotionPageRendererProps) => {
   return (
     <NotionRenderer
+      className={isProfilePage === '/profile' ? 'mt-9' : ''}
       recordMap={recordMap}
       fullPage={true}
       disableHeader={true}

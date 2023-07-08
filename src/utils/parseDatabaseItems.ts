@@ -1,44 +1,45 @@
 import { getDatabaseItems } from '@/cms/notion';
 import { IArticle } from '@/types/article';
 
+const getPropertyData = (property: any, type: string, defaultValue: any) => {
+  if (!property) return defaultValue;
+  return property.type === type ? property[type] : defaultValue;
+};
+
 const parseDatabaseItems = (databaseItems: Awaited<ReturnType<typeof getDatabaseItems>>) =>
   databaseItems.reduce<IArticle[]>((acc, item) => {
-    if (!('properties' in item)) return acc;
-    if (item.parent.type !== 'database_id') return acc;
+    if (!('properties' in item) || item.parent.type !== 'database_id') return acc;
 
+    const { id, icon, cover, last_edited_time } = item;
     const { Description, Published, Tags, Name, Public } = item.properties;
 
-    const isPublic = Public.type === 'checkbox' ? Public.checkbox : false;
-    if (!isPublic) return acc;
+    if (!getPropertyData(Public, 'checkbox', false)) return acc;
 
-    const cover =
-      item.cover?.type === 'external' ? item.cover.external.url : item.cover?.file?.url || '';
+    const parsedCover = cover?.type === 'file' ? cover.file.url : cover?.external?.url ?? '';
 
-    const published = Published?.type === 'date' ? Published.date?.start || '' : '';
+    const published = getPropertyData(Published, 'date', '')?.start || '';
 
-    const description =
-      Description?.type === 'rich_text' ? Description.rich_text[0]?.plain_text || '' : '';
+    const description = getPropertyData(Description, 'rich_text', '')[0]?.plain_text || '';
 
-    const tags = Tags?.type === 'multi_select' ? Tags.multi_select : [];
+    const tags = getPropertyData(Tags, 'multi_select', []);
 
-    const title = Name?.type === 'title' ? Name.title[0]?.plain_text || '' : '';
+    const title = getPropertyData(Name, 'title', '')[0]?.plain_text || '';
 
-    const expiryTime =
-      item.cover?.type === 'file'
-        ? item.cover.file.expiry_time
-        : item.icon?.type === 'file'
-        ? item.icon.file.expiry_time
-        : '';
+    const proxyCoverUrl = `/api/getImageSrc?type=cover&id=${id}&lastEditedTime=${last_edited_time}`;
+    const proxyIconUrl = `/api/getImageSrc?type=icon&id=${id}&lastEditedTime=${last_edited_time}`;
 
     acc.push({
-      id: item.id,
-      cover,
-      icon: item.icon,
+      id,
+      cover: parsedCover,
+      icon,
       published,
       description,
       tags,
       title,
-      expiryTime,
+      proxy: {
+        cover: proxyCoverUrl,
+        icon: proxyIconUrl,
+      },
     });
 
     return acc;

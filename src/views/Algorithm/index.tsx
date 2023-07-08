@@ -3,7 +3,7 @@ import { postDataState, postTotalState, tagState } from '@/recoil/post';
 
 import { Article, ArticleList, Pagination, TagItem, TagList } from '@/components';
 
-const BlogView = () => {
+const AlgorithmView = () => {
   const postTotal = useRecoilValue(postTotalState);
   const postData = useRecoilValue(postDataState);
   const tagList = useRecoilValue(tagState);
@@ -36,4 +36,4 @@ const BlogView = () => {
   );
 };
 
-export default BlogView;
+export default AlgorithmView;

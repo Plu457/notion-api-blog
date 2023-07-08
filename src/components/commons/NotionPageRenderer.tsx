@@ -3,24 +3,34 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { defaultMapImageUrl, NotionRenderer } from 'react-notion-x';
 
-import TagItem from '@/components/Tags/TagItem';
+import TagItem from '../Tags/TagItem';
 import { ExtendedRecordMap } from 'notion-types';
 
-const Code = dynamic(() => import('react-notion-x/build/third-party/code').then(m => m.Code));
+const Code = dynamic(() => import('react-notion-x/build/third-party/code').then(m => m.Code), {
+  ssr: false,
+});
 const Collection = dynamic(() =>
   import('react-notion-x/build/third-party/collection').then(m => m.Collection),
 );
 const Equation = dynamic(() =>
   import('react-notion-x/build/third-party/equation').then(m => m.Equation),
 );
+const Pdf = dynamic(() => import('react-notion-x/build/third-party/pdf').then(m => m.Pdf), {
+  ssr: false,
+});
+const Modal = dynamic(() => import('react-notion-x/build/third-party/modal').then(m => m.Modal), {
+  ssr: false,
+});
 
 interface NotionPageRendererProps {
   recordMap: ExtendedRecordMap;
+  isProfilePage?: string;
 }
 
-const NotionPageRenderer = ({ recordMap }: NotionPageRendererProps) => {
+const NotionPageRenderer = ({ recordMap, isProfilePage }: NotionPageRendererProps) => {
   return (
     <NotionRenderer
+      className={isProfilePage === '/profile' ? 'mt-9' : ''}
       recordMap={recordMap}
       fullPage={true}
       disableHeader={true}
@@ -31,6 +41,8 @@ const NotionPageRenderer = ({ recordMap }: NotionPageRendererProps) => {
         Code,
         Collection,
         Equation,
+        Pdf,
+        Modal,
         nextImage: Image,
         nextLink: Link,
         propertyDateValue: dateProperty => dateProperty.data[0][1][0][1].start_date,

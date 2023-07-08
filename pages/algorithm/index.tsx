@@ -4,26 +4,26 @@ import { useInitializeDataState } from '@/hooks';
 import { IBlogPage } from '@/types/BlogTypes';
 import { getAllTags, getCachedDatabaseItems, parseDatabaseItems, previewImage } from '@/utils';
 
-import BlogView from '@/views/Blog';
+import AlgorithmView from '@/views/Algorithm';
 import { HeadMeta } from '@/components';
 
-const BlogPage = ({ data, tagList }: IBlogPage) => {
+const AlgorithmPage = ({ data, tagList }: IBlogPage) => {
   useInitializeDataState({ data, tagList });
 
   return (
     <>
       <HeadMeta />
-      <BlogView />
+      <AlgorithmView />
     </>
   );
 };
 
-export default BlogPage;
+export default AlgorithmPage;
 
 export const getStaticProps: GetStaticProps<IBlogPage> = async () => {
-  const databaseId = process.env.NEXT_PUBLIC_MAINBLOG_ID;
+  const databaseId = process.env.NEXT_PUBLIC_ALGORITHM_ID;
 
-  if (!databaseId) throw new Error('데이터를 불러올 수 없습니다. (PROGRAMMING_ID)');
+  if (!databaseId) throw new Error('데이터를 불러올 수 없습니다. (ALGORITHM_ID)');
 
   const databaseItems = await getCachedDatabaseItems({ databaseId });
 

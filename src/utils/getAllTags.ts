@@ -1,7 +1,7 @@
-import { CardData } from '@/types/CardData';
+import { IArticle } from '@/types/article';
 
-const getAllTags = (data: CardData[]) =>
-  data.reduce<CardData['tags']>((acc, { tags }) => {
+const getAllTags = (data: IArticle[]) =>
+  data.reduce<IArticle['tags']>((acc, { tags }) => {
     tags.forEach(tag => {
       if (!acc.find(item => item.id === tag.id)) {
         acc.push(tag);

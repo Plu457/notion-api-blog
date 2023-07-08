@@ -73,6 +73,8 @@ yarn dev
 
 - [[ Vercel ] - 사용량 제한 해결](https://www.plu457.life/blog/2c1ce9a4-21c9-40d8-bce2-f3557bcdd95f)
 
+- [[ Recoil ] Duplicate atom key 에러 해결하기](https://www.plu457.life/blog/9b4728a9-3660-46de-a1db-316bc4eab061)
+
 <br />
 <br />
 

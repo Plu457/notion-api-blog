@@ -1,16 +1,14 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
-import CardItem from '@/components/Card/CardItem';
-import CardList from '@/components/Card/CardList';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import { CardData } from '@/types/CardData';
+import { Article, ArticleList, LoadingSpinner } from '@/components';
+import { IArticle } from '@/types/article';
 
-interface SearchViewProps {
+interface Props {
   searchQuery: string;
   inputValue: string;
   setInputValue: Dispatch<SetStateAction<string>>;
-  postData: CardData[];
+  postData: IArticle[];
   isLoading: boolean;
   onSubmit: (e: ChangeEvent<HTMLFormElement>) => void;
 }
@@ -22,7 +20,7 @@ const SearchView = ({
   postData,
   isLoading,
   onSubmit,
-}: SearchViewProps) => {
+}: Props) => {
   return (
     <section className="min-h-screen">
       <div className="px-4 py-24 bg-gradient-to-r from-purple-500 to-blue-500">
@@ -49,9 +47,9 @@ const SearchView = ({
               <LoadingSpinner />
             </div>
           ) : (
-            <CardList
+            <ArticleList
               data={postData}
-              renderCardItem={item => <CardItem key={item.id} data={item} />}
+              renderArticle={item => <Article key={item.id} data={item} />}
             />
           )}
           {!isLoading && postData.length === 0 && searchQuery.length ? (

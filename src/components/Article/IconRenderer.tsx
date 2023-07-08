@@ -1,7 +1,12 @@
 import Image from 'next/image';
-import { IconRendererProps } from './CardTypes';
+import { IArticle } from '@/types/article';
 
-const IconRenderer = ({ icon }: IconRendererProps) => {
+interface IconRendererProps {
+  icon: IArticle['icon'];
+  proxyIconUrl?: string;
+}
+
+const IconRenderer = ({ icon, proxyIconUrl }: IconRendererProps) => {
   if (!icon) return null;
 
   if (icon.type === 'emoji')
@@ -12,7 +17,7 @@ const IconRenderer = ({ icon }: IconRendererProps) => {
   return (
     <span className="mr-2 align-middle">
       <Image
-        src={restIconURL}
+        src={proxyIconUrl ?? restIconURL}
         alt="icon"
         width={24}
         height={24}

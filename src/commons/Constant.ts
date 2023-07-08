@@ -17,8 +17,14 @@ export default {
     {
       id: 'devLog',
       name: 'Devlog',
-      title: '개발 관련 게시물들이 존재합니다.',
+      title: '개발 관련 게시물이 존재합니다.',
       path: '/blog',
+    },
+    {
+      id: 'algorithm',
+      name: 'Algorithm',
+      title: '알고리즘 풀이 게시물이 존재합니다.',
+      path: '/algorithm',
     },
     {
       id: 'aboutMe',

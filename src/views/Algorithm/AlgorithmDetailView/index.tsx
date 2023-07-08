@@ -3,11 +3,11 @@ import { ExtendedRecordMap } from 'notion-types';
 
 import { NotionPageRenderer } from '@/components';
 
-interface BlogDetailViewProps {
+interface IAlgorithmDetailView {
   recordMap: ExtendedRecordMap;
 }
 
-const BlogDetailView = ({ recordMap }: BlogDetailViewProps) => {
+const AlgorithmDetailView = ({ recordMap }: IAlgorithmDetailView) => {
   return (
     <section>
       <NotionPageRenderer recordMap={recordMap} />
@@ -33,4 +33,4 @@ const BlogDetailView = ({ recordMap }: BlogDetailViewProps) => {
   );
 };
 
-export default BlogDetailView;
+export default AlgorithmDetailView;

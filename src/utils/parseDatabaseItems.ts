@@ -1,44 +1,45 @@
 import { getDatabaseItems } from '@/cms/notion';
-import { CardData } from '@/types/CardData';
+import { IArticle } from '@/types/article';
+
+const getPropertyData = (property: any, type: string, defaultValue: any) => {
+  if (!property) return defaultValue;
+  return property.type === type ? property[type] : defaultValue;
+};
 
 const parseDatabaseItems = (databaseItems: Awaited<ReturnType<typeof getDatabaseItems>>) =>
-  databaseItems.reduce<CardData[]>((acc, item) => {
-    if (!('properties' in item)) return acc;
+  databaseItems.reduce<IArticle[]>((acc, item) => {
+    if (!('properties' in item) || item.parent.type !== 'database_id') return acc;
 
-    const { Description, Published, Tags, Name } = item.properties;
+    const { id, icon, cover, last_edited_time } = item;
+    const { Description, Published, Tags, Name, Public } = item.properties;
 
-    const cover =
-      item.cover?.type === 'external'
-        ? item.cover.external.url
-        : item.cover?.file
-        ? item.cover.file.url
-        : '';
+    if (!getPropertyData(Public, 'checkbox', false)) return acc;
 
-    const published = Published?.type === 'date' ? Published.date?.start ?? '' : '';
+    const parsedCover = cover?.type === 'file' ? cover.file.url : cover?.external?.url ?? '';
 
-    const description =
-      Description?.type === 'rich_text' ? Description.rich_text[0]?.plain_text ?? '' : '';
+    const published = getPropertyData(Published, 'date', '')?.start || '';
 
-    const tags = Tags?.type === 'multi_select' ? Tags.multi_select : [];
+    const description = getPropertyData(Description, 'rich_text', '')[0]?.plain_text || '';
 
-    const title = Name?.type === 'title' ? Name.title[0].plain_text : '';
+    const tags = getPropertyData(Tags, 'multi_select', []);
 
-    const expiryTime =
-      item.cover?.type === 'file'
-        ? item.cover.file.expiry_time
-        : item.icon?.type === 'file'
-        ? item.icon.file.expiry_time
-        : '';
+    const title = getPropertyData(Name, 'title', '')[0]?.plain_text || '';
+
+    const proxyCoverUrl = `/api/getImageSrc?type=cover&id=${id}&lastEditedTime=${last_edited_time}`;
+    const proxyIconUrl = `/api/getImageSrc?type=icon&id=${id}&lastEditedTime=${last_edited_time}`;
 
     acc.push({
-      id: item.id,
-      cover,
-      icon: item.icon,
+      id,
+      cover: parsedCover,
+      icon,
       published,
       description,
       tags,
       title,
-      expiryTime,
+      proxy: {
+        cover: proxyCoverUrl,
+        icon: proxyIconUrl,
+      },
     });
 
     return acc;

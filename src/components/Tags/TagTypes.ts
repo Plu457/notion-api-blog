@@ -1,9 +1,9 @@
 import { BaseStyle } from '@/commons';
-import { CardData } from '@/types/CardData';
+import { IArticle } from '@/types/article';
 
 //* TagList 컴포넌트 타입
 export interface TagListProps {
-  tagList: CardData['tags'];
+  tagList: IArticle['tags'] | undefined;
   renderTagItem: (item: { id: string; name: string }) => JSX.Element;
 }
 
@@ -12,7 +12,7 @@ export interface SelectableTagProps {
   name: string;
   isChecked?: (value: string) => boolean;
   isHighlighted?: (value: string) => boolean;
-  handleToggleValue?: ({ checked, value }: { checked: boolean; value: string }) => void;
+  toggleTagInList?: ({ checked, value }: { checked: boolean; value: string }) => void;
   style: {
     base: string;
     highlighted: string;
@@ -24,9 +24,6 @@ export interface SelectableTagProps {
 export interface TagItemProps {
   name: string;
   isReadOnly?: boolean;
-  isChecked?: (value: string) => boolean;
-  isHighlighted?: (value: string) => boolean;
-  handleToggleValue?: ({ checked, value }: { checked: boolean; value: string }) => void;
   color?: keyof typeof BaseStyle.colors;
 }
 

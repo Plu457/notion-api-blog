@@ -4,7 +4,7 @@ import {
 } from '@notionhq/client/build/src/api-endpoints';
 import { PreviewImageType } from '@/utils/previewImage';
 
-export interface CardData {
+export interface IArticle {
   id: string;
   cover: string;
   icon: PageObjectResponse['icon'];
@@ -12,6 +12,9 @@ export interface CardData {
   description: string;
   tags: MultiSelectPropertyItemObjectResponse['multi_select'];
   title: string;
-  expiryTime: string;
   preview?: PreviewImageType;
+  proxy?: {
+    cover: string;
+    icon: string;
+  };
 }

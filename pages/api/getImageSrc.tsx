@@ -1,29 +1,44 @@
-import { getPageItem } from '@/cms/notion';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { CardData } from '@/types/CardData';
+import got from 'got';
 
-export interface ImageSrcType {
-  cover: CardData['cover'];
-  icon: CardData['icon'];
-}
+import { getPageItem } from '@/cms/notion';
+import { parseDatabaseItems } from '@/utils';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse<ImageSrcType>) => {
-  const { id } = req.query;
+const getImageUrl = (type: string, cover: string, icon: any): string => {
+  switch (type) {
+    case 'cover':
+      return cover;
 
-  if (!id) throw new Error('No is provided');
+    case 'icon':
+      return icon?.type === 'emoji'
+        ? ''
+        : (icon?.type === 'file' ? icon.file.url : icon?.external.url) ?? '';
+
+    default:
+      throw new Error(`Invalid type: ${type}`);
+  }
+};
+
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { id, type } = req.query;
+
+  if (!type) throw new Error('Type is required');
+  if (!id) throw new Error('Page Id is required');
 
   const pageItem = await getPageItem(id.toString());
+  const { cover, icon } = parseDatabaseItems([pageItem])[0];
 
-  if (!('properties' in pageItem)) throw new Error('No properties in pageItem');
+  const url = getImageUrl(type as string, cover, icon);
 
-  const cover =
-    pageItem.cover?.type === 'external'
-      ? pageItem.cover.external.url
-      : pageItem.cover?.file
-      ? pageItem.cover.file.url
-      : '';
+  const response = await got(url, {
+    responseType: 'buffer',
+  });
 
-  res.status(200).json({ cover, icon: pageItem.icon });
+  const contentType = response.headers['content-type'];
+  if (!contentType) throw new Error('Content type is not found');
+
+  res.setHeader('Content-Type', contentType);
+  res.send(response.body);
 };
 
 export default handler;

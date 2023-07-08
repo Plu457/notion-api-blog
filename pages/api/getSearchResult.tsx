@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { getSearchItem } from '@/cms/notion';
-import { CardData } from '@/types/CardData';
 import { parseDatabaseItems } from '@/utils';
+import { IArticle } from '@/types/article';
 
 export interface SearchResultType {
-  data: CardData[];
+  data: IArticle[];
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<SearchResultType>) => {

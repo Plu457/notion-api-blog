@@ -1,10 +1,15 @@
+import { useRecoilValue } from 'recoil';
+import { activeTagListSelector, selectedTagListState } from '@/recoil/post';
+
 import { BaseStyle } from '@/commons';
+import { useBlogNavigation } from '@/hooks';
 import {
   GetTagItemClassNamesParams,
   ReadOnlyTagProps,
   SelectableTagProps,
   TagItemProps,
 } from './TagTypes';
+import { useCallback, useMemo } from 'react';
 
 const ReadOnlyTag = ({ name, color }: ReadOnlyTagProps) => {
   const backgroundColor = color ? BaseStyle.colors[color] : '';
@@ -39,7 +44,7 @@ const SelectableTag = ({
   name,
   isChecked,
   isHighlighted,
-  handleToggleValue,
+  toggleTagInList,
   style,
 }: SelectableTagProps) => {
   const classNames = getTagItemClassNames({ style, isChecked, isHighlighted, name });
@@ -51,27 +56,36 @@ const SelectableTag = ({
         className="sr-only"
         checked={isChecked?.(name)}
         disabled={!isHighlighted?.(name)}
-        onChange={({ target: { checked } }) => handleToggleValue?.({ checked, value: name })}
+        onChange={({ target: { checked } }) => toggleTagInList?.({ checked, value: name })}
       />
       {name}
     </label>
   );
 };
 
-const TagItem = ({
-  name,
-  isReadOnly = false,
-  color,
-  isChecked,
-  isHighlighted,
-  handleToggleValue,
-}: TagItemProps) => {
-  const style = {
-    base: 'block px-5 py-3 rounded-3xl border border-white cursor-pointer',
-    highlighted: 'bg-gray-100 hover:border-red-500',
-    unhighlighted: 'bg-gray-100/30 text-black/30',
-    selected: 'bg-black text-white hover:border-red-500',
-  };
+const TagItem = ({ name, isReadOnly = false, color }: TagItemProps) => {
+  const activeTagList = useRecoilValue(activeTagListSelector);
+  const selectedTagList = useRecoilValue(selectedTagListState);
+  const { toggleTagInList } = useBlogNavigation();
+
+  const isHighlighted = useCallback(
+    (value: string) => activeTagList.includes(value),
+    [activeTagList],
+  );
+  const isChecked = useCallback(
+    (value: string) => selectedTagList.includes(value),
+    [selectedTagList],
+  );
+
+  const style = useMemo(
+    () => ({
+      base: 'block px-5 py-3 rounded-3xl border border-white cursor-pointer',
+      highlighted: 'bg-gray-100 hover:border-red-500',
+      unhighlighted: 'bg-gray-100/30 text-black/30',
+      selected: 'bg-black text-white hover:border-red-500',
+    }),
+    [],
+  );
 
   if (isReadOnly) {
     return <ReadOnlyTag name={name} color={color} />;
@@ -82,7 +96,7 @@ const TagItem = ({
       name={name}
       isChecked={isChecked}
       isHighlighted={isHighlighted}
-      handleToggleValue={handleToggleValue}
+      toggleTagInList={toggleTagInList}
       style={style}
     />
   );

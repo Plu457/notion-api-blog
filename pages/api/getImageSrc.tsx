@@ -35,16 +35,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     responseType: 'buffer',
   });
 
-  const buffer = await sharp(response.body).resize(1200).webp({ quality: 80 }).toBuffer();
+  const imageSizeInBytes = response.body.length;
+  const imageSizeInMegabytes = imageSizeInBytes / (1024 * 1024);
 
-  res.setHeader('Content-Type', 'image/webp');
-  res.send(buffer);
+  let image;
+  if (imageSizeInMegabytes > 4) {
+    image = await sharp(response.body).resize(1920).webp().toBuffer();
+  } else {
+    image = response.body;
+  }
+
+  const contentType = response.headers['content-type'];
+  if (!contentType) throw new Error('Content type is not found');
+
+  res.setHeader('Content-Type', contentType);
+  res.send(image);
 };
 
 export default handler;
-
-export const config = {
-  api: {
-    responseLimit: false,
-  },
-};

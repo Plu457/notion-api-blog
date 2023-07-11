@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import got from 'got';
+import sharp from 'sharp';
 
 import { getPageItem } from '@/cms/notion';
 import { parseDatabaseItems } from '@/utils';
@@ -34,11 +35,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     responseType: 'buffer',
   });
 
-  const contentType = response.headers['content-type'];
-  if (!contentType) throw new Error('Content type is not found');
+  const buffer = await sharp(response.body).resize(1200).webp({ quality: 80 }).toBuffer();
 
-  res.setHeader('Content-Type', contentType);
-  res.send(response.body);
+  res.setHeader('Content-Type', 'image/webp');
+  res.send(buffer);
 };
 
 export default handler;

@@ -28,10 +28,17 @@ export type PreviewImageType = Awaited<ReturnType<typeof makePreviewImage>>;
 
 const insertPreviewImage = async (data: IArticle[]): Promise<IArticle[]> =>
   await Promise.all(
-    data.map(async item => ({
-      ...item,
-      preview: await makePreviewImage(item.cover),
-    })),
+    data.map(async item => {
+      const preview = await makePreviewImage(item.cover).catch(err => {
+        console.error(`Failed to make preview image for ${item.cover}`, err);
+        return null;
+      });
+
+      return {
+        ...item,
+        preview,
+      };
+    }),
   );
 
 const insertPreviewImageToRecordMap = async (
@@ -42,7 +49,14 @@ const insertPreviewImageToRecordMap = async (
   });
 
   const previewImageMap = await Promise.all(
-    urls.map(async url => [url, await makePreviewImage(url)]),
+    urls.map(async url => {
+      const previewImage = await makePreviewImage(url).catch(err => {
+        console.error(`Failed to make preview image for ${url}`, err);
+        return null;
+      });
+
+      return [url, previewImage];
+    }),
   );
 
   return Object.fromEntries(previewImageMap);

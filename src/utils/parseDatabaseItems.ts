@@ -1,48 +1,48 @@
 import { getDatabaseItems } from '@/cms/notion';
 import { IArticle } from '@/types/article';
 
-const getPropertyData = (property: any, type: string, defaultValue: any) => {
-  if (!property) return defaultValue;
-  return property.type === type ? property[type] : defaultValue;
+type NotionProperty = {
+  type: string;
+  [key: string]: any;
 };
 
-const parseDatabaseItems = (databaseItems: Awaited<ReturnType<typeof getDatabaseItems>>) =>
-  databaseItems.reduce<IArticle[]>((acc, item) => {
-    if (!('properties' in item) || item.parent.type !== 'database_id') return acc;
+const getPropertyValue = (property: NotionProperty | undefined, type: string, defaultValue: any) =>
+  property?.type === type ? property[type] : defaultValue;
 
-    const { id, icon, cover, last_edited_time } = item;
-    const { Description, Published, Tags, Name, Public } = item.properties;
+const isValidArticle = (item: any): item is IArticle =>
+  'properties' in item &&
+  item.parent.type === 'database_id' &&
+  getPropertyValue(item.properties.Public, 'checkbox', false);
 
-    if (!getPropertyData(Public, 'checkbox', false)) return acc;
+const convertToArticle = (item: any): IArticle => {
+  const { id, icon, cover, last_edited_time } = item;
+  const { Description, Published, Tags, Name } = item.properties;
 
-    const parsedCover = cover?.type === 'file' ? cover.file.url : cover?.external?.url ?? '';
+  const parsedCover = cover?.type === 'file' ? cover.file.url : cover?.external?.url ?? '';
+  const published = getPropertyValue(Published, 'date', '')?.start || '';
+  const description = getPropertyValue(Description, 'rich_text', '')[0]?.plain_text || '';
+  const tags = getPropertyValue(Tags, 'multi_select', []);
+  const title = getPropertyValue(Name, 'title', '')[0]?.plain_text || '';
 
-    const published = getPropertyData(Published, 'date', '')?.start || '';
+  const proxyCoverUrl = `/api/getImageSrc?type=cover&id=${id}&lastEditedTime=${last_edited_time}`;
+  const proxyIconUrl = `/api/getImageSrc?type=icon&id=${id}&lastEditedTime=${last_edited_time}`;
 
-    const description = getPropertyData(Description, 'rich_text', '')[0]?.plain_text || '';
+  return {
+    id,
+    cover: parsedCover,
+    icon,
+    published,
+    description,
+    tags,
+    title,
+    proxy: {
+      cover: proxyCoverUrl,
+      icon: proxyIconUrl,
+    },
+  };
+};
 
-    const tags = getPropertyData(Tags, 'multi_select', []);
-
-    const title = getPropertyData(Name, 'title', '')[0]?.plain_text || '';
-
-    const proxyCoverUrl = `/api/getImageSrc?type=cover&id=${id}&lastEditedTime=${last_edited_time}`;
-    const proxyIconUrl = `/api/getImageSrc?type=icon&id=${id}&lastEditedTime=${last_edited_time}`;
-
-    acc.push({
-      id,
-      cover: parsedCover,
-      icon,
-      published,
-      description,
-      tags,
-      title,
-      proxy: {
-        cover: proxyCoverUrl,
-        icon: proxyIconUrl,
-      },
-    });
-
-    return acc;
-  }, []);
+const parseDatabaseItems = (databaseItems: any[]): IArticle[] =>
+  databaseItems.filter(isValidArticle).map(convertToArticle);
 
 export default parseDatabaseItems;

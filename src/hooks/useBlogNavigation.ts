@@ -7,17 +7,19 @@ interface NavigateToParams {
   tags?: string[];
 }
 
-interface ToggleTagInListParams {
-  checked: boolean;
+interface ToggleTagParams {
   value: string;
 }
+
+const transformSpaces = (str: string, toPlus = true) =>
+  toPlus ? str.replace(/%20/g, '+') : str.replace(/\+/g, ' ');
 
 const useBlogNavigation = () => {
   const router = useRouter();
   const category = router.pathname.split('/')[1];
   const currentPage = useRecoilValue(currentPageState);
 
-  const navigateTo = ({ page, tags }: NavigateToParams) => {
+  const createUrl = ({ page, tags }: NavigateToParams) => {
     const url = new URL(router.asPath, window.location.origin);
     url.pathname = `/${category}`;
 
@@ -30,28 +32,39 @@ const useBlogNavigation = () => {
 
     url.search = params.toString();
 
-    const displayUrl = url.toString().replace(/%20/g, '+');
-
-    window.history.pushState({}, '', displayUrl);
-
-    router.replace(displayUrl, undefined, { shallow: true });
+    return transformSpaces(url.toString());
   };
 
-  const toggleTagInList = ({ checked, value }: ToggleTagInListParams) => {
+  const navigateTo = (navigateParams: NavigateToParams) => {
+    const displayUrl = createUrl(navigateParams);
+
+    router.push(displayUrl, undefined, { shallow: true });
+  };
+
+  const addTagToList = ({ value }: ToggleTagParams) => {
     const currentTags = router.query.q
-      ? decodeURIComponent(router.query.q.toString().replace(/\+/g, ' ')).split(' ')
+      ? decodeURIComponent(transformSpaces(router.query.q.toString(), false)).split(' ')
       : [];
 
-    const updatedTags = checked
-      ? [...currentTags, value]
-      : currentTags.filter(currentTag => currentTag !== value);
+    const updatedTags = [...currentTags, value];
+
+    navigateTo({ page: 1, tags: updatedTags });
+  };
+
+  const removeTagFromList = ({ value }: ToggleTagParams) => {
+    const currentTags = router.query.q
+      ? decodeURIComponent(transformSpaces(router.query.q.toString(), false)).split(' ')
+      : [];
+
+    const updatedTags = currentTags.filter(currentTag => currentTag !== value);
 
     navigateTo({ page: 1, tags: updatedTags });
   };
 
   return {
     navigateTo,
-    toggleTagInList,
+    addTagToList,
+    removeTagFromList,
   };
 };
 

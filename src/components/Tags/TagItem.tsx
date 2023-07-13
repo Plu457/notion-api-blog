@@ -9,7 +9,7 @@ import {
   SelectableTagProps,
   TagItemProps,
 } from './TagTypes';
-import { useCallback, useMemo } from 'react';
+import { ChangeEvent, useCallback, useMemo } from 'react';
 
 const ReadOnlyTag = ({ name, color }: ReadOnlyTagProps) => {
   const backgroundColor = color ? BaseStyle.colors[color] : '';
@@ -44,10 +44,19 @@ const SelectableTag = ({
   name,
   isChecked,
   isHighlighted,
-  toggleTagInList,
+  addTagToList,
+  removeTagFromList,
   style,
 }: SelectableTagProps) => {
   const classNames = getTagItemClassNames({ style, isChecked, isHighlighted, name });
+
+  const handleOnChange = ({ target: { checked } }: ChangeEvent<HTMLInputElement>) => {
+    if (checked) {
+      addTagToList({ value: name });
+    } else {
+      removeTagFromList({ value: name });
+    }
+  };
 
   return (
     <label className={classNames}>
@@ -56,7 +65,7 @@ const SelectableTag = ({
         className="sr-only"
         checked={isChecked?.(name)}
         disabled={!isHighlighted?.(name)}
-        onChange={({ target: { checked } }) => toggleTagInList?.({ checked, value: name })}
+        onChange={handleOnChange}
       />
       {name}
     </label>
@@ -66,7 +75,7 @@ const SelectableTag = ({
 const TagItem = ({ name, isReadOnly = false, color }: TagItemProps) => {
   const activeTagList = useRecoilValue(activeTagListSelector);
   const selectedTagList = useRecoilValue(selectedTagListState);
-  const { toggleTagInList } = useBlogNavigation();
+  const { addTagToList, removeTagFromList } = useBlogNavigation();
 
   const isHighlighted = useCallback(
     (value: string) => activeTagList.includes(value),
@@ -96,7 +105,8 @@ const TagItem = ({ name, isReadOnly = false, color }: TagItemProps) => {
       name={name}
       isChecked={isChecked}
       isHighlighted={isHighlighted}
-      toggleTagInList={toggleTagInList}
+      addTagToList={addTagToList}
+      removeTagFromList={removeTagFromList}
       style={style}
     />
   );

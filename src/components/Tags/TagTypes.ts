@@ -12,7 +12,8 @@ export interface SelectableTagProps {
   name: string;
   isChecked?: (value: string) => boolean;
   isHighlighted?: (value: string) => boolean;
-  toggleTagInList?: ({ checked, value }: { checked: boolean; value: string }) => void;
+  addTagToList: ({ value }: { value: string }) => void;
+  removeTagFromList: ({ value }: { value: string }) => void;
   style: {
     base: string;
     highlighted: string;

@@ -20,7 +20,7 @@ const convertImageSize = async (imageBuffer: Buffer): Promise<Buffer> => {
   const imageSizeInMegabytes = imageSizeInBytes / (1024 * 1024);
 
   if (imageSizeInMegabytes > 4) {
-    return await sharp(imageBuffer).resize(1920).webp().toBuffer();
+    return await sharp(imageBuffer).resize(1152, 768).toBuffer();
   }
 
   return imageBuffer;

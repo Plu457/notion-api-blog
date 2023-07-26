@@ -11,6 +11,7 @@ export const propertyTable = {
 
 export const notion = new Client({
   auth: process.env.NOTION_TOKEN,
+  fetch,
 });
 
 export interface DatabaseOption {

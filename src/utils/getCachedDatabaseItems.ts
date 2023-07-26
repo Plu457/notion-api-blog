@@ -50,24 +50,24 @@ const writeCachedData = async (
 };
 
 const getCachedDatabaseItems = async ({ databaseId, options }: DatabaseOption) => {
-  if (process.env.NODE_ENV === 'development') {
-    return await getDatabaseItems({ databaseId, options });
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  return await getDatabaseItems({ databaseId, options });
+  // }
 
-  const cachePath = getCachePath(options);
-  let cachedData = await readCachedData(cachePath);
-  const currentTime = Date.now();
+  //   const cachePath = getCachePath(options);
+  //   let cachedData = await readCachedData(cachePath);
+  //   const currentTime = Date.now();
 
-  if (!cachedData || currentTime - cachedData.timestamp > revalidateTime) {
-    const databaseItems = await getDatabaseItems({ databaseId, options });
-    cachedData = { items: databaseItems, timestamp: currentTime };
+  //   if (!cachedData || currentTime - cachedData.timestamp > revalidateTime) {
+  //     const databaseItems = await getDatabaseItems({ databaseId, options });
+  //     cachedData = { items: databaseItems, timestamp: currentTime };
 
-    if (await writeCachedData(cachePath, cachedData.items)) {
-      console.log('캐싱이 성공했습니다.');
-    }
-  }
+  //     if (await writeCachedData(cachePath, cachedData.items)) {
+  //       console.log('캐싱이 성공했습니다.');
+  //     }
+  //   }
 
-  return cachedData.items;
+  //   return cachedData.items;
 };
 
 export default getCachedDatabaseItems;

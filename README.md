@@ -57,23 +57,7 @@ yarn dev
 
 <br />
 
-# 블로그 관련 게시글
-
-- [SSG를 사용하여 데이터를 캐싱하는 방법](https://www.plu457.life/blog/25f860f0-0b68-415f-b26d-86f67a181990)
-- [[ Next.js ] 이미지 최적화를 통해 사용자 경험을 개선하는 방법](https://www.plu457.life/blog/ff3e6bc5-61e3-45c9-9412-458f54636de3#5f4f4f96f53342508def74e844f15f99)
-
-<br />
-<br />
-
-# 에러 해결
-
-- [[ Notion API ] 멀티 옵션에서 삭제해도 기록이 남는 문제 해결 방법](https://www.plu457.life/blog/d2a06837-0838-4486-a8f4-b8b41c9d1878)
-
-- [[ Notion API ] 파비콘의 의한 미리보기 에러](https://www.plu457.life/blog/6c86af64-579c-4ab1-abb8-8e49bb9bd320)
-
-- [[ Vercel ] - 사용량 제한 해결](https://www.plu457.life/blog/2c1ce9a4-21c9-40d8-bce2-f3557bcdd95f)
-
-- [[ Recoil ] Duplicate atom key 에러 해결하기](https://www.plu457.life/blog/9b4728a9-3660-46de-a1db-316bc4eab061)
+# [블로그 관련 게시글](https://www.plu457.life/blog?page=1&q=PROJECT)
 
 <br />
 <br />

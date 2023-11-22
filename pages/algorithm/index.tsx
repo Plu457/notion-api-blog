@@ -2,10 +2,11 @@ import { GetStaticProps } from 'next';
 
 import { useInitializeDataState } from '@/hooks';
 import { IBlogPage } from '@/types/BlogTypes';
-import { getAllTags, getCachedDatabaseItems, parseDatabaseItems, previewImage } from '@/utils';
+import { getAllTags, parseDatabaseItems, previewImage } from '@/utils';
 
 import AlgorithmView from '@/views/Algorithm';
 import { HeadMeta } from '@/components';
+import { getDatabaseItems } from '@/cms/notion';
 
 const AlgorithmPage = ({ data, tagList }: IBlogPage) => {
   useInitializeDataState({ data, tagList });
@@ -25,7 +26,7 @@ export const getStaticProps: GetStaticProps<IBlogPage> = async () => {
 
   if (!databaseId) throw new Error('데이터를 불러올 수 없습니다. (ALGORITHM_ID)');
 
-  const databaseItems = await getCachedDatabaseItems({ databaseId });
+  const databaseItems = await getDatabaseItems({ databaseId });
 
   const parsedData = parseDatabaseItems(databaseItems);
 
